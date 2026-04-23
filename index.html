@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="en" style="color-scheme: light only;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#ffffff">
+<title>Kentucky 2026 Election Matcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: light only; }
+  html, body { background: #ffffff !important; color: #111 !important; -webkit-text-fill-color: #111; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+    background: #ffffff !important;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    background: #ffffff !important;
+  }
+
+  /* ==================== TYPOGRAPHY ==================== */
+  h1, h2, h3 { color: #111 !important; -webkit-text-fill-color: #111; margin: 0; }
+  p { color: #222 !important; -webkit-text-fill-color: #222; }
+
+  .brand {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #b8321a !important;
+    -webkit-text-fill-color: #b8321a;
+    margin-bottom: 12px;
+  }
+  .hero-title {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: #555 !important;
+    -webkit-text-fill-color: #555;
+    margin-bottom: 24px;
+  }
+
+  /* ==================== STATS GRID ==================== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 18px;
+    background: #f7f6f3 !important;
+    border-radius: 10px;
+  }
+  .stat-item { text-align: center; }
+  .stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+    display: block;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 3px;
+  }
+
+  /* ==================== HOW IT WORKS ==================== */
+  .how-list { margin: 0 0 24px 0; padding: 0; list-style: none; counter-reset: step; }
+  .how-list li {
+    counter-increment: step;
+    padding-left: 36px;
+    position: relative;
+    margin-bottom: 12px;
+    font-size: 15px;
+    color: #222 !important;
+    -webkit-text-fill-color: #222;
+  }
+  .how-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ==================== PRIMARY BUTTON ==================== */
+  .primary-btn {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    background: #c8441c !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: background-color 0.15s;
+  }
+  .primary-btn:hover, .primary-btn:active { background: #a0361a !important; }
+  .primary-btn:disabled { background: #bbb !important; cursor: not-allowed; }
+
+  .secondary-btn {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background: #ffffff !important;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+    border: 1.5px solid #111;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.15s;
+  }
+  .secondary-btn:hover, .secondary-btn:active { background: #f5f5f5 !important; }
+
+  /* ==================== DISCLAIMER ==================== */
+  .disclaimer {
+    font-size: 13px;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+    font-style: italic;
+    text-align: center;
+    margin-top: 24px;
+    padding: 0 20px;
+  }
+
+  /* ==================== QUESTION SCREEN ==================== */
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .progress-text { font-weight: 600; }
+  .progress-bar {
+    flex: 1;
+    margin-left: 16px;
+    height: 4px;
+    background: #eee !important;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #c8441c !important;
+    transition: width 0.3s ease;
+  }
+
+  .q-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .q-sub {
+    font-size: 15px;
+    color: #555 !important;
+    -webkit-text-fill-color: #555;
+    margin-bottom: 18px;
+  }
+  .multi-helper {
+    font-size: 13px;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+  .multi-helper strong { color: #c8321a !important; -webkit-text-fill-color: #c8321a; font-weight: 700; font-style: normal; }
+
+  /* ==================== OPTIONS ==================== */
+  .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .opt {
+    background: #fff !important;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+    width: 100%;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .opt:hover { border-color: #111; }
+  .opt.selected {
+    border-color: #c8321a;
+    background: #fef5f2 !important;
+  }
+  .opt strong {
+    display: block;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 2px;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+  }
+  .opt small {
+    display: block;
+    font-size: 13px;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+  }
+  .rank-badge {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    background: #c8321a !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .continue-btn {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background: #c8321a !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    transition: background-color 0.15s;
+  }
+  .continue-btn:hover, .continue-btn:active { background: #a0260f !important; }
+  .continue-btn:disabled { background: #ccc !important; cursor: not-allowed; }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+  }
+  .back-btn {
+    background: transparent;
+    border: none;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 12px;
+  }
+  .back-btn:hover:not(:disabled) { color: #111 !important; -webkit-text-fill-color: #111; }
+  .back-btn:disabled { opacity: 0.3; cursor: default; }
+  .nav-hint { font-size: 13px; color: #888 !important; -webkit-text-fill-color: #888; }
+
+  /* ==================== DISTRICT PICKER ==================== */
+  select.district-picker {
+    width: 100%;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+    background: #fff !important;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='2'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 20px;
+  }
+  .district-picker:focus { outline: none; border-color: #c8321a; }
+  .district-lookup {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #c8321a !important;
+    -webkit-text-fill-color: #c8321a;
+    text-decoration: underline;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+  }
+
+  /* ==================== TOGGLE (party show-both) ==================== */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    background: #f7f6f3 !important;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .toggle {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #ccc !important;
+    border-radius: 24px;
+    transition: 0.2s;
+  }
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    top: 3px;
+    background: #fff !important;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+  .toggle input:checked + .toggle-slider { background: #c8321a !important; }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+  .toggle-label { font-size: 13px; color: #555 !important; -webkit-text-fill-color: #555; }
+  .toggle-label strong { color: #111 !important; -webkit-text-fill-color: #111; }
+
+  /* ==================== RESULT PAGE ==================== */
+  .result-head {
+    text-align: center;
+    margin-bottom: 24px;
+    padding: 24px 20px;
+    background: #f7f6f3 !important;
+    border-radius: 12px;
+  }
+  .result-kicker {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+    margin-bottom: 8px;
+  }
+  .result-name {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 4px;
+  }
+  .result-party {
+    display: inline-block;
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: #1a1a1a !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .result-liner {
+    font-size: 15px;
+    color: #444 !important;
+    -webkit-text-fill-color: #444;
+    margin: 6px 0 0;
+  }
+  .result-pct {
+    font-size: 42px;
+    font-weight: 700;
+    color: #c8321a !important;
+    -webkit-text-fill-color: #c8321a;
+    margin: 12px 0 2px;
+    line-height: 1;
+  }
+  .result-pct-label {
+    font-size: 13px;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .race-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #eee;
+  }
+  .race-section:last-of-type { border-bottom: none; }
+  .race-header {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c8321a !important;
+    -webkit-text-fill-color: #c8321a;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #111;
+    margin-bottom: 16px;
+  }
+
+  .reason {
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .reason:last-child { border-bottom: none; }
+  .reason-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #c8321a !important;
+    -webkit-text-fill-color: #c8321a;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .reason-text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #222 !important;
+    -webkit-text-fill-color: #222;
+  }
+  .reason-text strong { font-weight: 600; color: #111 !important; -webkit-text-fill-color: #111; }
+  .reason-text em { color: #666 !important; -webkit-text-fill-color: #666; font-style: italic; }
+
+  .alignment-block {
+    margin-top: 8px;
+    padding: 14px 16px;
+    background: #f7f7f5 !important;
+    border-left: 3px solid #d1d1cc;
+  }
+  .alignment-block.positive { border-left-color: #2b8a3e; background: #f1f8f2 !important; }
+  .alignment-block.negative { border-left-color: #c8321a; background: #fdf4f2 !important; }
+  .alignment-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #555 !important;
+    -webkit-text-fill-color: #555;
+  }
+  .alignment-block.positive .alignment-header { color: #2b8a3e !important; -webkit-text-fill-color: #2b8a3e; }
+  .alignment-block.negative .alignment-header { color: #c8321a !important; -webkit-text-fill-color: #c8321a; }
+  .alignment-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    font-size: 11px;
+    background: currentColor;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+  }
+  .alignment-item {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #222 !important;
+    -webkit-text-fill-color: #222;
+    padding: 4px 0;
+  }
+  .alignment-item strong { font-weight: 600; }
+  .vs-box {
+    margin-top: 8px;
+    padding: 14px 16px;
+    background: #f4f0e8 !important;
+    border-left: 3px solid #c8321a;
+  }
+  .vs-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #c8321a !important;
+    -webkit-text-fill-color: #c8321a;
+    margin-bottom: 8px;
+  }
+  .vs-body {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #222 !important;
+    -webkit-text-fill-color: #222;
+  }
+  .vs-body strong { font-weight: 600; color: #111 !important; -webkit-text-fill-color: #111; }
+
+  .caveat {
+    background: #fef5f2 !important;
+    border-left: 4px solid #c8321a;
+    border-radius: 4px;
+    padding: 16px 18px;
+    margin-top: 16px;
+  }
+  .caveat-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #c8321a !important;
+    -webkit-text-fill-color: #c8321a;
+    margin-bottom: 6px;
+  }
+  .caveat-body { font-size: 14px; color: #333 !important; -webkit-text-fill-color: #333; line-height: 1.5; }
+
+  /* ==================== SCOREBOARD ==================== */
+  .scores-toggle {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #444 !important;
+    -webkit-text-fill-color: #444;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin: 16px 0;
+    transition: background 0.15s;
+  }
+  .scores-toggle:hover { background: #f5f5f5 !important; }
+  .scores-list {
+    display: none;
+    background: #fafafa !important;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+  .scores-list.open { display: block; }
+  .score-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-name { color: #222 !important; -webkit-text-fill-color: #222; }
+  .score-name .p { color: #888 !important; -webkit-text-fill-color: #888; font-size: 12px; margin-left: 4px; }
+  .score-val { color: #111 !important; -webkit-text-fill-color: #111; font-weight: 600; }
+
+  /* ==================== BRIEFING CTA ==================== */
+  .briefing-cta {
+    margin: 24px 0 16px;
+    padding: 20px 22px;
+    background: #f7f6f3 !important;
+    border: 1px solid #1a1a1a;
+    text-align: center;
+  }
+  .briefing-cta-btn {
+    display: inline-block;
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff;
+    border: none;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 28px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: background-color 0.15s;
+  }
+  .briefing-cta-btn:hover, .briefing-cta-btn:active { background: #c8441c !important; }
+  .briefing-cta-hint {
+    margin-top: 12px;
+    font-size: 13px;
+    font-style: italic;
+    color: #6a6a67 !important;
+    -webkit-text-fill-color: #6a6a67;
+  }
+  .briefing-link-intro {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #c8321a !important;
+    -webkit-text-fill-color: #c8321a;
+    font-family: inherit;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 8px 0;
+    margin-top: 8px;
+  }
+  .briefing-link-intro:hover { color: #a0260f !important; -webkit-text-fill-color: #a0260f; }
+
+  .restart-wrap { text-align: center; margin: 20px 0 12px; }
+  .restart-btn {
+    background: transparent;
+    border: 1.5px solid #111;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .restart-btn:hover { background: #111 !important; color: #fff !important; -webkit-text-fill-color: #fff; }
+
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #888 !important;
+    -webkit-text-fill-color: #888;
+    padding: 24px 12px 0;
+    font-style: italic;
+  }
+
+  /* ==================== BRIEFING OVERLAY ==================== */
+  .briefing-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #ffffff !important;
+    z-index: 1000;
+    display: none;
+    overflow-y: auto;
+  }
+  .briefing-overlay.open { display: block; }
+  .briefing-top {
+    position: sticky;
+    top: 0;
+    background: #ffffff !important;
+    border-bottom: 1px solid #ddd;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+  .briefing-top-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+  }
+  .briefing-close {
+    background: #111 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .briefing-content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+  .briefing-content h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+  }
+  .briefing-content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    color: #b8321a !important;
+    -webkit-text-fill-color: #b8321a;
+  }
+  .briefing-content h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+  }
+  .briefing-content p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #222 !important;
+    -webkit-text-fill-color: #222;
+    margin: 0 0 12px;
+  }
+  .briefing-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    background: #fafaf8 !important;
+  }
+  .briefing-card h3 { margin-top: 0; margin-bottom: 10px; }
+  .briefing-card .tag {
+    display: inline-block;
+    font-size: 11px;
+    background: #1a1a1a !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+    font-weight: 600;
+  }
+  .briefing-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .briefing-row:last-child { border-bottom: none; }
+  .briefing-row-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+  }
+  .briefing-row-val {
+    font-size: 14px;
+    color: #222 !important;
+    -webkit-text-fill-color: #222;
+    line-height: 1.5;
+  }
+
+  .fade-in { animation: fadeIn 0.25s ease-out; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 400px) {
+    .hero-title { font-size: 26px; }
+    .result-name { font-size: 22px; }
+    .result-pct { font-size: 36px; }
+    .briefing-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container" id="app"></div>
+
+<div class="briefing-overlay" id="briefing">
+  <div class="briefing-top">
+    <div class="briefing-top-title">Kentucky 2026 Full Briefing</div>
+    <button class="briefing-close" onclick="closeBriefing()">Close</button>
+  </div>
+  <div class="briefing-content" id="briefingContent"></div>
+</div>
+
+<script>
+// ==========================================================
+// KENTUCKY 2026 COMBO MATCHER
+// ==========================================================
+
+const state = {
+  step: -1,      // -1 = intro, 0+ = question index
+  answers: {},   // { questionId: answerKey or [array for multi-select] }
+  flow: null,    // 'senate' | 'house' | 'both'
+  party: null,   // 'R' | 'D' | 'U'
+  showBoth: false, // toggle for seeing other party's candidates
+  district: null, // 1-6
+  showScores: { senate: false, house: false }
+};
+
+const app = document.getElementById('app');
+
+// ==========================================================
+// CANDIDATES — SENATE
+// ==========================================================
+const SENATE = {
+  barr: { name: "Andy Barr", party: "R", oneLiner: "U.S. Rep KY-6 since 2013. Strongest cash, highest April polling (28%), establishment ties." },
+  cameron: { name: "Daniel Cameron", party: "R", oneLiner: "Former KY Attorney General. Highest favorability but underfunded. Lost 2023 Gov race to Beshear." },
+  morris: { name: "Nate Morris", party: "R", oneLiner: "Rubicon Technologies founder. $10M Musk backing. Pure outsider anti-McConnell positioning." },
+  booker: { name: "Charles Booker", party: "D", oneLiner: "Former state rep. Progressive. Two prior statewide losses. Leading Dem primary at 36%." },
+  mcgrath: { name: "Amy McGrath", party: "D", oneLiner: "Retired Marine Lt. Col. and F/A-18 combat pilot. 2020 nominee (lost to McConnell)." },
+  stevenson: { name: "Pamela Stevenson", party: "D", oneLiner: "KY House Minority Leader. Retired USAF Col. and JAG attorney. Ordained minister." }
+};
+
+// ==========================================================
+// CANDIDATES — HOUSE (by district)
+// ==========================================================
+const HOUSE = {
+  1: {
+    label: "KY-1 (Western KY)",
+    competitive: false,
+    candidates: {
+      comer: { name: "James Comer", party: "R", oneLiner: "Incumbent since 2016, House Oversight Chair. Won 74.7% in 2024. Safe." }
+    }
+  },
+  2: {
+    label: "KY-2 (West Central KY)",
+    competitive: false,
+    candidates: {
+      guthrie: { name: "Brett Guthrie", party: "R", oneLiner: "Incumbent since 2009, House Energy & Commerce Chair. Safe." }
+    }
+  },
+  3: {
+    label: "KY-3 (Louisville)",
+    competitive: false,
+    candidates: {
+      mcgarvey: { name: "Morgan McGarvey", party: "D", oneLiner: "Incumbent since 2023 (succeeded Yarmuth). Only D-held KY House seat." }
+    }
+  },
+  4: {
+    label: "KY-4 (Northeast KY, Cincinnati suburbs)",
+    competitive: true,
+    candidates: {
+      massie: { name: "Thomas Massie", party: "R", oneLiner: "Incumbent since 2012. Libertarian. MIT grad. Led Epstein files discharge petition." },
+      gallrein: { name: "Ed Gallrein", party: "R", oneLiner: "Trump-endorsed former Navy SEAL, fifth-generation farmer. Trump-loyalist framing." }
+    }
+  },
+  5: {
+    label: "KY-5 (Eastern KY / Appalachia)",
+    competitive: false,
+    candidates: {
+      rogers: { name: "Hal Rogers", party: "R", oneLiner: "Incumbent since 1981, longest-serving KY Republican ever. Safe." }
+    }
+  },
+  6: {
+    label: "KY-6 (Lexington, Richmond, Georgetown)",
+    competitive: true,
+    candidates: {
+      alvarado: { name: "Ralph Alvarado", party: "R", oneLiner: "Physician. Former KY state senator, former TN Health Commissioner. Thayer-endorsed." },
+      dotson: { name: "Ryan Dotson", party: "R", oneLiner: "KY state rep, pastor, Army veteran. Grassroots-funded conservative." }
+    }
+  }
+};
+
+// ==========================================================
+// SENATE QUESTIONS
+// ==========================================================
+const SENATE_QUESTIONS = [
+  {
+    id: "topIssue",
+    title: "What are your top issues?",
+    sub: "Rank up to three — tap in order of importance. First tap = highest priority.",
+    multi: true,
+    maxPicks: 3,
+    options: [
+      { key: "economy", label: "Economy and cost of living", sub: "Everyday bills, groceries, jobs, wages",
+        weights: { barr: 4, cameron: 3, morris: 3, booker: 4, mcgrath: 4, stevenson: 3 },
+        reason: "You picked the top issue in Kentucky (39% of voters say the economy is #1). Every candidate has an economic frame — but they differ sharply on mechanisms." },
+      { key: "healthcare", label: "Healthcare and prescription costs", sub: "Medicaid, rural hospitals, drug prices",
+        weights: { barr: 2, cameron: 2, morris: 2, booker: 5, mcgrath: 5, stevenson: 4 },
+        reason: "You put healthcare first. Booker backs Medicare for All (Type 1 diabetic, has personally rationed insulin). McGrath would restore Medicaid and ACA subsidies. GOP candidates focus on reducing federal health spending." },
+      { key: "immigration_enforce", label: "Tougher immigration enforcement", sub: "Border, ICE, deportation",
+        weights: { barr: 5, cameron: 4, morris: 4, booker: 0, mcgrath: 1, stevenson: 0 },
+        reason: "You want tougher immigration enforcement. Barr platform includes deporting illegals, closing the border, and voting for ICE funding. Cameron and Morris align similarly. Democrats oppose." },
+      { key: "immigration_defend", label: "Protecting immigrants and due process", sub: "Pathway to citizenship, rein in ICE",
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 3, stevenson: 4 },
+        reason: "You want immigrant protections. Booker backs abolishing ICE. McGrath says ICE 'needs to be reined in.' Stevenson has been a vocal defender in the Kentucky House." },
+      { key: "trump_resist", label: "Resisting the Trump agenda", sub: "Tariffs, OBBBA, federal overreach",
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 5, stevenson: 5 },
+        reason: "You want resistance to the Trump agenda. All three Democrats oppose Trump; McGrath calls the One Big Beautiful Bill 'the big beautiful betrayal.' No Republican in the race opposes Trump." },
+      { key: "trump_support", label: "Backing the Trump agenda", sub: "Tariffs, deregulation, America First",
+        weights: { barr: 5, cameron: 5, morris: 5, booker: 0, mcgrath: 0, stevenson: 0 },
+        reason: "You want a senator who backs Trump. All three Republicans campaign as 'America First' Trump allies. No Trump endorsement yet as of late April 2026." },
+      { key: "mcconnell_break", label: "Breaking with McConnell's legacy", sub: "End establishment GOP in Kentucky",
+        weights: { barr: 1, cameron: 2, morris: 5, booker: 4, mcgrath: 4, stevenson: 4 },
+        reason: "You want to end the McConnell era. McConnell has 71% disapproval in Kentucky. Morris is running most explicitly against it (called McConnell a 'decrepit old mob boss'). Barr previously supported a McConnell Capitol statue." },
+      { key: "abortion_rights", label: "Restoring abortion rights", sub: "Roe-era protections, reproductive freedom",
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 4, stevenson: 5 },
+        reason: "You want to restore abortion rights. All three Dems support reproductive freedom. Booker backs repealing the Hyde Amendment. All three Republicans are anti-abortion (Cameron upheld KY bans to the Supreme Court as AG; Barr supports the Hyde Amendment)." },
+      { key: "energy_coal", label: "Kentucky coal and energy jobs", sub: "Drill baby drill, unleash coal, oppose ESG",
+        weights: { barr: 5, cameron: 4, morris: 3, booker: 0, mcgrath: 1, stevenson: 0 },
+        reason: "You want coal and fossil fuel jobs prioritized. Barr authored H.J. Res 30 blocking Biden's ESG rule (first Biden veto). Cameron as AG subpoenaed 6 major banks over ESG. Democrats favor energy transition." },
+      { key: "veterans_military", label: "Veterans and military issues", sub: "VA care, military readiness",
+        weights: { barr: 3, cameron: 2, morris: 2, booker: 2, mcgrath: 5, stevenson: 5 },
+        reason: "You want military/veterans experience. McGrath is a retired Marine Lt. Col. with 89 combat missions. Stevenson is a retired Air Force Colonel and 27-year JAG attorney. Gallrein (KY-4) is a Navy SEAL." }
+    ]
+  },
+  {
+    id: "temperament",
+    title: "What kind of senator do you want?",
+    sub: "There's no right answer — pick what feels most like you.",
+    options: [
+      { key: "fighter", label: "A fighter", sub: "Combative, viral, willing to go after opponents",
+        weights: { barr: 4, cameron: 2, morris: 5, booker: 4, mcgrath: 3, stevenson: 5 } },
+      { key: "operator", label: "An operator", sub: "Disciplined, gets bills through, works the process",
+        weights: { barr: 3, cameron: 3, morris: 2, booker: 2, mcgrath: 4, stevenson: 3 } },
+      { key: "coalition", label: "A coalition-builder", sub: "Cross-party deals, bipartisan wins",
+        weights: { barr: 2, cameron: 3, morris: 1, booker: 4, mcgrath: 4, stevenson: 3 } },
+      { key: "outsider", label: "An outsider", sub: "Hasn't been in Washington, change agent",
+        weights: { barr: 0, cameron: 1, morris: 5, booker: 1, mcgrath: 2, stevenson: 2 } }
+    ]
+  },
+  {
+    id: "experience",
+    title: "What experience matters most?",
+    sub: "",
+    options: [
+      { key: "congress", label: "Congressional / legislative record", sub: "Has voted on real bills, knows the process",
+        weights: { barr: 5, cameron: 0, morris: 0, booker: 3, mcgrath: 0, stevenson: 2 } },
+      { key: "statewide_exec", label: "Statewide executive", sub: "Run a department, held a statewide office",
+        weights: { barr: 0, cameron: 5, morris: 0, booker: 0, mcgrath: 0, stevenson: 1 } },
+      { key: "military", label: "Military service", sub: "Combat or officer-level leadership",
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 0, mcgrath: 5, stevenson: 5 } },
+      { key: "outsider_biz", label: "Private-sector / business leader", sub: "Built a company, not a career politician",
+        weights: { barr: 0, cameron: 1, morris: 5, booker: 0, mcgrath: 0, stevenson: 2 } }
+    ]
+  },
+  {
+    id: "moneyModel",
+    title: "How do you feel about campaign money?",
+    sub: "",
+    options: [
+      { key: "grassroots", label: "Grassroots first", sub: "Small donors, no corporate PAC focus",
+        weights: { barr: 1, cameron: 2, morris: 0, booker: 5, mcgrath: 3, stevenson: 3 } },
+      { key: "big_donors_ok", label: "Big donors are fine if they help win", sub: "Super PACs, billionaires, whatever works",
+        weights: { barr: 5, cameron: 1, morris: 5, booker: 1, mcgrath: 2, stevenson: 1 } },
+      { key: "self_funded", label: "Self-funded is best", sub: "Can't be bought",
+        weights: { barr: 0, cameron: 0, morris: 3, booker: 0, mcgrath: 0, stevenson: 0 } },
+      { key: "dontcare", label: "Don't care about this", sub: "",
+        weights: { barr: 2, cameron: 2, morris: 2, booker: 2, mcgrath: 2, stevenson: 2 } }
+    ]
+  },
+  {
+    id: "redflag",
+    title: "Any of these concerns you most?",
+    sub: "Each candidate has a biggest liability. Pick the one that would stop you from voting for them.",
+    options: [
+      { key: "dei_ad", label: "The 'It's not a sin to be White' DEI ad",
+        eliminates: ["barr"] },
+      { key: "beshear_loss", label: "Already lost a statewide race with Trump endorsement",
+        eliminates: ["cameron"] },
+      { key: "rubicon_delisting", label: "Company (Rubicon Technologies) was delisted from NYSE in 2024",
+        eliminates: ["morris"] },
+      { key: "progressive_fit", label: "Progressive platform (Medicare for All, abolish ICE) in a Trump +30 state",
+        eliminates: ["booker"] },
+      { key: "prior_loss", label: "Lost 2020 race to McConnell by 20 points despite raising $94M",
+        eliminates: ["mcgrath"] },
+      { key: "name_recognition", label: "Single-digit polling and low statewide name recognition",
+        eliminates: ["stevenson"] },
+      { key: "breonna_taylor", label: "Handling of the Breonna Taylor case",
+        eliminates: ["cameron"] },
+      { key: "musk_money", label: "Backed by Elon Musk's $10M super PAC money",
+        eliminates: ["morris"] },
+      { key: "none", label: "None of these — skip",
+        eliminates: [] }
+    ]
+  }
+];
+
+// ==========================================================
+// HOUSE QUESTIONS — KY-4 (Massie vs Gallrein)
+// ==========================================================
+const HOUSE_Q_KY4 = [
+  {
+    id: "loyaltyVsIndependence",
+    title: "Trump loyalty vs. Congressional independence?",
+    sub: "The defining question of the KY-4 primary.",
+    options: [
+      { key: "loyalty", label: "Total Trump loyalty", sub: "Congress should back the president",
+        weights: { massie: 0, gallrein: 5 } },
+      { key: "mostly_loyalty", label: "Mostly loyal, but break on bad policy", sub: "Back Trump except on clear overreach",
+        weights: { massie: 2, gallrein: 3 } },
+      { key: "independence", label: "Congressional independence", sub: "Separate branch; constituents come first",
+        weights: { massie: 5, gallrein: 0 } }
+    ]
+  },
+  {
+    id: "epsteinIran",
+    title: "Epstein files and the Iran strikes — how do you feel?",
+    sub: "Massie forced the Epstein files vote and opposed the Iran war.",
+    options: [
+      { key: "massie_right", label: "Massie was right on both", sub: "Transparency and non-intervention",
+        weights: { massie: 5, gallrein: 0 } },
+      { key: "mixed", label: "Mixed feelings", sub: "Agreed on one, not the other",
+        weights: { massie: 2, gallrein: 2 } },
+      { key: "trump_right", label: "Trump was right on both", sub: "Massie went too far",
+        weights: { massie: 0, gallrein: 5 } }
+    ]
+  },
+  {
+    id: "fiscalConservatism",
+    title: "OBBBA and federal spending?",
+    sub: "Massie voted against the One Big Beautiful Bill Act and against the short-term funding bill.",
+    options: [
+      { key: "debt_hawk", label: "I'm a debt hawk — Massie was right to vote no", sub: "Deficit matters more than short-term wins",
+        weights: { massie: 5, gallrein: 0 } },
+      { key: "balance", label: "Debt matters but you work with your party", sub: "Dissent has limits",
+        weights: { massie: 2, gallrein: 3 } },
+      { key: "trump_agenda", label: "The Trump agenda comes first", sub: "OBBBA included border wins that mattered",
+        weights: { massie: 0, gallrein: 5 } }
+    ]
+  },
+  {
+    id: "backgroundPreference",
+    title: "What background do you prefer?",
+    sub: "",
+    options: [
+      { key: "engineer_farmer", label: "Engineer and farmer with 13 years in Congress", sub: "Massie: MIT, 29 patents, cattle farmer",
+        weights: { massie: 5, gallrein: 1 } },
+      { key: "veteran_seal", label: "Navy SEAL and farmer, new to Congress", sub: "Gallrein: retired Navy SEAL officer, fifth-generation farmer",
+        weights: { massie: 1, gallrein: 5 } },
+      { key: "dontcare_bg", label: "Background isn't what I'm voting on", sub: "",
+        weights: { massie: 2, gallrein: 2 } }
+    ]
+  }
+];
+
+// ==========================================================
+// HOUSE QUESTIONS — KY-6 (Alvarado vs Dotson open seat)
+// ==========================================================
+const HOUSE_Q_KY6 = [
+  {
+    id: "ky6_experience",
+    title: "What kind of experience do you want?",
+    sub: "",
+    options: [
+      { key: "physician_policy", label: "Physician and former state senator + health commissioner", sub: "Alvarado: physician, ex-KY Senator (2015-23), ex-TN Health Commissioner (2023-25)",
+        weights: { alvarado: 5, dotson: 0 } },
+      { key: "pastor_veteran", label: "Pastor, Army veteran, and current state rep", sub: "Dotson: state rep, pastor, Army veteran, lifelong Kentuckian",
+        weights: { alvarado: 0, dotson: 5 } },
+      { key: "dontcare_ky6_bg", label: "Don't prefer one background over the other", sub: "",
+        weights: { alvarado: 2, dotson: 2 } }
+    ]
+  },
+  {
+    id: "ky6_style",
+    title: "Pastor-led conservatism vs. policy-led conservatism?",
+    sub: "Dotson leads with faith. Alvarado leads with policy experience.",
+    options: [
+      { key: "faith_led", label: "Faith-led — pastor/values framing", sub: "Dotson's campaign leads with pastoral background",
+        weights: { alvarado: 1, dotson: 5 } },
+      { key: "policy_led", label: "Policy-led — governance experience", sub: "Alvarado's campaign leads with statewide record",
+        weights: { alvarado: 5, dotson: 1 } },
+      { key: "either_ky6", label: "Either works for me", sub: "",
+        weights: { alvarado: 3, dotson: 3 } }
+    ]
+  },
+  {
+    id: "ky6_endorsement",
+    title: "Does establishment GOP endorsement matter to you?",
+    sub: "Damon Thayer (former KY Senate Majority Leader) endorsed Alvarado. Dotson runs as grassroots 'not the political class.'",
+    options: [
+      { key: "want_est", label: "Yes — party experience and endorsements help", sub: "Thayer endorsement signals broad party support",
+        weights: { alvarado: 5, dotson: 0 } },
+      { key: "want_outsider", label: "No — grassroots over political class", sub: "Dotson frames himself as the anti-establishment pick",
+        weights: { alvarado: 0, dotson: 5 } },
+      { key: "mixed_ky6", label: "Doesn't matter much to me", sub: "",
+        weights: { alvarado: 2, dotson: 2 } }
+    ]
+  }
+];
+
+// For other (non-competitive) districts, no House matcher is needed
+const HOUSE_QUESTIONS_BY_DISTRICT = {
+  4: HOUSE_Q_KY4,
+  6: HOUSE_Q_KY6
+};
+
+// ==========================================================
+// STANCES — grounded in briefing facts only
+// ==========================================================
+const SENATE_STANCES = {
+  barr: {
+    topIssue: {
+      economy: "Platform: cut taxes, fire 'deep state bureaucrats,' unleash Kentucky coal. Financial Services Committee member for 12 years.",
+      immigration_enforce: "Platform: deport illegals, close border. Campaign slogan: '100% America First.'",
+      energy_coal: "Delivered record: authored H.J. Res 30 blocking Biden's DOL ESG rule — first Biden veto, 2023.",
+      trump_support: "Viewed as most Trump-aligned by 38% of GOP primary voters (Emerson April 2026)."
+    },
+    temperament: {
+      fighter: "Platform quote: 'My plan for these insane DEI initiatives is pretty simple. DIE.'",
+      operator: "12-year House voting record; Republican Study Committee leadership; American Worker Task Force Chair.",
+      coalition: "Barr's record is more partisan than coalition-building; endorsed by House Majority Leader Scalise.",
+      outsider: "12 years in the U.S. House — the opposite of outsider."
+    },
+    experience: {
+      congress: "U.S. Rep KY-6 since 2013 (7 terms). Financial Services Committee. 7,404 roll call votes cast."
+    },
+    moneyModel: {
+      big_donors_ok: "Pro-Barr Keep America Great PAC: $2.5M ad buy Feb 2026. Funders disclosed: Foris DAX $1.3M, Defend Us Inc (dark money) $1.1M, Churchill Downs $100K."
+    }
+  },
+  cameron: {
+    topIssue: {
+      trump_support: "Platform pillar: 'advance President Trump's America First agenda.' 2023 gov campaign ran with Trump endorsement.",
+      immigration_enforce: "As AG: defended state positions on federal enforcement cooperation.",
+      energy_coal: "As AG: launched multi-state ESG investigation of Bank of America, Citigroup, Goldman Sachs, JP Morgan, Morgan Stanley, Wells Fargo."
+    },
+    temperament: {
+      operator: "Former KY Attorney General 2019–2024 (won outright with 57.7%). University of Louisville football player. Known for 'easygoing demeanor' in reporting.",
+      coalition: "Faith-centered public messaging style."
+    },
+    experience: {
+      statewide_exec: "Kentucky Attorney General Dec 2019–Jan 2024. First African-American AG of Kentucky."
+    }
+  },
+  morris: {
+    topIssue: {
+      trump_support: "Campaign: America First outsider. CPAC endorsed March 2026. Fight for Kentucky super PAC received $10M from Elon Musk.",
+      mcconnell_break: "Called McConnell a 'decrepit old mob boss' at Fancy Farm 2025. Pledged to 'trash Mitch McConnell's legacy.'",
+      economy: "Platform framing emphasizes restoring manufacturing and outsider business credibility."
+    },
+    temperament: {
+      fighter: "Most combative anti-establishment positioning of the three GOP frontrunners.",
+      outsider: "Has never held elected office. Founder/CEO Morris Industries; founded Rubicon Technologies 2008."
+    },
+    experience: {
+      outsider_biz: "Founded Rubicon Technologies 2008 (waste management). Took public via SPAC 2022. CEO of Morris Industries."
+    },
+    moneyModel: {
+      big_donors_ok: "Elon Musk $10M single contribution to Fight for Kentucky super PAC — largest Musk Senate donation ever. Jeff Yass $2M to anti-Barr Win it Back PAC.",
+      self_funded: "$4.4M in personal loans to campaign."
+    }
+  },
+  booker: {
+    topIssue: {
+      healthcare: "Platform: Medicare for All. Personal Type 1 diabetic; has rationed insulin.",
+      economy: "Platform: universal basic income, wealth tax, capital gains tax equalization, universal paid sick leave.",
+      immigration_defend: "Platform: abolish ICE; pathway to citizenship.",
+      abortion_rights: "Platform: repeal Hyde Amendment; full abortion access.",
+      trump_resist: "Progressive Democrat; endorsed Bernie Sanders 2020."
+    },
+    temperament: {
+      fighter: "Supports general-strike framing. Faith-centered public speaking. Viral speeches in 2020 Breonna Taylor protests.",
+      coalition: "'From the Hood to the Holler' slogan targets rural-urban coalition."
+    },
+    experience: {
+      congress: "KY House of Representatives 2019–2021 (HD-43, Louisville)."
+    },
+    moneyModel: {
+      grassroots: "Campaign funding is small-dollar grassroots. Called out 'the big money machine in both the Democratic and Republican establishment' in 2020."
+    }
+  },
+  mcgrath: {
+    topIssue: {
+      economy: "Platform: repeal Trump tariffs ('a tax on consumers'), billionaire tax, paid family leave, invest in education.",
+      healthcare: "Platform: restore Medicaid and ACA subsidies, protect rural hospitals from federal Medicaid cuts.",
+      trump_resist: "Calls One Big Beautiful Bill 'the big beautiful betrayal.' Opposes Trump tariffs and Iran strikes.",
+      veterans_military: "20-year Marine career. First woman to fly F/A-18 in combat. 89 combat missions. Retired Lt. Col."
+    },
+    temperament: {
+      operator: "Self-described 'common sense Democrat.' Running Beshear-style county-by-county strategy.",
+      coalition: "Cross-party personal narrative — Republican husband, raised in Republican Cincinnati suburbs."
+    },
+    experience: {
+      military: "Retired U.S. Marine Corps Lt. Col. 20 years service, 89 combat missions."
+    }
+  },
+  stevenson: {
+    topIssue: {
+      healthcare: "Platform emphasizes healthcare access for working families.",
+      trump_resist: "Campaign framing: 'stop the recklessness' in Washington.",
+      abortion_rights: "House Minority Leader; vocal defender of reproductive rights in KY House.",
+      veterans_military: "27-year USAF JAG Colonel; advocacy for veterans is central to platform."
+    },
+    temperament: {
+      fighter: "2023 viral House floor speech against HB 470 (gender-affirming care ban) — 'we have created an environment of hate.'",
+      operator: "KY House Minority Leader since January 2025; first Black woman in that role."
+    },
+    experience: {
+      military: "Retired U.S. Air Force Colonel. 27 years JAG. Served in 11 countries."
+    }
+  }
+};
+
+const HOUSE_STANCES = {
+  massie: {
+    loyaltyVsIndependence: {
+      independence: "Quote: 'I vote with my party 91% of the time... But when they're protecting pedophiles, when they are blowing our budget, when they are starting wars overseas, I'm sorry, I can't go along with that.'"
+    },
+    epsteinIran: {
+      massie_right: "Led July 2025 discharge petition with Rep. Ro Khanna forcing vote on the Epstein Files Transparency Act — law signed November 2025. Co-sponsored war powers resolutions against Trump's 2026 Iran strikes."
+    },
+    fiscalConservatism: {
+      debt_hawk: "One of only two House Republicans to vote against the One Big Beautiful Bill Act in 2025. Sole Republican to vote against the short-term government funding bill in March 2025."
+    },
+    backgroundPreference: {
+      engineer_farmer: "MIT bachelor's and master's. 29 patents from engineering career. Cattle farmer. Judge-Executive of Lewis County 2011–2012 before Congress."
+    }
+  },
+  gallrein: {
+    loyaltyVsIndependence: {
+      loyalty: "Campaign self-describes as 'Trump's handpicked choice.' Trump endorsed October 2025 after Oval Office meeting."
+    },
+    epsteinIran: {
+      trump_right: "Platform positions align with Trump administration; backed by Republican Jewish Coalition Victory PAC on the Iran question."
+    },
+    fiscalConservatism: {
+      trump_agenda: "MAGA KY PAC ads focused attacks on Massie's votes against OBBBA's border and immigration provisions."
+    },
+    backgroundPreference: {
+      veteran_seal: "Retired Navy SEAL officer. Fifth-generation Kentucky farmer. 2024 candidate for KY State Senate District 7."
+    }
+  },
+  alvarado: {
+    ky6_experience: {
+      physician_policy: "Physician (MD). First Latino elected to Kentucky Senate. Former TN Commissioner of Health 2023–2025. 2019 Republican Lt. Gov nominee."
+    },
+    ky6_style: {
+      policy_led: "Campaign emphasizes qualification: 'I am the most qualified candidate to keep the 6th District in Republican hands.'"
+    },
+    ky6_endorsement: {
+      want_est: "Endorsed by Damon Thayer, former KY Senate Majority Leader (2013–2025). Strongest Q3 2025 fundraising of any KY-6 candidate."
+    }
+  },
+  dotson: {
+    ky6_experience: {
+      pastor_veteran: "Kentucky State Representative (Winchester). Pastor. U.S. Army veteran. Self-describes: 'the only person in my race that has never left Kentucky, other than to serve in the US Army.'"
+    },
+    ky6_style: {
+      faith_led: "Campaign frames him as 'a pastor, a veteran, and a proven leader who raised his family in the same district he's now running to represent.'"
+    },
+    ky6_endorsement: {
+      want_outsider: "Campaign message: 'backed by the people, not the political class.' $260K personal loan to his own campaign."
+    }
+  }
+};
+
+// Caveats — each candidate's biggest documented liability
+const SENATE_CAVEATS = {
+  barr: "Barr's February 2026 DEI ad ('It's not a sin to be White, it's not against the law to be male, it shouldn't be disqualifying to be a Christian') drew sustained criticism. Kentucky political commentator Al Cross called it 'the most overtly racist statewide campaign we can remember in Kentucky.' Morris-aligned Win it Back PAC has spent $2M attacking Barr on past comments supporting Afghan visas in 2021 and his March 2026 support for a McConnell Capitol statue.",
+  cameron: "Cameron has already lost one statewide race — the 2023 governor's race to Democrat Andy Beshear — despite a Trump endorsement in a state Trump won by 30 points. His handling of the Breonna Taylor case (concluding police use of force was 'justified' and recommending charges only against one officer for endangering Taylor's neighbors) remains contested. His $629K cash on hand (Sep 2025) is far behind Barr's $6.6M, and he has aired no TV ads.",
+  morris: "Rubicon Technologies, the company Morris founded and chaired, was delisted from the NYSE in June 2024 after its stock collapsed below listing standards — Morris stepped down as CEO in 2022 but remained chairman through the delisting. Also: married into the George H.W. Bush family (wife's father and grandfather were senior Bush officials), and donated to Nikki Haley over Trump in the 2024 primary. Despite $15M+ in outside spending, his polling has stayed flat.",
+  booker: "Booker has lost three prior primaries or generals — 2020 Senate primary to McGrath, 2022 Senate general to Rand Paul (61.8%–38.2%), 2016 state senate primary (3rd with 20%). Kentucky has not elected a Democrat to U.S. Senate since 1992. His progressive platform (Medicare for All, UBI, abolish ICE, Green New Deal, reparations) will face general-election attack surface in a Trump +30 state.",
+  mcgrath: "Lost 2020 Senate race to McConnell by 20 points despite outraising him by $32M+ — one of the most expensive Senate defeats in U.S. history. Also lost KY-6 House race to Barr in 2018 (51%–47.8%). Has now run statewide twice and lost both times. Current cycle cash on hand (~$330K) is a fraction of her 2020 operation.",
+  stevenson: "Polling at just 3% four weeks out from the primary. Also lost her 2023 statewide race for KY Attorney General to Republican Russell Coleman. Low statewide name recognition despite being first Black woman to serve as KY House Minority Leader."
+};
+
+const HOUSE_CAVEATS = {
+  massie: "Trump has publicly attacked Massie as 'worst Republican,' 'complete and total disaster as a congressman and, frankly, as a human being,' and 'disloyal.' Trump rallied for Gallrein in-district March 11, 2026. Opponents (Republican Jewish Coalition Victory PAC, MAGA KY) have spent $6.8M on ads attacking him. Massie claims 17-point internal poll lead but hasn't released the poll.",
+  gallrein: "Pro-Massie Kentucky 4th PAC 'Tucked Tail And Ran' ad highlights Gallrein leaving the GOP during Trump's first term. Limited campaign-trail visibility; no scheduled debates with Massie as of April 2026. Entirely dependent on Trump endorsement for primary relevance.",
+  alvarado: "Spent two years outside Kentucky politics (2023–2025) running Tennessee's health agency. Opponents may frame him as a returnee rather than continuous Kentucky leader.",
+  dotson: "Smaller statewide profile than Alvarado. Grassroots framing means smaller outside-money infrastructure. Faith-first pitch may limit crossover appeal in the Lexington urban core."
+};
+
+// ==========================================================
+// LABELS
+// ==========================================================
+const ANSWER_LABELS = {
+  topIssue: {
+    economy: "economy and cost of living",
+    healthcare: "healthcare and prescription costs",
+    immigration_enforce: "tougher immigration enforcement",
+    immigration_defend: "protecting immigrants and due process",
+    trump_resist: "resisting the Trump agenda",
+    trump_support: "backing the Trump agenda",
+    mcconnell_break: "breaking with McConnell's legacy",
+    abortion_rights: "restoring abortion rights",
+    energy_coal: "Kentucky coal and energy jobs",
+    veterans_military: "veterans and military issues"
+  },
+  temperament: { fighter: "a fighter", operator: "an operator", coalition: "a coalition-builder", outsider: "an outsider" },
+  experience: { congress: "a congressional/legislative record", statewide_exec: "statewide executive experience", military: "military service", outsider_biz: "private-sector leadership" },
+  moneyModel: { grassroots: "grassroots funding", big_donors_ok: "big donors are fine", self_funded: "self-funded is best", dontcare: "don't care about money model" },
+  loyaltyVsIndependence: { loyalty: "total Trump loyalty", mostly_loyalty: "mostly loyal but break on bad policy", independence: "congressional independence" },
+  epsteinIran: { massie_right: "Massie was right on both", mixed: "mixed feelings", trump_right: "Trump was right on both" },
+  fiscalConservatism: { debt_hawk: "debt hawk — Massie was right to vote no", balance: "debt matters but you work with your party", trump_agenda: "the Trump agenda comes first" },
+  backgroundPreference: { engineer_farmer: "engineer and farmer with 13 years in Congress", veteran_seal: "Navy SEAL and farmer, new to Congress", dontcare_bg: "background isn't what I'm voting on" },
+  ky6_experience: { physician_policy: "physician + former statewide official", pastor_veteran: "pastor, Army veteran, state rep", dontcare_ky6_bg: "no background preference" },
+  ky6_style: { faith_led: "faith-led conservatism", policy_led: "policy-led conservatism", either_ky6: "either style works" },
+  ky6_endorsement: { want_est: "establishment endorsement matters", want_outsider: "grassroots over political class", mixed_ky6: "neutral on establishment vs outsider" }
+};
+
+const QUESTION_LABELS = {
+  topIssue: "Top issues",
+  temperament: "Leadership style",
+  experience: "Experience type",
+  moneyModel: "Money model",
+  loyaltyVsIndependence: "Trump loyalty vs independence",
+  epsteinIran: "Epstein files and Iran",
+  fiscalConservatism: "Fiscal conservatism",
+  backgroundPreference: "Background preference",
+  ky6_experience: "Experience type",
+  ky6_style: "Campaign style",
+  ky6_endorsement: "Establishment vs grassroots"
+};
+
+const RANK_MULTIPLIERS = [1.0, 0.6, 0.3];
+
+// ==========================================================
+// RENDER STATE MACHINE
+// ==========================================================
+function render() {
+  if (state.step === -1) { renderIntro(); return; }
+  if (state.step === 'party') { renderPartyGate(); return; }
+  if (state.step === 'district') { renderDistrictPicker(); return; }
+  if (state.step === 'result') { renderResult(); return; }
+
+  // step is a number — index into the merged question list
+  renderQuestion();
+}
+
+// ==========================================================
+// INTRO
+// ==========================================================
+function renderIntro() {
+  app.innerHTML = `
+    <div class="fade-in">
+      <div class="brand">Kentucky 2026 Primary</div>
+      <h1 class="hero-title">Which Kentucky race are you deciding on?</h1>
+      <p class="hero-sub">The primary is May 19, 2026. Pick what you want help with.</p>
+
+      <div class="stats-grid">
+        <div class="stat-item"><span class="stat-value">6</span><span class="stat-label">Senate candidates</span></div>
+        <div class="stat-item"><span class="stat-value">6</span><span class="stat-label">House districts</span></div>
+        <div class="stat-item"><span class="stat-value">~4 min</span><span class="stat-label">To complete</span></div>
+      </div>
+
+      <ol class="how-list">
+        <li>Tell us which race and your party registration.</li>
+        <li>Answer a short set of questions about what you want.</li>
+        <li>Get your match with alignment analysis from the full briefing.</li>
+      </ol>
+
+      <button class="primary-btn" onclick="chooseFlow('senate')">U.S. Senate only</button>
+      <button class="primary-btn" onclick="chooseFlow('house')">U.S. House only (pick your district)</button>
+      <button class="primary-btn" onclick="chooseFlow('both')">Both — Senate and House</button>
+
+      <button class="briefing-link-intro" onclick="openBriefing()">Or read the full candidate briefing →</button>
+
+      <p class="disclaimer">This tool doesn't tell you who to vote for. It shows which candidate best matches what you said matters. All data comes from FEC filings, public reporting, and each candidate's published plans.</p>
+    </div>
+  `;
+}
+
+function chooseFlow(flow) {
+  state.flow = flow;
+  state.step = 'party';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  render();
+}
+
+// ==========================================================
+// PARTY GATE
+// ==========================================================
+function renderPartyGate() {
+  app.innerHTML = `
+    <div class="fade-in">
+      <div class="progress-row">
+        <span class="progress-text">Step 1 of 3 · Party registration</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 33%"></div></div>
+      </div>
+
+      <h2 class="q-title">What's your party registration?</h2>
+      <p class="q-sub">Kentucky is a closed primary — you can only vote in the primary of your registered party on May 19. If you're not sure, check at govoteky.com.</p>
+
+      <div class="options">
+        <button class="opt" onclick="setParty('R')"><strong>Registered Republican</strong><small>Will see GOP candidates only (by default)</small></button>
+        <button class="opt" onclick="setParty('D')"><strong>Registered Democrat</strong><small>Will see Democratic candidates only (by default)</small></button>
+        <button class="opt" onclick="setParty('U')"><strong>Unaffiliated / Independent / Other</strong><small>Cannot vote in May 19 primary; can vote in November</small></button>
+      </div>
+
+      <div class="toggle-row">
+        <label class="toggle">
+          <input type="checkbox" id="showBothToggle" ${state.showBoth ? 'checked' : ''} onchange="state.showBoth = this.checked">
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label">Show me <strong>both parties anyway</strong> — compare candidates across the aisle.</span>
+      </div>
+
+      <div class="nav">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+        <span class="nav-hint">Tap to continue</span>
+      </div>
+    </div>
+  `;
+}
+
+function setParty(p) {
+  state.party = p;
+  const showBothCheckbox = document.getElementById('showBothToggle');
+  if (showBothCheckbox) state.showBoth = showBothCheckbox.checked;
+
+  // Unaffiliated voters auto-get both-parties view (they can't vote in primary anyway)
+  if (p === 'U') state.showBoth = true;
+
+  // Decide next step based on flow
+  if (state.flow === 'senate') {
+    state.step = 0;
+  } else if (state.flow === 'house' || state.flow === 'both') {
+    state.step = 'district';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  render();
+}
+
+// ==========================================================
+// DISTRICT PICKER
+// ==========================================================
+function renderDistrictPicker() {
+  app.innerHTML = `
+    <div class="fade-in">
+      <div class="progress-row">
+        <span class="progress-text">Step 2 of 3 · Pick your district</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 66%"></div></div>
+      </div>
+
+      <h2 class="q-title">Which House district do you vote in?</h2>
+      <p class="q-sub">Kentucky has 6 U.S. House districts. You can only vote in the House primary for your own district.</p>
+
+      <select class="district-picker" id="districtSelect">
+        <option value="">Choose your district…</option>
+        <option value="1">KY-1 — Western KY (Paducah, Hopkinsville, Henderson, Frankfort)</option>
+        <option value="2">KY-2 — West Central KY (Bowling Green, Owensboro, Elizabethtown)</option>
+        <option value="3">KY-3 — Louisville / Jefferson County</option>
+        <option value="4">KY-4 — Northeast KY (Cincinnati suburbs, Ohio River counties)</option>
+        <option value="5">KY-5 — Eastern KY / Appalachia (Pikeville, Corbin, Somerset)</option>
+        <option value="6">KY-6 — Central KY (Lexington, Richmond, Georgetown)</option>
+      </select>
+
+      <a class="district-lookup" href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener">Not sure which district you're in? Look up by zip code →</a>
+
+      <button class="primary-btn" onclick="setDistrict()">Continue</button>
+
+      <div class="nav">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+        <span class="nav-hint">Pick a district to continue</span>
+      </div>
+    </div>
+  `;
+}
+
+function setDistrict() {
+  const sel = document.getElementById('districtSelect');
+  if (!sel || !sel.value) return;
+  state.district = parseInt(sel.value, 10);
+
+  // If the district is non-competitive, we'll still show the information but skip the House questions
+  // If flow is 'house' only and district is non-competitive, jump straight to result
+  if (state.flow === 'house' && !HOUSE[state.district].competitive) {
+    state.step = 'result';
+  } else {
+    state.step = 0;
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  render();
+}
+
+// ==========================================================
+// QUESTION SEQUENCING
+// ==========================================================
+function getActiveQuestions() {
+  // Returns the merged list of questions for the current flow
+  const qs = [];
+  if (state.flow === 'senate' || state.flow === 'both') {
+    qs.push(...SENATE_QUESTIONS);
+  }
+  if ((state.flow === 'house' || state.flow === 'both') && state.district) {
+    const houseQs = HOUSE_QUESTIONS_BY_DISTRICT[state.district];
+    if (houseQs) qs.push(...houseQs);
+  }
+  return qs;
+}
+
+function renderQuestion() {
+  const qs = getActiveQuestions();
+  if (state.step >= qs.length) {
+    state.step = 'result';
+    render();
+    return;
+  }
+
+  const q = qs[state.step];
+  const pct = Math.round(((state.step + 1) / qs.length) * 100);
+
+  let optsHtml, navHtml, helperHtml = '';
+
+  if (q.multi) {
+    const selected = state.answers[q.id] || [];
+    const maxPicks = q.maxPicks || 3;
+    optsHtml = q.options.map(opt => {
+      const idx = selected.indexOf(opt.key);
+      const isSel = idx !== -1;
+      const rank = isSel ? `<span class="rank-badge">${idx + 1}</span>` : '';
+      const cls = isSel ? 'selected' : '';
+      const sub = opt.sub ? `<small>${opt.sub}</small>` : '';
+      return `<button class="opt ${cls}" onclick="toggleMulti('${q.id}', '${opt.key}', ${maxPicks})"><strong>${rank}${opt.label}</strong>${sub}</button>`;
+    }).join('');
+
+    const pickedCount = selected.length;
+    const remainingText = pickedCount === 0
+      ? `Tap up to <strong>${maxPicks}</strong> issues in order of importance`
+      : pickedCount < maxPicks
+        ? `<strong>${pickedCount} of ${maxPicks} picked.</strong> Tap another, or Continue`
+        : `<strong>${maxPicks} picked.</strong> Tap Continue, or swap a pick`;
+    helperHtml = `<p class="multi-helper">${remainingText}</p>`;
+
+    navHtml = `
+      <button class="continue-btn" onclick="continueMulti()" ${pickedCount === 0 ? 'disabled' : ''}>
+        ${pickedCount === 0 ? 'Pick at least one to continue' : 'Continue →'}
+      </button>
+      <div class="nav">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+        <span class="nav-hint">${pickedCount > 0 ? `${pickedCount} selected` : ''}</span>
+      </div>
+    `;
+  } else {
+    const selected = state.answers[q.id];
+    optsHtml = q.options.map(opt => {
+      const sel = selected === opt.key ? 'selected' : '';
+      const sub = opt.sub ? `<small>${opt.sub}</small>` : '';
+      return `<button class="opt ${sel}" onclick="answer('${q.id}', '${opt.key}')"><strong>${opt.label}</strong>${sub}</button>`;
+    }).join('');
+
+    navHtml = `
+      <div class="nav">
+        <button class="back-btn" onclick="goBack()">← Back</button>
+        <span class="nav-hint">Tap an answer to continue</span>
+      </div>
+    `;
+  }
+
+  app.innerHTML = `
+    <div class="fade-in">
+      <div class="progress-row">
+        <span class="progress-text">Question ${state.step + 1} of ${qs.length}</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: ${pct}%"></div></div>
+      </div>
+      <h2 class="q-title">${q.title}</h2>
+      ${q.sub ? `<p class="q-sub">${q.sub}</p>` : ''}
+      ${helperHtml}
+      <div class="options">${optsHtml}</div>
+      ${navHtml}
+    </div>
+  `;
+}
+
+function toggleMulti(qid, optKey, maxPicks) {
+  if (!state.answers[qid]) state.answers[qid] = [];
+  const arr = state.answers[qid];
+  const idx = arr.indexOf(optKey);
+  if (idx !== -1) {
+    arr.splice(idx, 1);
+  } else {
+    if (arr.length >= maxPicks) arr.pop();
+    arr.push(optKey);
+  }
+  render();
+}
+
+function continueMulti() {
+  const qs = getActiveQuestions();
+  const q = qs[state.step];
+  const arr = state.answers[q.id] || [];
+  if (arr.length === 0) return;
+  state.step++;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  render();
+}
+
+function answer(qid, key) {
+  state.answers[qid] = key;
+  render();
+  setTimeout(() => {
+    state.step++;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    render();
+  }, 180);
+}
+
+function goBack() {
+  if (state.step === 'party') {
+    state.step = -1;
+  } else if (state.step === 'district') {
+    state.step = 'party';
+  } else if (state.step === 0) {
+    if (state.flow === 'senate') state.step = 'party';
+    else state.step = 'district';
+  } else if (typeof state.step === 'number' && state.step > 0) {
+    state.step--;
+  } else if (state.step === 'result') {
+    const qs = getActiveQuestions();
+    state.step = qs.length - 1;
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  render();
+}
+
+function restart() {
+  state.step = -1;
+  state.answers = {};
+  state.flow = null;
+  state.party = null;
+  state.showBoth = false;
+  state.district = null;
+  state.showScores = { senate: false, house: false };
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  render();
+}
+
+// ==========================================================
+// SCORING
+// ==========================================================
+function getEligibleSenateCandidates() {
+  // Filter by party unless showBoth
+  const keys = Object.keys(SENATE);
+  if (state.showBoth || state.party === 'U') return keys;
+  return keys.filter(k => SENATE[k].party === state.party);
+}
+
+function getEligibleHouseCandidates() {
+  if (!state.district) return [];
+  const district = HOUSE[state.district];
+  if (!district || !district.competitive) return [];
+  const keys = Object.keys(district.candidates);
+  if (state.showBoth || state.party === 'U') return keys;
+  // All KY-4 and KY-6 competitive candidates are R, so filtering by party is essentially a no-op except for D voters
+  return keys.filter(k => district.candidates[k].party === state.party);
+}
+
+function computeSenateScores() {
+  const eligible = getEligibleSenateCandidates();
+  const scores = {};
+  eligible.forEach(k => scores[k] = 0);
+
+  SENATE_QUESTIONS.forEach(q => {
+    const ans = state.answers[q.id];
+    if (!ans) return;
+
+    if (q.multi && Array.isArray(ans)) {
+      ans.forEach((key, idx) => {
+        const opt = q.options.find(o => o.key === key);
+        if (!opt || !opt.weights) return;
+        const mult = RANK_MULTIPLIERS[idx] || 0;
+        eligible.forEach(c => {
+          scores[c] = (scores[c] || 0) + ((opt.weights[c] || 0) * mult);
+        });
+      });
+    } else if (typeof ans === 'string') {
+      const opt = q.options.find(o => o.key === ans);
+      if (!opt) return;
+      if (opt.weights) eligible.forEach(c => { scores[c] = (scores[c] || 0) + (opt.weights[c] || 0); });
+      if (opt.eliminates && opt.eliminates.length) {
+        opt.eliminates.forEach(c => { if (scores[c] !== undefined) scores[c] = Math.round((scores[c] || 0) * 0.3); });
+      }
+    }
+  });
+
+  Object.keys(scores).forEach(k => scores[k] = Math.round(scores[k]));
+  return scores;
+}
+
+function computeHouseScores() {
+  const eligible = getEligibleHouseCandidates();
+  if (eligible.length === 0) return {};
+  const scores = {};
+  eligible.forEach(k => scores[k] = 0);
+
+  const houseQs = HOUSE_QUESTIONS_BY_DISTRICT[state.district] || [];
+  houseQs.forEach(q => {
+    const ans = state.answers[q.id];
+    if (!ans || typeof ans !== 'string') return;
+    const opt = q.options.find(o => o.key === ans);
+    if (!opt || !opt.weights) return;
+    eligible.forEach(c => {
+      if (opt.weights[c] !== undefined) scores[c] = (scores[c] || 0) + opt.weights[c];
+    });
+  });
+  return scores;
+}
+
+function computeSenateMax() {
+  const eligible = getEligibleSenateCandidates();
+  let max = 0;
+  SENATE_QUESTIONS.forEach(q => {
+    if (q.multi) {
+      const allMaxes = q.options
+        .filter(o => o.weights)
+        .map(o => Math.max(...eligible.map(c => o.weights[c] || 0)));
+      allMaxes.sort((a, b) => b - a);
+      for (let i = 0; i < Math.min(q.maxPicks || 3, allMaxes.length); i++) {
+        max += (allMaxes[i] || 0) * (RANK_MULTIPLIERS[i] || 0);
+      }
+    } else {
+      let qMax = 0;
+      q.options.forEach(opt => {
+        if (opt.weights) {
+          const localMax = Math.max(...eligible.map(c => opt.weights[c] || 0));
+          if (localMax > qMax) qMax = localMax;
+        }
+      });
+      max += qMax;
+    }
+  });
+  return Math.round(max);
+}
+
+function computeHouseMax() {
+  const eligible = getEligibleHouseCandidates();
+  if (eligible.length === 0) return 0;
+  const houseQs = HOUSE_QUESTIONS_BY_DISTRICT[state.district] || [];
+  let max = 0;
+  houseQs.forEach(q => {
+    let qMax = 0;
+    q.options.forEach(opt => {
+      if (opt.weights) {
+        const localMax = Math.max(...eligible.map(c => opt.weights[c] || 0));
+        if (localMax > qMax) qMax = localMax;
+      }
+    });
+    max += qMax;
+  });
+  return max;
+}
+
+// ==========================================================
+// REASONING
+// ==========================================================
+function buildSenateReasons(winnerKey) {
+  const reasons = [];
+  const scores = computeSenateScores();
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  if (sorted.length < 2) return reasons;
+  const runnerKey = sorted[1][0];
+  const winnerFirst = SENATE[winnerKey].name.split(' ')[0];
+
+  // Top issues
+  const topIssues = state.answers.topIssue;
+  if (topIssues && Array.isArray(topIssues) && topIssues.length > 0) {
+    const rankLabels = ['Your #1 issue', 'Your #2 issue', 'Your #3 issue'];
+    topIssues.forEach((key, idx) => {
+      const opt = SENATE_QUESTIONS[0].options.find(o => o.key === key);
+      if (!opt) return;
+      const stance = SENATE_STANCES[winnerKey]?.topIssue?.[key];
+      const label = ANSWER_LABELS.topIssue[key] || key;
+      let body;
+      if (stance) {
+        body = `You picked <strong>${label}</strong>. ${winnerFirst}: ${stance}`;
+      } else {
+        body = `You picked <strong>${label}</strong>. ${opt.reason || ''}`;
+      }
+      const weight = opt.weights?.[winnerKey] || 0;
+      if (weight <= 1) {
+        const topScorer = Object.entries(opt.weights || {}).sort((a, b) => b[1] - a[1])[0];
+        if (topScorer && topScorer[0] !== winnerKey && SENATE[topScorer[0]]) {
+          body += ` <em>Note: ${SENATE[topScorer[0]].name.split(' ')[0]} has the strongest record on this specific issue.</em>`;
+        }
+      }
+      reasons.push({ q: rankLabels[idx], body });
+    });
+  }
+
+  // About
+  reasons.push({ q: `About ${winnerFirst}`, body: SENATE[winnerKey].oneLiner });
+
+  // Alignments
+  const aligned = [];
+  const misaligned = [];
+  SENATE_QUESTIONS.forEach(q => {
+    if (q.id === 'redflag' || q.id === 'topIssue') return;
+    const ansKey = state.answers[q.id];
+    if (!ansKey || typeof ansKey !== 'string') return;
+    const opt = q.options.find(o => o.key === ansKey);
+    if (!opt || !opt.weights) return;
+    const pts = opt.weights[winnerKey] || 0;
+    const answerLabel = ANSWER_LABELS[q.id]?.[ansKey] || ansKey;
+    const stance = SENATE_STANCES[winnerKey]?.[q.id]?.[ansKey];
+    if (pts >= 3) aligned.push({ qLabel: QUESTION_LABELS[q.id] || q.id, answerLabel, stance });
+    else if (pts <= 1) misaligned.push({ qLabel: QUESTION_LABELS[q.id] || q.id, answerLabel, stance });
+  });
+
+  if (aligned.length > 0) {
+    const items = aligned.map(a => {
+      const stanceText = a.stance ? ` — ${a.stance}` : '';
+      return `<div class="alignment-item"><strong>${a.qLabel}:</strong> you chose <strong>${a.answerLabel}</strong>${stanceText}</div>`;
+    }).join('');
+    reasons.push({
+      q: null,
+      html: `<div class="alignment-block positive">
+        <div class="alignment-header"><span class="alignment-icon">✓</span> Where else ${winnerFirst} matches you</div>
+        ${items}
+      </div>`
+    });
+  }
+
+  if (misaligned.length > 0) {
+    const items = misaligned.map(m => {
+      let note;
+      if (m.stance) {
+        note = ` — ${m.stance}`;
+      } else {
+        const q = SENATE_QUESTIONS.find(qq => QUESTION_LABELS[qq.id] === m.qLabel);
+        if (q) {
+          const ansKey = state.answers[q.id];
+          const opt = q.options.find(o => o.key === ansKey);
+          if (opt?.weights) {
+            const eligible = getEligibleSenateCandidates();
+            const topScorer = Object.entries(opt.weights).filter(([k]) => eligible.includes(k)).sort((a, b) => b[1] - a[1])[0];
+            if (topScorer && topScorer[0] !== winnerKey) {
+              note = ` — ${SENATE[topScorer[0]].name.split(' ')[0]} would have scored higher on this dimension.`;
+            } else note = `.`;
+          } else note = `.`;
+        } else note = `.`;
+      }
+      return `<div class="alignment-item"><strong>${m.qLabel}:</strong> you chose <strong>${m.answerLabel}</strong>${note}</div>`;
+    }).join('');
+    reasons.push({
+      q: null,
+      html: `<div class="alignment-block negative">
+        <div class="alignment-header"><span class="alignment-icon">!</span> Where you and ${winnerFirst} don't fully line up</div>
+        ${items}
+        <div class="alignment-item" style="margin-top: 8px; font-style: italic; color: #666;">${winnerFirst} still scored highest overall — your other priorities outweighed these gaps.</div>
+      </div>`
+    });
+  }
+
+  // Head-to-head
+  const winnerScore = sorted[0][1];
+  const runnerScore = sorted[1][1];
+  const runnerName = SENATE[runnerKey].name.split(' ')[0];
+  const vsDetail = buildSenateHeadToHead(winnerKey, runnerKey);
+  reasons.push({
+    q: null,
+    html: `<div class="vs-box">
+      <div class="vs-header">Why ${winnerFirst}, not ${runnerName}?</div>
+      <div class="vs-body">${winnerFirst} scored <strong>${winnerScore}</strong>, ${runnerName} scored <strong>${runnerScore}</strong>${winnerScore - runnerScore > 0 ? ` — a ${winnerScore - runnerScore}-point gap` : ''}. ${vsDetail}</div>
+    </div>`
+  });
+
+  return reasons;
+}
+
+function buildSenateHeadToHead(winnerKey, runnerKey) {
+  const diffs = [];
+  SENATE_QUESTIONS.forEach(q => {
+    if (q.id === 'redflag') return;
+    const ans = state.answers[q.id];
+    if (!ans) return;
+    if (q.multi && Array.isArray(ans)) {
+      let wt = 0, rt = 0;
+      ans.forEach((key, idx) => {
+        const opt = q.options.find(o => o.key === key);
+        if (!opt?.weights) return;
+        const mult = RANK_MULTIPLIERS[idx] || 0;
+        wt += (opt.weights[winnerKey] || 0) * mult;
+        rt += (opt.weights[runnerKey] || 0) * mult;
+      });
+      const diff = Math.round(wt - rt);
+      if (Math.abs(diff) >= 1) {
+        const topKey = ans[0];
+        diffs.push({ qLabel: QUESTION_LABELS[q.id] || q.id, answerLabel: ANSWER_LABELS[q.id]?.[topKey] || topKey, diff });
+      }
+    } else if (typeof ans === 'string') {
+      const opt = q.options.find(o => o.key === ans);
+      if (!opt?.weights) return;
+      const diff = (opt.weights[winnerKey] || 0) - (opt.weights[runnerKey] || 0);
+      if (Math.abs(diff) >= 1) diffs.push({ qLabel: QUESTION_LABELS[q.id] || q.id, answerLabel: ANSWER_LABELS[q.id]?.[ans] || ans, diff });
+    }
+  });
+  return buildVsNarrative(diffs, SENATE[winnerKey].name.split(' ')[0], SENATE[runnerKey].name.split(' ')[0]);
+}
+
+function buildHouseReasons(winnerKey) {
+  const reasons = [];
+  const houseQs = HOUSE_QUESTIONS_BY_DISTRICT[state.district] || [];
+  const district = HOUSE[state.district];
+  if (!district) return reasons;
+  const winnerObj = district.candidates[winnerKey];
+  const winnerFirst = winnerObj.name.split(' ')[0];
+
+  // About
+  reasons.push({ q: `About ${winnerFirst}`, body: winnerObj.oneLiner });
+
+  // Alignment walk
+  const aligned = [];
+  const misaligned = [];
+  houseQs.forEach(q => {
+    const ansKey = state.answers[q.id];
+    if (!ansKey || typeof ansKey !== 'string') return;
+    const opt = q.options.find(o => o.key === ansKey);
+    if (!opt?.weights) return;
+    const pts = opt.weights[winnerKey] || 0;
+    const answerLabel = ANSWER_LABELS[q.id]?.[ansKey] || ansKey;
+    const stance = HOUSE_STANCES[winnerKey]?.[q.id]?.[ansKey];
+    if (pts >= 3) aligned.push({ qLabel: QUESTION_LABELS[q.id] || q.id, answerLabel, stance });
+    else if (pts <= 1) misaligned.push({ qLabel: QUESTION_LABELS[q.id] || q.id, answerLabel, stance });
+  });
+
+  if (aligned.length > 0) {
+    const items = aligned.map(a => {
+      const stanceText = a.stance ? ` — ${a.stance}` : '';
+      return `<div class="alignment-item"><strong>${a.qLabel}:</strong> you chose <strong>${a.answerLabel}</strong>${stanceText}</div>`;
+    }).join('');
+    reasons.push({
+      q: null,
+      html: `<div class="alignment-block positive">
+        <div class="alignment-header"><span class="alignment-icon">✓</span> Where ${winnerFirst} matches you</div>
+        ${items}
+      </div>`
+    });
+  }
+
+  if (misaligned.length > 0) {
+    const items = misaligned.map(m => {
+      let note;
+      if (m.stance) note = ` — ${m.stance}`;
+      else note = `.`;
+      return `<div class="alignment-item"><strong>${m.qLabel}:</strong> you chose <strong>${m.answerLabel}</strong>${note}</div>`;
+    }).join('');
+    reasons.push({
+      q: null,
+      html: `<div class="alignment-block negative">
+        <div class="alignment-header"><span class="alignment-icon">!</span> Where you and ${winnerFirst} don't fully line up</div>
+        ${items}
+      </div>`
+    });
+  }
+
+  // Head-to-head
+  const scores = computeHouseScores();
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  if (sorted.length >= 2) {
+    const runnerKey = sorted[1][0];
+    const runnerFirst = district.candidates[runnerKey].name.split(' ')[0];
+    const diffs = [];
+    houseQs.forEach(q => {
+      const ans = state.answers[q.id];
+      if (!ans || typeof ans !== 'string') return;
+      const opt = q.options.find(o => o.key === ans);
+      if (!opt?.weights) return;
+      const diff = (opt.weights[winnerKey] || 0) - (opt.weights[runnerKey] || 0);
+      if (Math.abs(diff) >= 1) diffs.push({ qLabel: QUESTION_LABELS[q.id] || q.id, answerLabel: ANSWER_LABELS[q.id]?.[ans] || ans, diff });
+    });
+    const vsDetail = buildVsNarrative(diffs, winnerFirst, runnerFirst);
+    reasons.push({
+      q: null,
+      html: `<div class="vs-box">
+        <div class="vs-header">Why ${winnerFirst}, not ${runnerFirst}?</div>
+        <div class="vs-body">${winnerFirst} scored <strong>${sorted[0][1]}</strong>, ${runnerFirst} scored <strong>${sorted[1][1]}</strong>. ${vsDetail}</div>
+      </div>`
+    });
+  }
+
+  return reasons;
+}
+
+function buildVsNarrative(diffs, winnerFirst, runnerFirst) {
+  const winnerAdv = diffs.filter(d => d.diff > 0).sort((a, b) => b.diff - a.diff);
+  const runnerAdv = diffs.filter(d => d.diff < 0).sort((a, b) => a.diff - b.diff);
+  if (winnerAdv.length === 0) {
+    return `Your answers were split almost evenly. The win comes from small accumulated edges rather than one big difference.`;
+  }
+  const top = winnerAdv[0];
+  let text = `The biggest edge was on <strong>${top.qLabel.toLowerCase()}</strong>, where ${winnerFirst} scored ${top.diff} points higher than ${runnerFirst}.`;
+  const more = winnerAdv.slice(1, 3);
+  if (more.length > 0) text += ` ${winnerFirst} also edged ahead on ${more.map(d => d.qLabel.toLowerCase()).join(' and ')}.`;
+  const sigRunner = runnerAdv.filter(d => Math.abs(d.diff) >= 2);
+  if (sigRunner.length > 0) text += ` ${runnerFirst} did score higher on <strong>${sigRunner[0].qLabel.toLowerCase()}</strong>, but not by enough to close the overall gap.`;
+  return text;
+}
+
+// ==========================================================
+// RESULT PAGE
+// ==========================================================
+function renderResult() {
+  let html = '<div class="fade-in">';
+
+  // SENATE
+  if (state.flow === 'senate' || state.flow === 'both') {
+    const scores = computeSenateScores();
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    if (sorted.length > 0) {
+      const [wKey, wScore] = sorted[0];
+      const winner = SENATE[wKey];
+      const maxPossible = computeSenateMax();
+      const pct = maxPossible > 0 ? Math.round((wScore / maxPossible) * 100) : 0;
+      const reasons = buildSenateReasons(wKey);
+      const caveat = SENATE_CAVEATS[wKey];
+
+      const reasonsHtml = reasons.map(r => {
+        if (r.html) return r.html;
+        return `<div class="reason"><div class="reason-label">${r.q}</div><div class="reason-text">${r.body}</div></div>`;
+      }).join('');
+
+      const scoresHtml = sorted.map(([k, s]) => {
+        const c = SENATE[k];
+        return `<div class="score-row"><span class="score-name">${c.name}<span class="p">(${c.party})</span></span><span class="score-val">${s}</span></div>`;
+      }).join('');
+
+      html += `
+        <div class="race-section">
+          <div class="race-header">U.S. Senate Match</div>
+          <div class="result-head">
+            <div class="result-kicker">Your Top Match</div>
+            <h2 class="result-name">${winner.name}</h2>
+            <span class="result-party">${winner.party === 'R' ? 'Republican' : 'Democrat'}</span>
+            <p class="result-liner">${winner.oneLiner}</p>
+            <div class="result-pct">${pct}%</div>
+            <div class="result-pct-label">alignment</div>
+          </div>
+          <div class="section-title">Why ${winner.name.split(' ')[0]}?</div>
+          ${reasonsHtml}
+          ${caveat ? `<div class="caveat"><div class="caveat-label">One thing to know before you vote</div><div class="caveat-body">${caveat}</div></div>` : ''}
+          <button class="scores-toggle" onclick="toggleScores('senate')">${state.showScores.senate ? 'Hide' : 'Show'} all Senate candidate scores</button>
+          <div class="scores-list ${state.showScores.senate ? 'open' : ''}">${scoresHtml}</div>
+        </div>
+      `;
+    }
+  }
+
+  // HOUSE
+  if (state.flow === 'house' || state.flow === 'both') {
+    if (state.district && HOUSE[state.district]) {
+      const district = HOUSE[state.district];
+      if (district.competitive) {
+        const scores = computeHouseScores();
+        const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        if (sorted.length > 0) {
+          const [wKey, wScore] = sorted[0];
+          const winner = district.candidates[wKey];
+          const maxPossible = computeHouseMax();
+          const pct = maxPossible > 0 ? Math.round((wScore / maxPossible) * 100) : 0;
+          const reasons = buildHouseReasons(wKey);
+          const caveat = HOUSE_CAVEATS[wKey];
+
+          const reasonsHtml = reasons.map(r => {
+            if (r.html) return r.html;
+            return `<div class="reason"><div class="reason-label">${r.q}</div><div class="reason-text">${r.body}</div></div>`;
+          }).join('');
+
+          const scoresHtml = sorted.map(([k, s]) => {
+            const c = district.candidates[k];
+            return `<div class="score-row"><span class="score-name">${c.name}<span class="p">(${c.party})</span></span><span class="score-val">${s}</span></div>`;
+          }).join('');
+
+          html += `
+            <div class="race-section">
+              <div class="race-header">U.S. House Match — ${district.label}</div>
+              <div class="result-head">
+                <div class="result-kicker">Your Top Match</div>
+                <h2 class="result-name">${winner.name}</h2>
+                <span class="result-party">${winner.party === 'R' ? 'Republican' : 'Democrat'}</span>
+                <p class="result-liner">${winner.oneLiner}</p>
+                <div class="result-pct">${pct}%</div>
+                <div class="result-pct-label">alignment</div>
+              </div>
+              <div class="section-title">Why ${winner.name.split(' ')[0]}?</div>
+              ${reasonsHtml}
+              ${caveat ? `<div class="caveat"><div class="caveat-label">One thing to know before you vote</div><div class="caveat-body">${caveat}</div></div>` : ''}
+              <button class="scores-toggle" onclick="toggleScores('house')">${state.showScores.house ? 'Hide' : 'Show'} all House candidate scores</button>
+              <div class="scores-list ${state.showScores.house ? 'open' : ''}">${scoresHtml}</div>
+            </div>
+          `;
+        }
+      } else {
+        // Non-competitive district — informational
+        const cands = Object.values(district.candidates);
+        const c = cands[0];
+        html += `
+          <div class="race-section">
+            <div class="race-header">U.S. House — ${district.label}</div>
+            <div class="result-head">
+              <div class="result-kicker">No Contested Primary</div>
+              <h2 class="result-name">${c.name}</h2>
+              <span class="result-party">${c.party === 'R' ? 'Republican' : 'Democrat'} · Incumbent</span>
+              <p class="result-liner">${c.oneLiner}</p>
+            </div>
+            <div class="caveat">
+              <div class="caveat-label">No contested primary on May 19</div>
+              <div class="caveat-body">${district.label} does not have a competitive primary this cycle. The incumbent is running unopposed or against minor challengers who are not expected to win. You can still read the full briefing to understand the district's voting record and the general election picture.</div>
+            </div>
+          </div>
+        `;
+      }
+    }
+  }
+
+  // CTA + restart
+  html += `
+    <div class="briefing-cta">
+      <button class="briefing-cta-btn" onclick="openBriefing()">Read the full candidate briefing</button>
+      <p class="briefing-cta-hint">Everything this match is based on: records, plans, complaints, sources.</p>
+    </div>
+    <div class="restart-wrap">
+      <button class="restart-btn" onclick="restart()">Start Over</button>
+    </div>
+    <p class="footer">This match reflects alignment between your priorities and each candidate's public record and plan depth. Not a prediction. Not a recommendation.</p>
+  </div>
+  `;
+
+  app.innerHTML = html;
+}
+
+function toggleScores(which) {
+  state.showScores[which] = !state.showScores[which];
+  render();
+}
+
+// ==========================================================
+// BRIEFING OVERLAY
+// ==========================================================
+function openBriefing() {
+  const el = document.getElementById('briefing');
+  const content = document.getElementById('briefingContent');
+  if (!content.innerHTML.trim()) content.innerHTML = buildBriefing();
+  el.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBriefing() {
+  document.getElementById('briefing').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeBriefing();
+});
+
+function buildBriefing() {
+  let html = '';
+
+  html += `<h1>Kentucky 2026 — Everything You Need to Decide</h1>`;
+  html += `<p>The primary is <strong>Tuesday, May 19, 2026</strong>. Early voting runs May 14–16. Kentucky is a closed primary — you can only vote in the primary of your registered party.</p>`;
+  html += `<p>This briefing covers the open U.S. Senate race (McConnell retiring), all six U.S. House districts (only two are competitive), and a 2027 Governor watchlist.</p>`;
+
+  html += `<h1>What Kentucky voters say matters</h1>`;
+  html += `<p><strong>The economy dominates.</strong> 39% of Kentucky voters name the economy as the top issue — more than double any other. Healthcare is second at 15%, threats to democracy third at 14%.</p>`;
+  html += `<p><strong>Everyday costs are what's hurting.</strong> 30% of voters say their biggest personal economic concern is everyday bills; 27% say groceries and food; 16% say healthcare payments.</p>`;
+  html += `<p><strong>Tariffs split by party.</strong> Statewide: 48% harmful / 43% beneficial. But 65% of Republicans say beneficial; 79% of Democrats and 60% of independents say harmful.</p>`;
+  html += `<p><strong>Approval ratings:</strong> Trump 52/42, Beshear 50/37, Paul 30/32 (38% neutral), McConnell 13/71. McConnell's 71% disapproval explains why all three GOP frontrunners are running against his legacy.</p>`;
+
+  html += `<h1>U.S. Senate — Top 6 Candidates</h1>`;
+
+  const senateCards = [
+    {
+      key: "barr", party: "Republican", polling: "28% (April Emerson)",
+      rows: [
+        ["Role", "U.S. Rep KY-6 since 2013. Financial Services Committee. Republican Study Committee leadership."],
+        ["Cash", "$6.6M cash on hand (Sep 2025). Pro-Barr Keep America Great PAC: Foris DAX $1.3M, Defend Us Inc $1.1M, Churchill Downs $100K."],
+        ["Platform", "Kentucky Tough. 100% America First. Deport illegals, close border, unleash KY coal, cut taxes. Authored H.J. Res 30 blocking Biden ESG rule (first Biden veto)."],
+        ["Liability", "February 2026 DEI ad: 'It's not a sin to be White.' Past Afghan visa statements used against him."]
+      ]
+    },
+    {
+      key: "cameron", party: "Republican", polling: "21% (April Emerson)",
+      rows: [
+        ["Role", "Former KY Attorney General 2019–2024. CEO 1792 Exchange (anti-ESG nonprofit). 2023 Republican gov nominee."],
+        ["Cash", "$629K cash (Sep 2025) — underfunded. No TV ads. No super PAC support."],
+        ["Platform", "Advance Trump's America First agenda. Faith-centered public service. Restore law and order. Root out DEI."],
+        ["Liability", "Lost 2023 gov race to Beshear despite Trump endorsement. Breonna Taylor case handling. 56–64% favorability (highest in field) but can't translate it into votes."]
+      ]
+    },
+    {
+      key: "morris", party: "Republican", polling: "15% (April Emerson)",
+      rows: [
+        ["Role", "Founder/CEO Morris Industries. Founder Rubicon Technologies (waste tech). Oxford Saïd MBA."],
+        ["Cash", "$1M plus $4.4M personal loans. Fight for Kentucky PAC: $10M from Elon Musk (largest Musk Senate donation ever)."],
+        ["Platform", "America First outsider. Trash McConnell legacy. Back Trump 100%. Secure border, cut taxes, end DEI."],
+        ["Liability", "Rubicon delisted from NYSE June 2024. Bush-family in-laws. Donated to Haley over Trump 2024. Flat polling despite $15M+ spending."]
+      ]
+    },
+    {
+      key: "booker", party: "Democrat", polling: "36% (April Emerson, Dem leader)",
+      rows: [
+        ["Role", "Former KY state rep HD-43 (2019–2021). 2022 Senate nominee (lost to Paul). Founder Hood to the Holler."],
+        ["Cash", "Grassroots small-dollar. Specific 2026 cycle totals not detailed in public sources."],
+        ["Platform", "Medicare for All (personal Type 1 diabetic). UBI. Wealth tax. Abolish ICE. Green New Deal. Reparations. Repeal Hyde Amendment."],
+        ["Liability", "Three prior losses. Progressive platform in a Trump +30 state. Kentucky hasn't elected a Democratic senator since 1992."]
+      ]
+    },
+    {
+      key: "mcgrath", party: "Democrat", polling: "18% (April Emerson)",
+      rows: [
+        ["Role", "Retired Marine Lt. Col. 20-year career, 89 combat missions, first woman to fly F/A-18 in combat. 2020 Senate nominee."],
+        ["Cash", "~$330K cash (end of 2025) — dramatically smaller than her 2020 $94M operation."],
+        ["Platform", "Reverse OBBBA 'big beautiful betrayal.' Repeal Trump tariffs. Restore Medicaid/ACA. Billionaire tax. Paid family leave. 'Rein in ICE' (not abolish)."],
+        ["Liability", "Lost 2020 Senate to McConnell by 20 points despite record fundraising. Lost 2018 KY-6 House race. Two prior statewide losses."]
+      ]
+    },
+    {
+      key: "stevenson", party: "Democrat", polling: "3% (April Emerson)",
+      rows: [
+        ["Role", "KY House Minority Leader (Jan 2025–present). State Rep HD-43. Retired USAF Col., 27 years JAG attorney. Ordained minister."],
+        ["Cash", "Smaller operation than Booker or McGrath."],
+        ["Platform", "Stop the recklessness in Washington. Advocate for veterans, working families, LGBTQ+ communities. Fiery House speeches on gender-affirming care and healthcare."],
+        ["Liability", "3% polling four weeks from primary. Lost 2023 AG race to Russell Coleman. Low statewide name recognition."]
+      ]
+    }
+  ];
+
+  senateCards.forEach(c => {
+    const name = SENATE[c.key].name;
+    const tag = c.party === "Republican" ? "R" : "D";
+    html += `<div class="briefing-card"><h3>${name} <span class="tag">${tag}</span></h3>`;
+    html += `<div class="briefing-row"><div class="briefing-row-label">Polling</div><div class="briefing-row-val">${c.polling}</div></div>`;
+    c.rows.forEach(([k, v]) => {
+      html += `<div class="briefing-row"><div class="briefing-row-label">${k}</div><div class="briefing-row-val">${v}</div></div>`;
+    });
+    html += `</div>`;
+  });
+
+  html += `<h1>U.S. House — All 6 Districts</h1>`;
+  const districts = [
+    { t: "KY-1 (Western KY)", i: "James Comer (R) — Oversight Chair. Won 74.7% in 2024.", s: "Safe R. Not competitive." },
+    { t: "KY-2 (West Central KY)", i: "Brett Guthrie (R) — Energy & Commerce Chair.", s: "Safe R. Not competitive." },
+    { t: "KY-3 (Louisville)", i: "Morgan McGarvey (D) — only D-held KY House seat.", s: "Safe D. Not competitive." },
+    { t: "KY-4 (Northeast KY)", i: "Thomas Massie (R) vs Ed Gallrein (R, Trump-endorsed).", s: "MARQUEE RACE. $12.4M in ad spending through April. See full cards below." },
+    { t: "KY-5 (Eastern KY / Appalachia)", i: "Hal Rogers (R) — longest-serving KY Republican ever (since 1981).", s: "Safe R. Minor challengers only." },
+    { t: "KY-6 (Lexington area)", i: "OPEN SEAT. Barr vacated for Senate run. Alvarado and Dotson are debate-qualifying frontrunners.", s: "COMPETITIVE GOP PRIMARY. See full cards below." }
+  ];
+  districts.forEach(d => {
+    html += `<div class="briefing-card"><h3>${d.t}</h3>`;
+    html += `<p><strong>Incumbent/Candidates:</strong> ${d.i}</p>`;
+    html += `<p><strong>Status:</strong> ${d.s}</p></div>`;
+  });
+
+  html += `<h2>KY-4: Massie vs Gallrein</h2>`;
+  html += `<div class="briefing-card"><h3>Thomas Massie (R) — incumbent</h3>`;
+  html += `<p>U.S. Rep KY-4 since 2012. MIT bachelor's and master's. 29 patents. Cattle farmer. Known for fiscally conservative, libertarian voting record.</p>`;
+  html += `<p><strong>Key 2025–26 votes:</strong> Against One Big Beautiful Bill Act. Against short-term funding bill. Led discharge petition (with Ro Khanna) forcing Epstein files release. Co-sponsored war powers resolutions against Iran strikes.</p>`;
+  html += `<p><strong>Pro-Massie money:</strong> Kentucky First PAC got $1M from Jeff Yass. Kentucky 4th PAC running "Tucked Tail And Ran" ad about Gallrein's GOP departure.</p>`;
+  html += `<p><strong>Massie quote:</strong> 'I vote with my party 91% of the time. But when they're protecting pedophiles, when they are blowing our budget, when they are starting wars overseas, I can't go along with that.'</p></div>`;
+
+  html += `<div class="briefing-card"><h3>Ed Gallrein (R) — Trump-endorsed challenger</h3>`;
+  html += `<p>Retired Navy SEAL officer. Fifth-generation Kentucky farmer. Murray State undergrad and master's. 2024 KY State Senate candidate.</p>`;
+  html += `<p><strong>Trump endorsement:</strong> October 2025 after Oval Office meeting. Trump rallied for Gallrein March 11, 2026 at Verst Logistics in Hebron.</p>`;
+  html += `<p><strong>Platform:</strong> Cut taxes, stop reckless spending, secure the border, finish the wall. Self-describes as 'Trump's handpicked choice.'</p>`;
+  html += `<p><strong>Anti-Massie money:</strong> $6.8M in ad spending against Massie through April 2026. RJC Victory PAC attacks Massie on Iran. MAGA KY attacks on immigration votes.</p></div>`;
+
+  html += `<h2>KY-6: Open Seat</h2>`;
+  html += `<div class="briefing-card"><h3>Ralph Alvarado (R)</h3>`;
+  html += `<p>Physician. Former KY State Senator 2015–2023. Former TN Commissioner of Health 2023–2025. 2019 Republican Lt. Gov nominee.</p>`;
+  html += `<p><strong>Endorsement:</strong> Damon Thayer (former KY Senate Majority Leader) endorsed Alvarado after withdrawing his own candidacy.</p>`;
+  html += `<p><strong>Fundraising:</strong> Raised $376,900+ between July and September 2025 — strongest Q3 in the KY-6 field.</p>`;
+  html += `<p><strong>Debate:</strong> Met Spectrum News threshold. Debated Dotson February 26, 2026.</p></div>`;
+
+  html += `<div class="briefing-card"><h3>Ryan Dotson (R)</h3>`;
+  html += `<p>KY State Representative (Winchester). Pastor. U.S. Army veteran. Self-describes: 'the only person in my race that has never left Kentucky, other than to serve in the US Army.'</p>`;
+  html += `<p><strong>Fundraising:</strong> $324,460+ raised April–September 2025, plus $260,000 personal loan to his campaign.</p>`;
+  html += `<p><strong>Framing:</strong> 'Pastor, veteran, proven leader... backed by the people, not the political class.'</p>`;
+  html += `<p><strong>Debate:</strong> Met Spectrum News threshold. Debated Alvarado February 26, 2026.</p></div>`;
+
+  html += `<h1>2027 Governor Watchlist</h1>`;
+  html += `<p>The Kentucky gubernatorial election is November 2, 2027. Beshear is term-limited. Only one candidate has officially launched as of April 2026.</p>`;
+
+  html += `<h2>Officially announced</h2>`;
+  html += `<div class="briefing-card"><h3>Jacqueline Coleman (D)</h3>`;
+  html += `<p>Lt. Gov. since 2019. Launched campaign April 20, 2026. Public-education background. Running on Beshear-administration continuity.</p>`;
+  html += `<p><strong>Comer quote (Fancy Farm 2025):</strong> 'Unless something happens, Jackie Coleman's the overwhelming favorite to be the Democrat nominee for governor.'</p></div>`;
+
+  html += `<h2>Republican speculation</h2>`;
+  html += `<p>James Comer (KY-1, Oversight Chair) — mentioned at Fancy Farm 2025. Andy Barr, Daniel Cameron, Nate Morris — all possible pivots after the 2026 Senate primary. Thomas Massie (if re-elected). Savannah Maddox (state rep HD-61). Michael Adams (SoS, term-limited 2027, bipartisan credibility). Damon Thayer, KC Crosbie (RNC co-chair), Stan Cave. Russell Coleman (AG) says he's running for AG re-election, not Governor.</p>`;
+
+  html += `<h2>Democratic speculation</h2>`;
+  html += `<p>Rocky Adkins (Beshear senior adviser; 2019 primary runner-up). Adam Edelen (former KY Auditor; 2019 candidate).</p>`;
+
+  html += `<h2>2027 context</h2>`;
+  html += `<p>Trump won Kentucky by 30.5% in 2024 (64.6% of the vote). Last Democratic U.S. Senate win: Wendell Ford, 1992 (34 years ago). Kentucky Legislature is a GOP supermajority. Beshear approval: 50%.</p>`;
+
+  html += `<h1>Sources</h1>`;
+  html += `<p><strong>Polling:</strong> Emerson College Polling/FOX56 (April 2026, Feb 2026), Quantus Insights, Public Opinion Strategies, Co/Efficient, Kentucky First Action.</p>`;
+  html += `<p><strong>Campaign finance:</strong> FEC filings, AdImpact ad-tracking data, GovTrack.us voting records.</p>`;
+  html += `<p><strong>News:</strong> Ballotpedia, Wikipedia, Kentucky Lantern, Louisville Public Media, CNN, NBC News, NOTUS, WDRB, Spectrum News KY, The Hill, Washington Times, The Nation, WHAS11, Courier Journal, Lexington Herald-Leader.</p>`;
+  html += `<p><strong>Candidate sources:</strong> barrforsenate.com, Daniel Cameron 2026 website, Nate Morris 2026 website, charlesbooker.org, amymcgrath.com, stevensonforsenate.com, massie.house.gov, Ed Gallrein campaign website.</p>`;
+
+  return html;
+}
+
+// ==========================================================
+// INIT
+// ==========================================================
+render();
+</script>
+</body>
+</html>
