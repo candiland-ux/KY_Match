@@ -974,38 +974,38 @@ const SENATE_QUESTIONS = [
     maxPicks: 3,
     options: [
       { key: "economy", label: "Economy and cost of living", sub: "Everyday bills, groceries, jobs, wages",
-        weights: { barr: 4, cameron: 3, morris: 3, booker: 4, mcgrath: 4, stevenson: 3 },
-        reason: "You picked the top issue in Kentucky (39% of voters say the economy is #1). Every candidate has an economic frame — but they differ sharply on mechanisms." },
+        weights: { barr: 4, cameron: 3, morris: 3, booker: 5, mcgrath: 3, stevenson: 2 },
+        reason: "You picked the top issue in Kentucky (39% of voters say the economy is #1). Booker leads with most specific progressive economic plan (UBI, wealth tax, capital gains equalization). McGrath focuses on rolling back tariffs and reversing OBBBA. Stevenson frames it through working-families advocacy." },
       { key: "healthcare", label: "Healthcare and prescription costs", sub: "Medicaid, rural hospitals, drug prices",
-        weights: { barr: 2, cameron: 2, morris: 2, booker: 5, mcgrath: 5, stevenson: 4 },
-        reason: "You put healthcare first. Booker backs Medicare for All (Type 1 diabetic, has personally rationed insulin). McGrath would restore Medicaid and ACA subsidies. GOP candidates focus on reducing federal health spending." },
+        weights: { barr: 2, cameron: 2, morris: 2, booker: 5, mcgrath: 4, stevenson: 2 },
+        reason: "You put healthcare first. Booker backs Medicare for All (Type 1 diabetic, has personally rationed insulin). McGrath would restore Medicaid and ACA subsidies and protect rural hospitals. GOP candidates focus on reducing federal health spending." },
       { key: "immigration_enforce", label: "Tougher immigration enforcement", sub: "Border, ICE, deportation",
         weights: { barr: 5, cameron: 4, morris: 4, booker: 0, mcgrath: 1, stevenson: 0 },
         reason: "You want tougher immigration enforcement. Barr platform includes deporting illegals, closing the border, and voting for ICE funding. Cameron and Morris align similarly. Democrats oppose." },
       { key: "immigration_defend", label: "Protecting immigrants and due process", sub: "Pathway to citizenship, rein in ICE",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 3, stevenson: 4 },
-        reason: "You want immigrant protections. Booker backs abolishing ICE. McGrath says ICE 'needs to be reined in.' Stevenson has been a vocal defender in the Kentucky House." },
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 2, stevenson: 3 },
+        reason: "You want immigrant protections. Booker backs abolishing ICE. Stevenson has defended immigrant rights on the KY House floor. McGrath says ICE 'needs to be reined in' — more moderate." },
       { key: "trump_resist", label: "Resisting the Trump agenda", sub: "Tariffs, OBBBA, federal overreach",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 5, stevenson: 5 },
-        reason: "You want resistance to the Trump agenda. All three Democrats oppose Trump; McGrath calls the One Big Beautiful Bill 'the big beautiful betrayal.' No Republican in the race opposes Trump." },
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 3, mcgrath: 5, stevenson: 4 },
+        reason: "You want resistance to the Trump agenda. McGrath leads most visibly — calls OBBBA 'the big beautiful betrayal' and uses her Marine credibility on Iran/tariffs. Stevenson opposes from the legislative-leader side. Booker opposes from the progressive side." },
       { key: "trump_support", label: "Backing the Trump agenda", sub: "Tariffs, deregulation, America First",
         weights: { barr: 5, cameron: 5, morris: 5, booker: 0, mcgrath: 0, stevenson: 0 },
         reason: "You want a senator who backs Trump. All three Republicans campaign as 'America First' Trump allies. No Trump endorsement yet as of late April 2026." },
       { key: "mcconnell_break", label: "Breaking with McConnell's legacy", sub: "End establishment GOP in Kentucky",
-        weights: { barr: 1, cameron: 2, morris: 5, booker: 4, mcgrath: 4, stevenson: 4 },
-        reason: "You want to end the McConnell era. McConnell has 71% disapproval in Kentucky. Morris is running most explicitly against it (called McConnell a 'decrepit old mob boss'). Barr previously supported a McConnell Capitol statue." },
+        weights: { barr: 1, cameron: 2, morris: 5, booker: 5, mcgrath: 3, stevenson: 4 },
+        reason: "You want to end the McConnell era. Booker has run against McConnell-style politics his whole career ('Hood to the Holler'). Morris is running most explicitly against it on the GOP side (called McConnell a 'decrepit old mob boss'). Stevenson's campaign launch video: 'McConnell watched Kentucky from 30,000 feet.'" },
       { key: "abortion_rights", label: "Restoring abortion rights", sub: "Roe-era protections, reproductive freedom",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 4, stevenson: 5 },
-        reason: "You want to restore abortion rights. All three Dems support reproductive freedom. Booker backs repealing the Hyde Amendment. All three Republicans are anti-abortion (Cameron upheld KY bans to the Supreme Court as AG; Barr supports the Hyde Amendment)." },
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 4, mcgrath: 2, stevenson: 5 },
+        reason: "You want to restore abortion rights. Stevenson's 2023 viral HB 470 speech was the most prominent KY Dem defense of reproductive rights. Booker backs repealing Hyde Amendment. McGrath supports abortion rights but hasn't made it her lead issue." },
       { key: "energy_coal", label: "Kentucky coal and energy jobs", sub: "Drill baby drill, unleash coal, oppose ESG",
         weights: { barr: 5, cameron: 4, morris: 3, booker: 0, mcgrath: 1, stevenson: 0 },
         reason: "You want coal and fossil fuel jobs prioritized. Barr authored H.J. Res 30 blocking Biden's ESG rule (first Biden veto). Cameron as AG subpoenaed 6 major banks over ESG. Democrats favor energy transition." },
       { key: "climate_clean", label: "Climate action and clean energy", sub: "Green New Deal, climate investment, move beyond coal",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 2, stevenson: 2 },
-        reason: "You want climate action. Booker explicitly backs the Green New Deal and clean renewable infrastructure. McGrath and Stevenson support the energy transition but don't lead with it. All three Republicans actively oppose ESG and climate regulation — Barr authored the bill that became Biden's first veto." },
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 2, stevenson: 1 },
+        reason: "You want climate action. Booker explicitly backs the Green New Deal and clean renewable infrastructure. McGrath supports the energy transition but doesn't lead with it. Stevenson doesn't lead on this. All three Republicans actively oppose ESG and climate regulation." },
       { key: "veterans_military", label: "Veterans and military issues", sub: "VA care, military readiness",
-        weights: { barr: 3, cameron: 2, morris: 2, booker: 2, mcgrath: 5, stevenson: 5 },
-        reason: "You want military/veterans experience. McGrath is a retired Marine Lt. Col. with 89 combat missions. Stevenson is a retired Air Force Colonel and 27-year JAG attorney. Gallrein (KY-4) is a Navy SEAL." }
+        weights: { barr: 3, cameron: 2, morris: 2, booker: 1, mcgrath: 5, stevenson: 4 },
+        reason: "You want military/veterans experience. McGrath: retired Marine Lt. Col., 89 combat missions, first woman to fly F/A-18 in combat. Stevenson: retired USAF Colonel, 27-year JAG attorney serving in 11 countries. Gallrein (KY-4) is a Navy SEAL." }
     ]
   },
   {
@@ -1014,13 +1014,13 @@ const SENATE_QUESTIONS = [
     sub: "There's no right answer — pick what feels most like you.",
     options: [
       { key: "fighter", label: "A fighter", sub: "Combative, viral, willing to go after opponents",
-        weights: { barr: 4, cameron: 2, morris: 5, booker: 4, mcgrath: 3, stevenson: 5 } },
+        weights: { barr: 4, cameron: 2, morris: 5, booker: 3, mcgrath: 2, stevenson: 5 } },
       { key: "operator", label: "An operator", sub: "Disciplined, gets bills through, works the process",
-        weights: { barr: 3, cameron: 3, morris: 2, booker: 2, mcgrath: 4, stevenson: 3 } },
+        weights: { barr: 3, cameron: 3, morris: 2, booker: 2, mcgrath: 5, stevenson: 3 } },
       { key: "coalition", label: "A coalition-builder", sub: "Cross-party deals, bipartisan wins",
-        weights: { barr: 2, cameron: 3, morris: 1, booker: 4, mcgrath: 4, stevenson: 3 } },
+        weights: { barr: 2, cameron: 3, morris: 1, booker: 4, mcgrath: 5, stevenson: 2 } },
       { key: "outsider", label: "An outsider", sub: "Hasn't been in Washington, change agent",
-        weights: { barr: 0, cameron: 1, morris: 5, booker: 1, mcgrath: 2, stevenson: 2 } }
+        weights: { barr: 0, cameron: 1, morris: 5, booker: 4, mcgrath: 1, stevenson: 2 } }
     ]
   },
   {
@@ -1029,13 +1029,13 @@ const SENATE_QUESTIONS = [
     sub: "",
     options: [
       { key: "congress", label: "Congressional / legislative record", sub: "Has voted on real bills, knows the process",
-        weights: { barr: 5, cameron: 0, morris: 0, booker: 3, mcgrath: 0, stevenson: 2 } },
+        weights: { barr: 5, cameron: 0, morris: 0, booker: 4, mcgrath: 0, stevenson: 3 } },
       { key: "statewide_exec", label: "Statewide executive", sub: "Run a department, held a statewide office",
-        weights: { barr: 0, cameron: 5, morris: 0, booker: 0, mcgrath: 0, stevenson: 1 } },
+        weights: { barr: 0, cameron: 5, morris: 0, booker: 0, mcgrath: 0, stevenson: 2 } },
       { key: "military", label: "Military service", sub: "Combat or officer-level leadership",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 0, mcgrath: 5, stevenson: 5 } },
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 0, mcgrath: 5, stevenson: 4 } },
       { key: "outsider_biz", label: "Private-sector / business leader", sub: "Built a company, not a career politician",
-        weights: { barr: 0, cameron: 1, morris: 5, booker: 0, mcgrath: 0, stevenson: 2 } }
+        weights: { barr: 0, cameron: 1, morris: 5, booker: 1, mcgrath: 0, stevenson: 2 } }
     ]
   },
   {
@@ -1044,9 +1044,9 @@ const SENATE_QUESTIONS = [
     sub: "",
     options: [
       { key: "grassroots", label: "Grassroots first", sub: "Small donors, no corporate PAC focus",
-        weights: { barr: 1, cameron: 2, morris: 0, booker: 5, mcgrath: 3, stevenson: 3 } },
+        weights: { barr: 1, cameron: 2, morris: 0, booker: 5, mcgrath: 2, stevenson: 3 } },
       { key: "big_donors_ok", label: "Big donors are fine if they help win", sub: "Super PACs, billionaires, whatever works",
-        weights: { barr: 5, cameron: 1, morris: 5, booker: 1, mcgrath: 2, stevenson: 1 } },
+        weights: { barr: 5, cameron: 1, morris: 5, booker: 0, mcgrath: 3, stevenson: 1 } },
       { key: "self_funded", label: "Self-funded is best", sub: "Can't be bought",
         weights: { barr: 0, cameron: 0, morris: 3, booker: 0, mcgrath: 0, stevenson: 0 } },
       { key: "dontcare", label: "Don't care about this", sub: "",
@@ -1812,7 +1812,8 @@ function computeSenateScores() {
     }
   });
 
-  Object.keys(scores).forEach(k => scores[k] = Math.round(scores[k]));
+  // Note: do NOT round here — fractional scores from rank multipliers (1.0/0.6/0.3)
+  // are what prevent false ties. Rounding happens only at display time for percentages.
   return scores;
 }
 
