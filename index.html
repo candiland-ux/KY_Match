@@ -440,10 +440,10 @@
     text-transform: uppercase;
     font-weight: 600;
   }
-  .econ-mini-table th:nth-child(1) { width: 28%; }
+  .econ-mini-table th:nth-child(1) { width: 30%; }
   .econ-mini-table th:nth-child(2) { width: 22%; }
-  .econ-mini-table th:nth-child(3) { width: 32%; }
-  .econ-mini-table th:nth-child(4) { width: 18%; }
+  .econ-mini-table th:nth-child(3) { width: 28%; }
+  .econ-mini-table th:nth-child(4) { width: 20%; }
   .econ-mini-table td {
     padding: 6px 6px;
     border-bottom: 1px solid rgba(42,37,30,0.12);
@@ -452,8 +452,9 @@
     -webkit-text-fill-color: #2a251e;
     font-size: 12px;
     line-height: 1.35;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    word-break: normal;
   }
   .econ-mini-table td:first-child {
     font-weight: 600;
@@ -464,8 +465,15 @@
     -webkit-text-fill-color: #5a544a;
   }
   .econ-tag {
-    font-size: 10px !important;
-    padding: 2px 5px !important;
+    font-size: 9px !important;
+    padding: 2px 4px !important;
+    letter-spacing: 0.02em !important;
+  }
+  .econ-mini-table td:nth-child(2),
+  .econ-mini-table td:nth-child(3) {
+    word-break: normal;
+    overflow-wrap: normal;
+    word-wrap: normal;
   }
   .econ-table-foot {
     padding: 8px 12px;
@@ -1002,6 +1010,36 @@
     margin-bottom: 16px;
   }
   .scores-list.open { display: block; }
+
+  /* ==================== METHODOLOGY TOGGLE ==================== */
+  .method-toggle {
+    background: transparent;
+    border: none;
+    color: #8b2e1f !important;
+    -webkit-text-fill-color: #8b2e1f;
+    font-family: inherit;
+    font-size: 12px;
+    text-decoration: underline;
+    padding: 0;
+    margin: 8px 0 4px;
+    cursor: pointer;
+    display: block;
+  }
+  .method-body {
+    display: none;
+    background: #faf7f0 !important;
+    border-left: 3px solid #8b2e1f;
+    padding: 12px 14px;
+    margin: 8px 0 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+  }
+  .method-body.open { display: block; }
+  .method-body p { margin: 0 0 8px; }
+  .method-body p:last-child { margin-bottom: 0; }
+  .method-body strong { color: #1a1814 !important; -webkit-text-fill-color: #1a1814; }
   .score-row {
     display: flex;
     justify-content: space-between;
@@ -1240,7 +1278,8 @@ const state = {
   showBoth: false, // toggle for seeing other party's candidates
   district: null, // 1-6
   forcedCrossParty: false, // set true if we auto-enabled showBoth because voter's party has no candidates
-  showScores: { senate: false, house: false }
+  showScores: { senate: false, house: false },
+  showMethod: false
 };
 
 const app = document.getElementById('app');
@@ -1815,25 +1854,25 @@ function renderIntro() {
                   <tr><td>30-year mortgage rate</td><td>~6.9–7.0%</td><td>6.23%</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
                   <tr><td>Egg prices (YoY)</td><td>+8.5%</td><td>−42.1%</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
                   <tr><td>Fed funds rate</td><td>4.25–4.50%</td><td>3.50–3.75%</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
-                  <tr><td>Restaurant prices (YoY)</td><td>+4.1%</td><td>+3.9%</td><td><span class="econ-tag econ-tag-better">Slightly</span></td></tr>
+                  <tr><td>Restaurant prices (YoY)</td><td>+4.1%</td><td>+3.9%</td><td><span class="econ-tag econ-tag-better">Slightly better</span></td></tr>
                   <tr><td>GDP growth</td><td>~2.8%</td><td>~2.2% projected</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>Unemployment rate</td><td>4.1%</td><td>4.4%</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>Inflation (CPI, YoY)</td><td>2.9%</td><td>3.3%</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>Median home price</td><td>~$385,000</td><td>~$415,000</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Home sales pace</td><td>Slow</td><td>Slowest March since 2009</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Home sales</td><td>4.06M / year</td><td>3.98M / year (slowest since 1995)</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>Gas price (regular)</td><td>~$3.00</td><td>$4.02</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>Diesel price</td><td>~$3.50</td><td>~$5.16</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>Grocery prices (YoY)</td><td>+1.2%</td><td>+2.4%</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Ground beef (YoY)</td><td>Rising</td><td>+17% since Jan 2025</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Ground beef (per lb)</td><td>~$5.59</td><td>~$6.63 (+17% since Jan 2025)</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>Monthly job growth</td><td>~150–200K</td><td>~15K</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Construction jobs</td><td>Growing</td><td>Slowing</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Agriculture sector</td><td>Mixed</td><td>Labor squeezed; fertilizer/fuel up; exports shrunk by retaliatory tariffs</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>AI impact on electric bills</td><td>Early warnings</td><td>+20% projected summer 2026 in 13 states</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>AI impact on employment</td><td>Minimal</td><td>55K+ direct layoffs; 200–300K modeled</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Construction jobs</td><td>Adding jobs</td><td>Net losses</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Agriculture sector</td><td>Stable but tight</td><td>Labor squeezed; fertilizer/fuel up; exports shrunk by retaliatory tariffs</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Electric bills from AI data centers</td><td>No change yet</td><td>Household bills up 20% projected this summer in 13 states on the PJM grid (Kentucky is one)</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>AI impact on employment</td><td>Under 5K layoffs</td><td>55K+ direct layoffs; 200–300K modeled</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                 </tbody>
               </table>
             </div>
-            <div class="econ-table-foot"><strong>4 better, 14 worse.</strong> Hiring collapse is the biggest national story — 15K jobs/month vs. 150–200K a year ago.</div>
+            <div class="econ-table-foot"><strong>4 better, 14 worse.</strong> The biggest national story is the hiring collapse. 15K jobs added per month, down from 150–200K jobs per month a year ago. Median household income did grow from $80,610 to $83,730 (+3.9%), but gas is up 34%, ground beef 17%, and home prices 7.8%, so the raise does not stretch as far as it looks.</div>
           </div>
 
           <div class="econ-table-wrap">
@@ -1843,22 +1882,21 @@ function renderIntro() {
                 <thead><tr><th>Metric</th><th>2024</th><th>April 2026</th><th></th></tr></thead>
                 <tbody>
                   <tr><td>Unemployment rate</td><td>~5.3%</td><td>4.3%</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
-                  <tr><td>Nonfarm employment (YoY)</td><td>Growing</td><td>+7,400 jobs (+0.4%)</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
-                  <tr><td>Construction jobs (YoY)</td><td>Growing</td><td>+7% in 2025</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
-                  <tr><td>Housing market stability</td><td>Stable</td><td>Stable, healthy inventory</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
-                  <tr><td>Farm labor supply</td><td>Adequate</td><td>Worker shortages from immigration policy</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Agriculture sector</td><td>Stable</td><td>Fertilizer + diesel costs up; soybean/corn/pork exports shrunk by retaliatory tariffs</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Median home price</td><td>~$235,000</td><td>~$245,000 (+4.5% YoY)</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Gas price (regular)</td><td>~$2.80</td><td>$3.98</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Gas price YoY</td><td>—</td><td><strong>+42.5% (highest in U.S.)</strong></td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Nonfarm employment (YoY)</td><td>Adding jobs</td><td>+7,400 jobs (+0.4%)</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Construction jobs (YoY)</td><td>Adding jobs</td><td>+7% in 2025</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Housing market stability</td><td>Steady prices and inventory</td><td>Stable, healthy inventory</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Farm labor supply</td><td>Met farm needs</td><td>Worker shortages from immigration policy</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Agriculture sector</td><td>Crop prices at inflation-adjusted lows; grain farms first year of losses</td><td>Crops still below breakeven; farmers losing money on every bushel. Fertilizer + diesel costs up; exports hit by tariffs</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Median home price</td><td>~$235,000</td><td>~$245,000 (+4.5% YoY)</td><td><span class="econ-tag econ-tag-worse">Slightly worse</span></td></tr>
+                  <tr><td>Gas price (regular)</td><td>~$2.80</td><td>$3.98 (+42.5%, biggest jump in U.S.)</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>Diesel price</td><td>~$3.40</td><td>$4.93</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Bourbon industry</td><td>Booming</td><td>Paused; supply outpaced demand; EU + Canada tariffs hit exports</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Bourbon industry</td><td>Record exports</td><td>Paused; supply outpaced demand; EU + Canada tariffs hit exports</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
                   <tr><td>State budget</td><td>Strong (pandemic stimulus)</td><td>Crunch from federal cuts + tax cuts</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
-                  <tr><td>Labor force participation</td><td>Low</td><td>Still low; barriers persist</td><td><span class="econ-tag econ-tag-neutral">No change</span></td></tr>
+                  <tr><td>Labor force participation</td><td>~58.2%</td><td>~58%; flat because people leaving the labor force (no longer counted) cancels out new hires</td><td><span class="econ-tag econ-tag-neutral">No change</span></td></tr>
                 </tbody>
               </table>
             </div>
-            <div class="econ-table-foot"><strong>4 better, 8 worse, 1 no change.</strong> Unemployment down and construction booming, but the largest gas price shock of any state.</div>
+            <div class="econ-table-foot"><strong>4 better, 7 worse, 1 no change.</strong> Unemployment down and construction booming, but the largest gas price shock of any state. For a typical Kentucky household earning around $62,400, the +42.5% gas hit and rising groceries absorb most of any income gains.</div>
           </div>
         </div>
       </div>
@@ -2170,6 +2208,7 @@ function restart() {
   state.district = null;
   state.forcedCrossParty = false;
   state.showScores = { senate: false, house: false };
+  state.showMethod = false;
   window.scrollTo({ top: 0, behavior: 'smooth' });
   render();
 }
@@ -2779,6 +2818,18 @@ function renderResult() {
     }
   }
 
+  // Methodology toggle
+  html += `
+    <button class="method-toggle" onclick="toggleMethod()">${state.showMethod ? 'Hide' : 'How is your match calculated?'}</button>
+    <div class="method-body ${state.showMethod ? 'open' : ''}">
+      <p>For each question you answered, every candidate received a score from <strong>0 to 5</strong> based on how closely their public record, platform, and stated positions align with that answer.</p>
+      <p>Your <strong>top-issue picks weigh more than the others</strong> — your #1 issue counts more than your #3.</p>
+      <p>Each candidate's total is divided by the same denominator: the highest score any candidate could theoretically earn if every one of your answers happened to match that candidate's strongest positions. That gives every candidate a comparable 0-to-100 scale.</p>
+      <p>Because candidates have different strengths across different questions, no candidate's ceiling is 100%. Their maximum possible alignment depends on how many of their positions happen to fall on the "5" side of each question. That's why you'll see top matches in the 80–95% range, not 100%.</p>
+      <p>This is not a poll, a prediction, or an endorsement. It is a structured comparison between what you said you want and what each candidate has publicly put on the record.</p>
+    </div>
+  `;
+
   // CTA + restart
   html += `
     <div class="briefing-cta">
@@ -2797,6 +2848,11 @@ function renderResult() {
 
 function toggleScores(which) {
   state.showScores[which] = !state.showScores[which];
+  render();
+}
+
+function toggleMethod() {
+  state.showMethod = !state.showMethod;
   render();
 }
 
