@@ -582,6 +582,57 @@
   }
   .caveat-body { font-size: 14px; color: #333 !important; -webkit-text-fill-color: #333; line-height: 1.5; }
 
+  /* ==================== RUNNER-UP ==================== */
+  .runner {
+    background: #f7f5f0 !important;
+    border-radius: 8px;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0 20px;
+  }
+  .runner-body { flex: 1; }
+  .runner-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #888 !important;
+    -webkit-text-fill-color: #888;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .runner-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+    line-height: 1.1;
+  }
+  .runner-note {
+    font-size: 13px;
+    color: #666 !important;
+    -webkit-text-fill-color: #666;
+    margin-top: 2px;
+  }
+  .runner-pts {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111 !important;
+    -webkit-text-fill-color: #111;
+    text-align: right;
+  }
+  .runner-pts-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: #888 !important;
+    -webkit-text-fill-color: #888;
+    text-align: right;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
   /* ==================== SCOREBOARD ==================== */
   .scores-toggle {
     background: transparent;
@@ -1828,6 +1879,14 @@ function computeHouseMax() {
   return max;
 }
 
+// Return the last name (or full name if only one word).
+// Used in narrative so we say "Massie" not "Thomas" — standard political shorthand.
+function lastName(fullName) {
+  if (!fullName) return '';
+  const parts = fullName.trim().split(/\s+/);
+  return parts[parts.length - 1];
+}
+
 // ==========================================================
 // REASONING
 // ==========================================================
@@ -1837,7 +1896,7 @@ function buildSenateReasons(winnerKey) {
   const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   if (sorted.length < 2) return reasons;
   const runnerKey = sorted[1][0];
-  const winnerFirst = SENATE[winnerKey].name.split(' ')[0];
+  const winnerFirst = lastName(SENATE[winnerKey].name);
 
   // Top issues
   const topIssues = state.answers.topIssue;
@@ -1858,7 +1917,7 @@ function buildSenateReasons(winnerKey) {
       if (weight <= 1) {
         const topScorer = Object.entries(opt.weights || {}).sort((a, b) => b[1] - a[1])[0];
         if (topScorer && topScorer[0] !== winnerKey && SENATE[topScorer[0]]) {
-          body += ` <em>Note: ${SENATE[topScorer[0]].name.split(' ')[0]} has the strongest record on this specific issue.</em>`;
+          body += ` <em>Note: ${lastName(SENATE[topScorer[0]].name)} has the strongest record on this specific issue.</em>`;
         }
       }
       reasons.push({ q: rankLabels[idx], body });
@@ -1912,7 +1971,7 @@ function buildSenateReasons(winnerKey) {
             const eligible = getEligibleSenateCandidates();
             const topScorer = Object.entries(opt.weights).filter(([k]) => eligible.includes(k)).sort((a, b) => b[1] - a[1])[0];
             if (topScorer && topScorer[0] !== winnerKey) {
-              note = ` — ${SENATE[topScorer[0]].name.split(' ')[0]} would have scored higher on this dimension.`;
+              note = ` — ${lastName(SENATE[topScorer[0]].name)} would have scored higher on this dimension.`;
             } else note = `.`;
           } else note = `.`;
         } else note = `.`;
@@ -1932,7 +1991,7 @@ function buildSenateReasons(winnerKey) {
   // Head-to-head
   const winnerScore = sorted[0][1];
   const runnerScore = sorted[1][1];
-  const runnerName = SENATE[runnerKey].name.split(' ')[0];
+  const runnerName = lastName(SENATE[runnerKey].name);
   const vsDetail = buildSenateHeadToHead(winnerKey, runnerKey);
   reasons.push({
     q: null,
@@ -1972,7 +2031,7 @@ function buildSenateHeadToHead(winnerKey, runnerKey) {
       if (Math.abs(diff) >= 1) diffs.push({ qLabel: QUESTION_LABELS[q.id] || q.id, answerLabel: ANSWER_LABELS[q.id]?.[ans] || ans, diff });
     }
   });
-  return buildVsNarrative(diffs, SENATE[winnerKey].name.split(' ')[0], SENATE[runnerKey].name.split(' ')[0]);
+  return buildVsNarrative(diffs, lastName(SENATE[winnerKey].name), lastName(SENATE[runnerKey].name));
 }
 
 function buildHouseReasons(winnerKey) {
@@ -1981,7 +2040,7 @@ function buildHouseReasons(winnerKey) {
   const district = HOUSE[state.district];
   if (!district) return reasons;
   const winnerObj = district.candidates[winnerKey];
-  const winnerFirst = winnerObj.name.split(' ')[0];
+  const winnerFirst = lastName(winnerObj.name);
 
   // About
   reasons.push({ q: `About ${winnerFirst}`, body: winnerObj.oneLiner });
@@ -2036,7 +2095,7 @@ function buildHouseReasons(winnerKey) {
   const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   if (sorted.length >= 2) {
     const runnerKey = sorted[1][0];
-    const runnerFirst = district.candidates[runnerKey].name.split(' ')[0];
+    const runnerFirst = lastName(district.candidates[runnerKey].name);
     const diffs = [];
     houseQs.forEach(q => {
       const ans = state.answers[q.id];
@@ -2105,8 +2164,54 @@ function renderResult() {
 
       const scoresHtml = sorted.map(([k, s]) => {
         const c = SENATE[k];
-        return `<div class="score-row"><span class="score-name">${c.name}<span class="p">(${c.party})</span></span><span class="score-val">${s}</span></div>`;
+        const candPct = maxPossible > 0 ? Math.round((s / maxPossible) * 100) : 0;
+        return `<div class="score-row"><span class="score-name">${c.name}<span class="p">(${c.party})</span></span><span class="score-val">${candPct}%</span></div>`;
       }).join('');
+
+      // Runner-up data (only if we have 2+ candidates, handle ties)
+      let runnerHtml = '';
+      if (sorted.length >= 2) {
+        const runnerScore = sorted[1][1];
+        // Find all candidates tied at the runner-up score — but exclude the winner
+        // (in case winner and runner-up are tied on score, which means a first-place tie)
+        const tied = sorted.filter(([k, s]) => s === runnerScore && k !== wKey);
+        const runnerPct = maxPossible > 0 ? Math.round((runnerScore / maxPossible) * 100) : 0;
+        const firstPlaceTie = sorted[0][1] === runnerScore;
+
+        if (tied.length === 1) {
+          const runner = SENATE[tied[0][0]];
+          runnerHtml = `
+            <div class="runner">
+              <div class="runner-body">
+                <div class="runner-label">${firstPlaceTie ? 'Tied for Top' : 'Close Runner-Up'}</div>
+                <div class="runner-name">${runner.name}</div>
+                <div class="runner-note">${runner.oneLiner}</div>
+              </div>
+              <div>
+                <div class="runner-pts">${runnerPct}%</div>
+                <div class="runner-pts-label">${firstPlaceTie ? 'same as top' : 'alignment'}</div>
+              </div>
+            </div>
+          `;
+        } else if (tied.length > 1) {
+          // Multi-way tie at runner-up slot
+          const tiedNames = tied.map(([k]) => SENATE[k].name).join(' and ');
+          const tiedOneLiners = tied.map(([k]) => `<strong>${SENATE[k].name}:</strong> ${SENATE[k].oneLiner}`).join('<br><br>');
+          runnerHtml = `
+            <div class="runner">
+              <div class="runner-body">
+                <div class="runner-label">${firstPlaceTie ? 'Tied for Top' : 'Runner-Up (Tied)'}</div>
+                <div class="runner-name">${tiedNames}</div>
+                <div class="runner-note">${tiedOneLiners}</div>
+              </div>
+              <div>
+                <div class="runner-pts">${runnerPct}%</div>
+                <div class="runner-pts-label">${firstPlaceTie ? 'same as top' : 'each'}</div>
+              </div>
+            </div>
+          `;
+        }
+      }
 
       html += `
         <div class="race-section">
@@ -2119,9 +2224,10 @@ function renderResult() {
             <div class="result-pct">${pct}%</div>
             <div class="result-pct-label">alignment</div>
           </div>
-          <div class="section-title">Why ${winner.name.split(' ')[0]}?</div>
+          <div class="section-title">Why ${lastName(winner.name)}?</div>
           ${reasonsHtml}
           ${caveat ? `<div class="caveat"><div class="caveat-label">One thing to know before you vote</div><div class="caveat-body">${caveat}</div></div>` : ''}
+          ${runnerHtml}
           <button class="scores-toggle" onclick="toggleScores('senate')">${state.showScores.senate ? 'Hide' : 'Show'} all Senate candidate scores</button>
           <div class="scores-list ${state.showScores.senate ? 'open' : ''}">${scoresHtml}</div>
         </div>
@@ -2161,8 +2267,51 @@ function renderResult() {
 
           const scoresHtml = sorted.map(([k, s]) => {
             const c = district.candidates[k];
-            return `<div class="score-row"><span class="score-name">${c.name}<span class="p">(${c.party})</span></span><span class="score-val">${s}</span></div>`;
+            const candPct = maxPossible > 0 ? Math.round((s / maxPossible) * 100) : 0;
+            return `<div class="score-row"><span class="score-name">${c.name}<span class="p">(${c.party})</span></span><span class="score-val">${candPct}%</span></div>`;
           }).join('');
+
+          // Runner-up data (handle ties)
+          let runnerHtml = '';
+          if (sorted.length >= 2) {
+            const runnerScore = sorted[1][1];
+            const tied = sorted.filter(([k, s]) => s === runnerScore && k !== wKey);
+            const runnerPct = maxPossible > 0 ? Math.round((runnerScore / maxPossible) * 100) : 0;
+            const firstPlaceTie = sorted[0][1] === runnerScore;
+
+            if (tied.length === 1) {
+              const runner = district.candidates[tied[0][0]];
+              runnerHtml = `
+                <div class="runner">
+                  <div class="runner-body">
+                    <div class="runner-label">${firstPlaceTie ? 'Tied for Top' : 'Close Runner-Up'}</div>
+                    <div class="runner-name">${runner.name}</div>
+                    <div class="runner-note">${runner.oneLiner}</div>
+                  </div>
+                  <div>
+                    <div class="runner-pts">${runnerPct}%</div>
+                    <div class="runner-pts-label">${firstPlaceTie ? 'same as top' : 'alignment'}</div>
+                  </div>
+                </div>
+              `;
+            } else if (tied.length > 1) {
+              const tiedNames = tied.map(([k]) => district.candidates[k].name).join(' and ');
+              const tiedOneLiners = tied.map(([k]) => `<strong>${district.candidates[k].name}:</strong> ${district.candidates[k].oneLiner}`).join('<br><br>');
+              runnerHtml = `
+                <div class="runner">
+                  <div class="runner-body">
+                    <div class="runner-label">${firstPlaceTie ? 'Tied for Top' : 'Runner-Up (Tied)'}</div>
+                    <div class="runner-name">${tiedNames}</div>
+                    <div class="runner-note">${tiedOneLiners}</div>
+                  </div>
+                  <div>
+                    <div class="runner-pts">${runnerPct}%</div>
+                    <div class="runner-pts-label">${firstPlaceTie ? 'same as top' : 'each'}</div>
+                  </div>
+                </div>
+              `;
+            }
+          }
 
           html += `
             <div class="race-section">
@@ -2175,9 +2324,10 @@ function renderResult() {
                 <div class="result-pct">${pct}%</div>
                 <div class="result-pct-label">alignment</div>
               </div>
-              <div class="section-title">Why ${winner.name.split(' ')[0]}?</div>
+              <div class="section-title">Why ${lastName(winner.name)}?</div>
               ${reasonsHtml}
               ${caveat ? `<div class="caveat"><div class="caveat-label">One thing to know before you vote</div><div class="caveat-body">${caveat}</div></div>` : ''}
+              ${runnerHtml}
               <button class="scores-toggle" onclick="toggleScores('house')">${state.showScores.house ? 'Hide' : 'Show'} all House candidate scores</button>
               <div class="scores-list ${state.showScores.house ? 'open' : ''}">${scoresHtml}</div>
             </div>
