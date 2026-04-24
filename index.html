@@ -357,6 +357,333 @@
     font-weight: 700;
   }
 
+  /* ==================== ECONOMIC CONTEXT CALLOUT ==================== */
+  .econ-callout {
+    background: #faf7f0 !important;
+    border: 1px solid #2a251e;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  .econ-callout-kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8b2e1f !important;
+    -webkit-text-fill-color: #8b2e1f;
+    margin-bottom: 6px;
+  }
+  .econ-callout-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1814 !important;
+    -webkit-text-fill-color: #1a1814;
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .econ-callout-lead {
+    font-size: 14px;
+    color: #3a352e !important;
+    -webkit-text-fill-color: #3a352e;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .econ-tables-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 6px;
+  }
+  .econ-table-wrap {
+    background: #f0ebdc !important;
+    border: 1px solid #2a251e;
+    display: flex;
+    flex-direction: column;
+  }
+  .econ-table-label {
+    background: #1a1814 !important;
+    color: #faf7f0 !important;
+    -webkit-text-fill-color: #faf7f0;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .econ-table-scroll {
+    max-height: 280px;
+    overflow-y: auto;
+    background: #faf7f0 !important;
+  }
+  .econ-table-scroll::-webkit-scrollbar { width: 8px; }
+  .econ-table-scroll::-webkit-scrollbar-track { background: #f0ebdc; }
+  .econ-table-scroll::-webkit-scrollbar-thumb { background: #2a251e; border-radius: 0; }
+  .econ-mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    table-layout: fixed;
+  }
+  .econ-mini-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .econ-mini-table th {
+    background: #1a1814 !important;
+    color: #faf7f0 !important;
+    -webkit-text-fill-color: #faf7f0;
+    padding: 6px 6px;
+    text-align: left;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .econ-mini-table th:nth-child(1) { width: 28%; }
+  .econ-mini-table th:nth-child(2) { width: 22%; }
+  .econ-mini-table th:nth-child(3) { width: 32%; }
+  .econ-mini-table th:nth-child(4) { width: 18%; }
+  .econ-mini-table td {
+    padding: 6px 6px;
+    border-bottom: 1px solid rgba(42,37,30,0.12);
+    vertical-align: top;
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+    font-size: 12px;
+    line-height: 1.35;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .econ-mini-table td:first-child {
+    font-weight: 600;
+    background: rgba(42,37,30,0.04) !important;
+  }
+  .econ-mini-table td:nth-child(2), .econ-mini-table td:nth-child(3) {
+    color: #5a544a !important;
+    -webkit-text-fill-color: #5a544a;
+  }
+  .econ-tag {
+    font-size: 10px !important;
+    padding: 2px 5px !important;
+  }
+  .econ-table-foot {
+    padding: 8px 12px;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+    background: #e5e1d6 !important;
+    border-top: 1px solid #2a251e;
+  }
+  .econ-table-foot strong { color: #1a1814 !important; -webkit-text-fill-color: #1a1814; }
+
+  /* ==================== ECONOMIC OVERLAY ==================== */
+  .econ-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #faf7f0 !important;
+    z-index: 1000;
+    display: none;
+    overflow-y: auto;
+  }
+  .econ-overlay.open { display: block; }
+  .econ-top {
+    position: sticky;
+    top: 0;
+    background: #faf7f0 !important;
+    border-bottom: 1px solid #2a251e;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+  .econ-top-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8b2e1f !important;
+    -webkit-text-fill-color: #8b2e1f;
+  }
+  .econ-close {
+    background: #1a1814 !important;
+    color: #faf7f0 !important;
+    -webkit-text-fill-color: #faf7f0;
+    border: none;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .econ-content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+  .econ-content h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1a1814 !important;
+    -webkit-text-fill-color: #1a1814;
+    line-height: 1.15;
+  }
+  .econ-content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 36px;
+    margin-bottom: 12px;
+    color: #8b2e1f !important;
+    -webkit-text-fill-color: #8b2e1f;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #8b2e1f;
+  }
+  .econ-content h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 10px;
+    color: #1a1814 !important;
+    -webkit-text-fill-color: #1a1814;
+  }
+  .econ-content .section-kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: #8b2e1f !important;
+    -webkit-text-fill-color: #8b2e1f;
+    margin-top: 36px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .econ-content p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+    margin-bottom: 14px;
+  }
+  .econ-content p.lead {
+    font-size: 17px;
+    font-weight: 400;
+    color: #1a1814 !important;
+    -webkit-text-fill-color: #1a1814;
+  }
+  .econ-content ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+  .econ-content ul li {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+    margin-bottom: 6px;
+  }
+  .econ-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 16px 0;
+    border: 1px solid #2a251e;
+    background: #f0ebdc !important;
+  }
+  .econ-table th {
+    background: #1a1814 !important;
+    color: #faf7f0 !important;
+    -webkit-text-fill-color: #faf7f0;
+    padding: 10px 8px;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .econ-table th small {
+    display: block;
+    font-size: 9px;
+    opacity: 0.75;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .econ-table td {
+    padding: 9px 8px;
+    border-bottom: 1px solid rgba(42,37,30,0.12);
+    vertical-align: top;
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+  }
+  .econ-table td:first-child {
+    font-weight: 600;
+    background: rgba(42,37,30,0.04) !important;
+    font-size: 13px;
+  }
+  .econ-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .econ-tag-worse { background: #f4d9d3 !important; color: #8b2e1f !important; -webkit-text-fill-color: #8b2e1f; }
+  .econ-tag-better { background: #d4e8d9 !important; color: #2d5a3d !important; -webkit-text-fill-color: #2d5a3d; }
+  .econ-tag-neutral { background: #e5e1d6 !important; color: #5a544a !important; -webkit-text-fill-color: #5a544a; }
+  .econ-callout-box {
+    background: #f0ebdc !important;
+    border-left: 3px solid #8b2e1f;
+    padding: 12px 14px;
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .econ-callout-box-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8b2e1f !important;
+    -webkit-text-fill-color: #8b2e1f;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .econ-scorecard {
+    background: #1a1814 !important;
+    color: #faf7f0 !important;
+    -webkit-text-fill-color: #faf7f0;
+    padding: 14px 16px;
+    font-size: 14px;
+    margin: 12px 0 20px;
+  }
+  .econ-scorecard strong { color: #faf7f0 !important; -webkit-text-fill-color: #faf7f0; }
+  .econ-glossary-item {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(42,37,30,0.12);
+  }
+  .econ-glossary-item:last-child { border-bottom: none; }
+  .econ-glossary-term {
+    font-size: 14px;
+    font-weight: 700;
+    color: #8b2e1f !important;
+    -webkit-text-fill-color: #8b2e1f;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .econ-glossary-def {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+  }
+
   /* ==================== INFO BOX ==================== */
   .info-box {
     padding: 12px 14px;
@@ -1473,6 +1800,69 @@ function renderIntro() {
 
       <button class="briefing-link-intro" onclick="openBriefing()">Or read the full candidate briefing →</button>
 
+      <div class="econ-callout">
+        <div class="econ-callout-kicker">Voter Reference · Non-Partisan</div>
+        <div class="econ-callout-title">The economy, end of 2024 vs. April 2026</div>
+        <p class="econ-callout-lead">Before you vote, here's what's actually changed. Scroll the tables below to see where things improved, where they got worse, and where they're mixed.</p>
+
+        <div class="econ-tables-grid">
+          <div class="econ-table-wrap">
+            <div class="econ-table-label">United States</div>
+            <div class="econ-table-scroll">
+              <table class="econ-mini-table">
+                <thead><tr><th>Metric</th><th>2024</th><th>April 2026</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td>30-year mortgage rate</td><td>~6.9–7.0%</td><td>6.23%</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Egg prices (YoY)</td><td>+8.5%</td><td>−42.1%</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Fed funds rate</td><td>4.25–4.50%</td><td>3.50–3.75%</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Restaurant prices (YoY)</td><td>+4.1%</td><td>+3.9%</td><td><span class="econ-tag econ-tag-better">Slightly</span></td></tr>
+                  <tr><td>GDP growth</td><td>~2.8%</td><td>~2.2% projected</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Unemployment rate</td><td>4.1%</td><td>4.4%</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Inflation (CPI, YoY)</td><td>2.9%</td><td>3.3%</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Median home price</td><td>~$385,000</td><td>~$415,000</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Home sales pace</td><td>Slow</td><td>Slowest March since 2009</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Gas price (regular)</td><td>~$3.00</td><td>$4.02</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Diesel price</td><td>~$3.50</td><td>~$5.16</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Grocery prices (YoY)</td><td>+1.2%</td><td>+2.4%</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Ground beef (YoY)</td><td>Rising</td><td>+17% since Jan 2025</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Monthly job growth</td><td>~150–200K</td><td>~15K</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Construction jobs</td><td>Growing</td><td>Slowing</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Agriculture sector</td><td>Mixed</td><td>Labor squeezed; fertilizer/fuel up; exports shrunk by retaliatory tariffs</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>AI impact on electric bills</td><td>Early warnings</td><td>+20% projected summer 2026 in 13 states</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>AI impact on employment</td><td>Minimal</td><td>55K+ direct layoffs; 200–300K modeled</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="econ-table-foot"><strong>4 better, 14 worse.</strong> Hiring collapse is the biggest national story — 15K jobs/month vs. 150–200K a year ago.</div>
+          </div>
+
+          <div class="econ-table-wrap">
+            <div class="econ-table-label">Kentucky</div>
+            <div class="econ-table-scroll">
+              <table class="econ-mini-table">
+                <thead><tr><th>Metric</th><th>2024</th><th>April 2026</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td>Unemployment rate</td><td>~5.3%</td><td>4.3%</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Nonfarm employment (YoY)</td><td>Growing</td><td>+7,400 jobs (+0.4%)</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Construction jobs (YoY)</td><td>Growing</td><td>+7% in 2025</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Housing market stability</td><td>Stable</td><td>Stable, healthy inventory</td><td><span class="econ-tag econ-tag-better">Better</span></td></tr>
+                  <tr><td>Farm labor supply</td><td>Adequate</td><td>Worker shortages from immigration policy</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Agriculture sector</td><td>Stable</td><td>Fertilizer + diesel costs up; soybean/corn/pork exports shrunk by retaliatory tariffs</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Median home price</td><td>~$235,000</td><td>~$245,000 (+4.5% YoY)</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Gas price (regular)</td><td>~$2.80</td><td>$3.98</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Gas price YoY</td><td>—</td><td><strong>+42.5% (highest in U.S.)</strong></td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Diesel price</td><td>~$3.40</td><td>$4.93</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Bourbon industry</td><td>Booming</td><td>Paused; supply outpaced demand; EU + Canada tariffs hit exports</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>State budget</td><td>Strong (pandemic stimulus)</td><td>Crunch from federal cuts + tax cuts</td><td><span class="econ-tag econ-tag-worse">Worse</span></td></tr>
+                  <tr><td>Labor force participation</td><td>Low</td><td>Still low; barriers persist</td><td><span class="econ-tag econ-tag-neutral">No change</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="econ-table-foot"><strong>4 better, 8 worse, 1 no change.</strong> Unemployment down and construction booming, but the largest gas price shock of any state.</div>
+          </div>
+        </div>
+      </div>
+
       <p class="disclaimer">This tool doesn't tell you who to vote for. It shows which candidate best matches what you said matters. All data is a snapshot from April 23, 2026 drawn from FEC filings, Emerson polling, Ballotpedia, and each candidate's published plans. Always verify current status before voting.</p>
     </div>
   `;
@@ -2424,10 +2814,79 @@ function closeBriefing() {
   document.getElementById('briefing').classList.remove('open');
   document.body.style.overflow = '';
 }
-
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeBriefing();
 });
+
+// Build the interpretive part of the economic reference (AI question, glossary, sources).
+// The side-by-side tables live on the landing page; this content is appended to the briefing overlay.
+function buildEconContext() {
+  let html = '';
+  html += `<h1>Economic Context — Supplementary Reference</h1>`;
+  html += `<p class="lead">The side-by-side tables on the landing page show what changed between the end of 2024 and April 2026. This section adds the interpretive context: why AI investment is a mixed bag, what the key terms mean, and where the data comes from.</p>`;
+
+  html += `<div class="section-kicker">§ A — The AI Question</div>`;
+  html += `<h2>Why AI investment is both a positive and a negative</h2>`;
+  html += `<p class="lead">Headline economic numbers (GDP, stock market, venture capital flow) have been propped up substantially by AI infrastructure investment. But AI's costs — to electricity bills, water supplies, land use, and employment — are not captured in those same metrics. A fair accounting includes both.</p>`;
+  html += `<h3>What AI is adding</h3>`;
+  html += `<p>AI data center construction and chip manufacturing have driven hundreds of billions in capital investment. This creates construction jobs, generates tax revenue for some host communities, and is the largest single reason U.S. GDP growth has held up in 2025 and 2026 despite headwinds elsewhere.</p>`;
+  html += `<h3>What AI is extracting</h3>`;
+  html += `<div class="econ-callout-box"><span class="econ-callout-box-label">Electricity</span>U.S. data centers now consume about 4.4% of all U.S. electricity, up from 1.9% in 2018, and could reach 12% by 2028. Residential rates across 13 states are projected to rise 20% in summer 2026 and 30–60% by 2030 due to data center demand.</div>`;
+  html += `<div class="econ-callout-box"><span class="econ-callout-box-label">Water</span>Large data centers can consume up to 5 million gallons of water per day — equivalent to a town of 10,000–50,000 people. More than 160 AI data centers have been built in water-scarce regions over the past three years.</div>`;
+  html += `<div class="econ-callout-box"><span class="econ-callout-box-label">Land</span>Data center permits have been approved on farmland and wetlands. Between March and June 2025, community opposition blocked or delayed $98 billion in projects. Over 30 states have introduced 300+ bills on data center regulation in 2026.</div>`;
+  html += `<div class="econ-callout-box"><span class="econ-callout-box-label">Employment</span>Tech layoffs directly attributed to AI reached ~55,000 in 2025; modeling estimates put the true number at 200,000–300,000. Young workers are being hit hardest — a 14% drop in the job-finding rate in AI-exposed occupations, and a 16% fall in employment for ages 22–25 in those fields.</div>`;
+  html += `<h3>Why this matters for voting</h3>`;
+  html += `<p>Different policies push AI's costs onto different groups:</p>`;
+  html += `<ul>
+    <li><strong>Tax incentives</strong> for data centers shift costs from corporations to residents.</li>
+    <li><strong>Permitting authority</strong> at local vs. state level determines who controls where data centers are built.</li>
+    <li><strong>Utility rate rules</strong> determine whether households subsidize data center power use.</li>
+    <li><strong>Worker retraining and unemployment insurance</strong> programs determine the safety net for those displaced by automation.</li>
+    <li><strong>Environmental review</strong> requirements determine whether wetlands, farmland, and water supplies are protected.</li>
+  </ul>`;
+  html += `<p>Candidates at every level take positions on these questions. Those positions shape who bears AI's costs and who captures its benefits.</p>`;
+
+  html += `<div class="section-kicker">§ B — Glossary</div>`;
+  html += `<h2>Economic terms and acronyms</h2>`;
+  const glossary = [
+    ['CPI (Consumer Price Index)', 'The main measure of inflation in the U.S. Tracks the average change in prices for a "basket" of everyday goods and services — food, gas, rent, medical care, clothing. Published monthly by the Bureau of Labor Statistics.'],
+    ['YoY (Year-over-Year)', 'A comparison between a data point today and the same data point 12 months ago. "Gas prices up 29.5% YoY" means gas costs 29.5% more than it did one year ago.'],
+    ['GDP (Gross Domestic Product)', 'The total dollar value of all goods and services produced. "GDP growth" of 2.2% means the economy produced 2.2% more than the previous year, adjusted for inflation. 2–3% is generally healthy.'],
+    ['Fed Funds Rate', 'The interest rate the Federal Reserve sets for banks lending to each other overnight. It influences almost every other interest rate — mortgages, credit cards, car loans. Higher rates cool inflation but slow the economy.'],
+    ['30-Year Mortgage Rate', 'The average interest rate on a 30-year fixed-rate home loan. A 1-point change (e.g., 7% to 6%) can mean hundreds of dollars a month in payments.'],
+    ['Unemployment Rate', 'The percentage of people in the labor force who do not have a job but are actively looking. Does NOT count people who have given up looking.'],
+    ['Monthly Job Growth', 'The net number of new jobs added to the economy each month. 150,000–200,000 per month has historically been considered healthy; under 50,000 suggests a weakening labor market.'],
+    ['Tariffs', 'Taxes on imported goods. When the U.S. places a tariff on imports, the cost of those goods rises for American buyers. Tariffs implemented in 2025 have been a major driver of inflation.'],
+    ['VC (Venture Capital)', 'Money invested in early-stage or high-growth companies. When most U.S. venture capital flows to one region, that region captures most new-company formation.'],
+    ['AI Infrastructure Investment', 'Capital spent on data centers, chips (GPUs), model training, and AI-related startups. One of the largest drivers of U.S. economic growth in 2025–2026.'],
+    ['Strait of Hormuz', 'A narrow waterway in the Persian Gulf through which about 20 million barrels of oil pass daily. Disruption of shipping during the 2026 U.S.–Iran conflict drove global oil prices — and U.S. gas prices — sharply higher.']
+  ];
+  glossary.forEach(([term, def]) => {
+    html += `<div class="econ-glossary-item"><span class="econ-glossary-term">${term}</span><div class="econ-glossary-def">${def}</div></div>`;
+  });
+
+  html += `<div class="section-kicker">§ C — Sources & Methodology</div>`;
+  html += `<h2>Where the economic data comes from</h2>`;
+  html += `<p>All figures were compiled in April 2026 from publicly available sources:</p>`;
+  html += `<ul>
+    <li>U.S. Bureau of Labor Statistics (CPI, unemployment, employment)</li>
+    <li>Freddie Mac Primary Mortgage Market Survey (mortgage rates)</li>
+    <li>U.S. Energy Information Administration and AAA (gas & diesel prices)</li>
+    <li>USDA Economic Research Service (food prices)</li>
+    <li>Federal Reserve (interest rates)</li>
+    <li>Kentucky Chamber of Commerce, UK Center for Business and Economic Research, KYSTATS (Kentucky data)</li>
+    <li>IMF Article IV Consultation for the United States (April 2026)</li>
+    <li>Deloitte, KPMG, Vanguard, U.S. Bank economic forecasts</li>
+    <li>Lincoln Institute, Consumer Reports, Environmental Law Institute (data center impacts)</li>
+    <li>Anthropic labor market research, Harvard Business Review, Fortune (AI employment impact)</li>
+  </ul>`;
+  html += `<h3>A note on "better" vs. "worse"</h3>`;
+  html += `<p>The labels reflect factual impact on household affordability, job availability, and cost of living. Rising home prices are labeled "Worse" because they make homes less affordable for buyers. Rising gas, grocery, or energy prices are labeled "Worse" because they reduce household purchasing power.</p>`;
+  html += `<h3>What this reference does not cover</h3>`;
+  html += `<p>This reference does not assess specific candidates, rank parties, or predict future elections. It compares economic indicators at two points in time and notes the federal administration during each period.</p>`;
+
+  return html;
+}
 
 function buildBriefing() {
   let html = '';
@@ -2576,6 +3035,9 @@ function buildBriefing() {
   html += `<p><strong>Campaign finance:</strong> FEC filings, AdImpact ad-tracking data, GovTrack.us voting records.</p>`;
   html += `<p><strong>News:</strong> Ballotpedia, Wikipedia, Kentucky Lantern, Louisville Public Media, CNN, NBC News, NOTUS, WDRB, Spectrum News KY, The Hill, Washington Times, The Nation, WHAS11, Courier Journal, Lexington Herald-Leader.</p>`;
   html += `<p><strong>Candidate sources:</strong> barrforsenate.com, Daniel Cameron 2026 website, Nate Morris 2026 website, charlesbooker.org, amymcgrath.com, stevensonforsenate.com, massie.house.gov, Ed Gallrein campaign website.</p>`;
+
+  // Append economic context (AI question, glossary, sources) after the candidate briefing
+  html += buildEconContext();
 
   return html;
 }
