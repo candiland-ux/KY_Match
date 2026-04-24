@@ -339,6 +339,20 @@
     font-family: inherit;
   }
 
+  /* ==================== INFO BOX ==================== */
+  .info-box {
+    padding: 12px 14px;
+    background: #fff8e1 !important;
+    border-left: 3px solid #c8921a;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4a3a1a !important;
+    -webkit-text-fill-color: #4a3a1a;
+  }
+  .info-box strong { color: #2a200a !important; -webkit-text-fill-color: #2a200a; }
+
   /* ==================== TOGGLE (party show-both) ==================== */
   .toggle-row {
     display: flex;
@@ -829,6 +843,7 @@ const state = {
   party: null,   // 'R' | 'D' | 'U'
   showBoth: false, // toggle for seeing other party's candidates
   district: null, // 1-6
+  forcedCrossParty: false, // set true if we auto-enabled showBoth because voter's party has no candidates
   showScores: { senate: false, house: false }
 };
 
@@ -934,6 +949,9 @@ const SENATE_QUESTIONS = [
       { key: "energy_coal", label: "Kentucky coal and energy jobs", sub: "Drill baby drill, unleash coal, oppose ESG",
         weights: { barr: 5, cameron: 4, morris: 3, booker: 0, mcgrath: 1, stevenson: 0 },
         reason: "You want coal and fossil fuel jobs prioritized. Barr authored H.J. Res 30 blocking Biden's ESG rule (first Biden veto). Cameron as AG subpoenaed 6 major banks over ESG. Democrats favor energy transition." },
+      { key: "climate_clean", label: "Climate action and clean energy", sub: "Green New Deal, climate investment, move beyond coal",
+        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 2, stevenson: 2 },
+        reason: "You want climate action. Booker explicitly backs the Green New Deal and clean renewable infrastructure. McGrath and Stevenson support the energy transition but don't lead with it. All three Republicans actively oppose ESG and climate regulation — Barr authored the bill that became Biden's first veto." },
       { key: "veterans_military", label: "Veterans and military issues", sub: "VA care, military readiness",
         weights: { barr: 3, cameron: 2, morris: 2, booker: 2, mcgrath: 5, stevenson: 5 },
         reason: "You want military/veterans experience. McGrath is a retired Marine Lt. Col. with 89 combat missions. Stevenson is a retired Air Force Colonel and 27-year JAG attorney. Gallrein (KY-4) is a Navy SEAL." }
@@ -1182,7 +1200,8 @@ const SENATE_STANCES = {
       economy: "Platform: universal basic income, wealth tax, capital gains tax equalization, universal paid sick leave.",
       immigration_defend: "Platform: abolish ICE; pathway to citizenship.",
       abortion_rights: "Platform: repeal Hyde Amendment; full abortion access.",
-      trump_resist: "Progressive Democrat; endorsed Bernie Sanders 2020."
+      trump_resist: "Progressive Democrat; endorsed Bernie Sanders 2020.",
+      climate_clean: "Platform: Green New Deal. Supports 'actively building infrastructure which would rely on clean renewable sources.' Endorsed by Sunrise Movement in prior cycles."
     },
     temperament: {
       fighter: "Supports general-strike framing. Faith-centered public speaking. Viral speeches in 2020 Breonna Taylor protests.",
@@ -1311,6 +1330,7 @@ const ANSWER_LABELS = {
     mcconnell_break: "breaking with McConnell's legacy",
     abortion_rights: "restoring abortion rights",
     energy_coal: "Kentucky coal and energy jobs",
+    climate_clean: "climate action and clean energy",
     veterans_military: "veterans and military issues"
   },
   temperament: { fighter: "a fighter", operator: "an operator", coalition: "a coalition-builder", outsider: "an outsider" },
@@ -1452,6 +1472,38 @@ function setParty(p) {
 // DISTRICT PICKER
 // ==========================================================
 function renderDistrictPicker() {
+  // Build up per-district notes based on the voter's party
+  const districtNotes = {
+    1: { party: 'R', competitive: false, note: 'Safe R incumbent (Comer). No contested primary.' },
+    2: { party: 'R', competitive: false, note: 'Safe R incumbent (Guthrie). No contested primary.' },
+    3: { party: 'D', competitive: false, note: 'Safe D incumbent (McGarvey). No contested primary.' },
+    4: { party: 'R', competitive: true, note: 'Contested R primary: Massie vs Gallrein.' },
+    5: { party: 'R', competitive: false, note: 'Safe R incumbent (Rogers). Minor primary challengers only.' },
+    6: { party: 'R', competitive: true, note: 'Contested R primary: Alvarado vs Dotson (open seat).' }
+  };
+
+  // Party-specific warning message to show when the voter's party has no contested candidates
+  let partyWarning = '';
+  if (state.party === 'D') {
+    partyWarning = `<div class="info-box"><strong>Heads up:</strong> As a registered Democrat, none of Kentucky's six House districts have a contested Democratic primary on May 19. KY-3 has McGarvey running unopposed (only D-held seat). KY-4 and KY-6 are Republican primaries. You can still pick a district below to see where you'd land — the tool will show candidates from whichever primary is actually contested.</div>`;
+  } else if (state.party === 'R') {
+    partyWarning = `<div class="info-box"><strong>Heads up:</strong> As a registered Republican, your two contested House primaries on May 19 are KY-4 (Massie vs Gallrein) and KY-6 (open seat). The other districts are safe for their incumbents.</div>`;
+  } else if (state.party === 'U') {
+    partyWarning = `<div class="info-box"><strong>Heads up:</strong> As an unaffiliated voter, you can't vote in a primary on May 19, but you can see all candidates to prepare for November. Pick any district below.</div>`;
+  }
+
+  const options = [
+    { n: 1, label: 'KY-1 — Western KY (Paducah, Hopkinsville, Henderson, Frankfort)' },
+    { n: 2, label: 'KY-2 — West Central KY (Bowling Green, Owensboro, Elizabethtown)' },
+    { n: 3, label: 'KY-3 — Louisville / Jefferson County' },
+    { n: 4, label: 'KY-4 — Northeast KY (Cincinnati suburbs, Ohio River counties)' },
+    { n: 5, label: 'KY-5 — Eastern KY / Appalachia (Pikeville, Corbin, Somerset)' },
+    { n: 6, label: 'KY-6 — Central KY (Lexington, Richmond, Georgetown)' }
+  ].map(o => {
+    const note = districtNotes[o.n].note;
+    return `<option value="${o.n}">${o.label} — ${note}</option>`;
+  }).join('');
+
   app.innerHTML = `
     <div class="fade-in">
       <div class="progress-row">
@@ -1462,14 +1514,11 @@ function renderDistrictPicker() {
       <h2 class="q-title">Which House district do you vote in?</h2>
       <p class="q-sub">Kentucky has 6 U.S. House districts. You can only vote in the House primary for your own district.</p>
 
+      ${partyWarning}
+
       <select class="district-picker" id="districtSelect">
         <option value="">Choose your district…</option>
-        <option value="1">KY-1 — Western KY (Paducah, Hopkinsville, Henderson, Frankfort)</option>
-        <option value="2">KY-2 — West Central KY (Bowling Green, Owensboro, Elizabethtown)</option>
-        <option value="3">KY-3 — Louisville / Jefferson County</option>
-        <option value="4">KY-4 — Northeast KY (Cincinnati suburbs, Ohio River counties)</option>
-        <option value="5">KY-5 — Eastern KY / Appalachia (Pikeville, Corbin, Somerset)</option>
-        <option value="6">KY-6 — Central KY (Lexington, Richmond, Georgetown)</option>
+        ${options}
       </select>
 
       <a class="district-lookup" href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener">Not sure which district you're in? Look up by zip code →</a>
@@ -1489,8 +1538,19 @@ function setDistrict() {
   if (!sel || !sel.value) return;
   state.district = parseInt(sel.value, 10);
 
-  // If the district is non-competitive, we'll still show the information but skip the House questions
-  // If flow is 'house' only and district is non-competitive, jump straight to result
+  // CHECK: does this district have any candidates matching the voter's party?
+  // If not, force the cross-party view on — otherwise the matcher has nothing to score.
+  const district = HOUSE[state.district];
+  if (district.competitive && state.party !== 'U' && !state.showBoth) {
+    const candidates = Object.values(district.candidates);
+    const hasOwnParty = candidates.some(c => c.party === state.party);
+    if (!hasOwnParty) {
+      state.showBoth = true;
+      state.forcedCrossParty = true; // flag for UI explanation
+    }
+  }
+
+  // If the district is non-competitive in a house-only flow, jump to info result
   if (state.flow === 'house' && !HOUSE[state.district].competitive) {
     state.step = 'result';
   } else {
@@ -1647,6 +1707,7 @@ function restart() {
   state.party = null;
   state.showBoth = false;
   state.district = null;
+  state.forcedCrossParty = false;
   state.showScores = { senate: false, house: false };
   window.scrollTo({ top: 0, behavior: 'smooth' });
   render();
@@ -2019,6 +2080,12 @@ function buildVsNarrative(diffs, winnerFirst, runnerFirst) {
 function renderResult() {
   let html = '<div class="fade-in">';
 
+  // If we auto-enabled cross-party view, explain why
+  if (state.forcedCrossParty) {
+    const districtLabel = state.district ? HOUSE[state.district].label : '';
+    html += `<div class="info-box"><strong>A note before your result:</strong> ${districtLabel} doesn't have any ${state.party === 'D' ? 'Democratic' : 'Republican'} candidates in this year's primary — it's a ${state.party === 'D' ? 'Republican' : 'Democratic'}-only race. To show you a match anyway, the tool included candidates from the other party. You won't be able to vote in this primary on May 19, but this gives you a sense of where you'd land if you were.</div>`;
+  }
+
   // SENATE
   if (state.flow === 'senate' || state.flow === 'both') {
     const scores = computeSenateScores();
@@ -2057,6 +2124,16 @@ function renderResult() {
           ${caveat ? `<div class="caveat"><div class="caveat-label">One thing to know before you vote</div><div class="caveat-body">${caveat}</div></div>` : ''}
           <button class="scores-toggle" onclick="toggleScores('senate')">${state.showScores.senate ? 'Hide' : 'Show'} all Senate candidate scores</button>
           <div class="scores-list ${state.showScores.senate ? 'open' : ''}">${scoresHtml}</div>
+        </div>
+      `;
+    } else {
+      html += `
+        <div class="race-section">
+          <div class="race-header">U.S. Senate Match</div>
+          <div class="caveat">
+            <div class="caveat-label">No match possible</div>
+            <div class="caveat-body">No eligible Senate candidates match your party filter. Go back and toggle "show me both parties anyway" on the party registration screen to see matches across the aisle.</div>
+          </div>
         </div>
       `;
     }
@@ -2103,6 +2180,18 @@ function renderResult() {
               ${caveat ? `<div class="caveat"><div class="caveat-label">One thing to know before you vote</div><div class="caveat-body">${caveat}</div></div>` : ''}
               <button class="scores-toggle" onclick="toggleScores('house')">${state.showScores.house ? 'Hide' : 'Show'} all House candidate scores</button>
               <div class="scores-list ${state.showScores.house ? 'open' : ''}">${scoresHtml}</div>
+            </div>
+          `;
+        } else {
+          // No eligible candidates — explain and offer fix
+          const candList = Object.values(district.candidates).map(c => `${c.name} (${c.party})`).join(' and ');
+          html += `
+            <div class="race-section">
+              <div class="race-header">U.S. House — ${district.label}</div>
+              <div class="caveat">
+                <div class="caveat-label">No match possible</div>
+                <div class="caveat-body">This district's primary has candidates only from the ${Object.values(district.candidates)[0].party === 'R' ? 'Republican' : 'Democratic'} party (${candList}). Your party filter is hiding them, so there's nothing to score. Go back and toggle "show me both parties anyway" if you want a match across the aisle, or pick a different district.</div>
+              </div>
             </div>
           `;
         }
