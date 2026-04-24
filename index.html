@@ -339,6 +339,24 @@
     font-family: inherit;
   }
 
+  /* ==================== DATA FRESHNESS BANNER ==================== */
+  .data-banner {
+    padding: 10px 14px;
+    background: #fef5f2 !important;
+    border-left: 3px solid #c8321a;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #4a2a20 !important;
+    -webkit-text-fill-color: #4a2a20;
+  }
+  .data-banner strong {
+    color: #8a2010 !important;
+    -webkit-text-fill-color: #8a2010;
+    font-weight: 700;
+  }
+
   /* ==================== INFO BOX ==================== */
   .info-box {
     padding: 12px 14px;
@@ -1435,6 +1453,8 @@ function renderIntro() {
       <h1 class="hero-title">Which Kentucky race are you deciding on?</h1>
       <p class="hero-sub">The primary is May 19, 2026. Pick what you want help with.</p>
 
+      <div class="data-banner"><strong>Data as of April 23, 2026.</strong> Polls, fundraising totals, endorsements, and ad spending all change. Anything published after this date — a new Trump endorsement, a candidate dropping out, a late poll swing — won't be reflected here. For live data, check <a href="https://www.fec.gov" target="_blank" rel="noopener" style="color:#8a2010;">FEC.gov</a>, <a href="https://ballotpedia.org" target="_blank" rel="noopener" style="color:#8a2010;">Ballotpedia</a>, or <a href="https://emersoncollegepolling.com" target="_blank" rel="noopener" style="color:#8a2010;">Emerson Polling</a>.</div>
+
       <div class="stats-grid">
         <div class="stat-item"><span class="stat-value">6</span><span class="stat-label">Senate candidates</span></div>
         <div class="stat-item"><span class="stat-value">6</span><span class="stat-label">House districts</span></div>
@@ -1453,7 +1473,7 @@ function renderIntro() {
 
       <button class="briefing-link-intro" onclick="openBriefing()">Or read the full candidate briefing →</button>
 
-      <p class="disclaimer">This tool doesn't tell you who to vote for. It shows which candidate best matches what you said matters. All data comes from FEC filings, public reporting, and each candidate's published plans.</p>
+      <p class="disclaimer">This tool doesn't tell you who to vote for. It shows which candidate best matches what you said matters. All data is a snapshot from April 23, 2026 drawn from FEC filings, Emerson polling, Ballotpedia, and each candidate's published plans. Always verify current status before voting.</p>
     </div>
   `;
 }
@@ -2413,6 +2433,7 @@ function buildBriefing() {
   let html = '';
 
   html += `<h1>Kentucky 2026 — Everything You Need to Decide</h1>`;
+  html += `<div class="data-banner"><strong>Data as of April 23, 2026.</strong> Polls, fundraising, endorsements, and ad spending change. For live data see FEC.gov, Ballotpedia, and Emerson Polling.</div>`;
   html += `<p>The primary is <strong>Tuesday, May 19, 2026</strong>. Early voting runs May 14–16. Kentucky is a closed primary — you can only vote in the primary of your registered party.</p>`;
   html += `<p>This briefing covers the open U.S. Senate race (McConnell retiring), all six U.S. House districts (only two are competitive), and a 2027 Governor watchlist.</p>`;
 
