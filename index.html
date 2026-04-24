@@ -1938,7 +1938,7 @@ function buildSenateReasons(winnerKey) {
     q: null,
     html: `<div class="vs-box">
       <div class="vs-header">Why ${winnerFirst}, not ${runnerName}?</div>
-      <div class="vs-body">${winnerFirst} scored <strong>${winnerScore}</strong>, ${runnerName} scored <strong>${runnerScore}</strong>${winnerScore - runnerScore > 0 ? ` — a ${winnerScore - runnerScore}-point gap` : ''}. ${vsDetail}</div>
+      <div class="vs-body">Your answers pointed more often to ${winnerFirst}. ${vsDetail}</div>
     </div>`
   });
 
@@ -2051,7 +2051,7 @@ function buildHouseReasons(winnerKey) {
       q: null,
       html: `<div class="vs-box">
         <div class="vs-header">Why ${winnerFirst}, not ${runnerFirst}?</div>
-        <div class="vs-body">${winnerFirst} scored <strong>${sorted[0][1]}</strong>, ${runnerFirst} scored <strong>${sorted[1][1]}</strong>. ${vsDetail}</div>
+        <div class="vs-body">Your answers pointed more often to ${winnerFirst}. ${vsDetail}</div>
       </div>`
     });
   }
@@ -2066,7 +2066,7 @@ function buildVsNarrative(diffs, winnerFirst, runnerFirst) {
     return `Your answers were split almost evenly. The win comes from small accumulated edges rather than one big difference.`;
   }
   const top = winnerAdv[0];
-  let text = `The biggest edge was on <strong>${top.qLabel.toLowerCase()}</strong>, where ${winnerFirst} scored ${top.diff} points higher than ${runnerFirst}.`;
+  let text = `The biggest edge was on <strong>${top.qLabel.toLowerCase()}</strong> — ${winnerFirst} lined up more closely with your answer than ${runnerFirst}.`;
   const more = winnerAdv.slice(1, 3);
   if (more.length > 0) text += ` ${winnerFirst} also edged ahead on ${more.map(d => d.qLabel.toLowerCase()).join(' and ')}.`;
   const sigRunner = runnerAdv.filter(d => Math.abs(d.diff) >= 2);
