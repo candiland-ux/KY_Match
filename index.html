@@ -2308,7 +2308,7 @@ function computeSenateMax() {
       max += qMax;
     }
   });
-  return Math.round(max);
+  return max;
 }
 
 function computeHouseMax() {
@@ -2626,6 +2626,8 @@ function renderResult() {
         // (in case winner and runner-up are tied on score, which means a first-place tie)
         const tied = sorted.filter(([k, s]) => s === runnerScore && k !== wKey);
         const runnerPct = maxPossible > 0 ? Math.round((runnerScore / maxPossible) * 100) : 0;
+        const winnerPct = maxPossible > 0 ? Math.round((sorted[0][1] / maxPossible) * 100) : 0;
+        const isClose = (winnerPct - runnerPct) <= 5;
         const firstPlaceTie = sorted[0][1] === runnerScore;
 
         if (tied.length === 1) {
@@ -2633,7 +2635,7 @@ function renderResult() {
           runnerHtml = `
             <div class="runner">
               <div class="runner-body">
-                <div class="runner-label">${firstPlaceTie ? 'Tied for Top' : 'Close Runner-Up'}</div>
+                <div class="runner-label">${firstPlaceTie ? 'Tied for Top' : (isClose ? 'Close Runner-Up' : 'Runner-Up')}</div>
                 <div class="runner-name">${runner.name}</div>
                 <div class="runner-note">${runner.oneLiner}</div>
               </div>
@@ -2727,6 +2729,8 @@ function renderResult() {
             const runnerScore = sorted[1][1];
             const tied = sorted.filter(([k, s]) => s === runnerScore && k !== wKey);
             const runnerPct = maxPossible > 0 ? Math.round((runnerScore / maxPossible) * 100) : 0;
+            const winnerPct = maxPossible > 0 ? Math.round((sorted[0][1] / maxPossible) * 100) : 0;
+            const isClose = (winnerPct - runnerPct) <= 5;
             const firstPlaceTie = sorted[0][1] === runnerScore;
 
             if (tied.length === 1) {
@@ -2734,7 +2738,7 @@ function renderResult() {
               runnerHtml = `
                 <div class="runner">
                   <div class="runner-body">
-                    <div class="runner-label">${firstPlaceTie ? 'Tied for Top' : 'Close Runner-Up'}</div>
+                    <div class="runner-label">${firstPlaceTie ? 'Tied for Top' : (isClose ? 'Close Runner-Up' : 'Runner-Up')}</div>
                     <div class="runner-name">${runner.name}</div>
                     <div class="runner-note">${runner.oneLiner}</div>
                   </div>
