@@ -1288,12 +1288,12 @@ const app = document.getElementById('app');
 // CANDIDATES — SENATE
 // ==========================================================
 const SENATE = {
-  barr: { name: "Andy Barr", party: "R", oneLiner: "U.S. Rep KY-6 since 2013. Strongest cash, highest April polling (28%), establishment ties." },
-  cameron: { name: "Daniel Cameron", party: "R", oneLiner: "Former KY Attorney General. Highest favorability but underfunded. Lost 2023 Gov race to Beshear." },
-  morris: { name: "Nate Morris", party: "R", oneLiner: "Rubicon Technologies founder. $10M Musk backing. Pure outsider anti-McConnell positioning." },
+  barr: { name: "Andy Barr", party: "R", oneLiner: "U.S. Rep KY-6 since 2013. Trump-endorsed May 1, 2026. Strongest cash, highest polling. McConnell-aligned despite distancing." },
+  cameron: { name: "Daniel Cameron", party: "R", oneLiner: "Former KY Attorney General. Lost 2023 Gov race to Beshear (with Trump endorsement). Now running without it." },
   booker: { name: "Charles Booker", party: "D", oneLiner: "Former state rep. Progressive. Two prior statewide losses. Leading Dem primary at 36%." },
   mcgrath: { name: "Amy McGrath", party: "D", oneLiner: "Retired Marine Lt. Col. and F/A-18 combat pilot. 2020 nominee (lost to McConnell)." },
-  stevenson: { name: "Pamela Stevenson", party: "D", oneLiner: "KY House Minority Leader. Retired USAF Col. and JAG attorney. Ordained minister." }
+  stevenson: { name: "Pamela Stevenson", party: "D", oneLiner: "KY House Minority Leader. Retired USAF Col. and JAG attorney. Ordained minister." },
+  romans: { name: "Dale Romans", party: "D", oneLiner: "Hall of Fame thoroughbred trainer. Centrist 'independent Democrat' who names Manchin and Beshear as role models." }
 };
 
 // ==========================================================
@@ -1358,37 +1358,37 @@ const SENATE_QUESTIONS = [
     maxPicks: 3,
     options: [
       { key: "economy", label: "Economy and cost of living", sub: "Everyday bills, groceries, jobs, wages",
-        weights: { barr: 4, cameron: 3, morris: 3, booker: 5, mcgrath: 3, stevenson: 2 },
-        reason: "You picked the top issue in Kentucky (39% of voters say the economy is #1). Booker leads with most specific progressive economic plan (UBI, wealth tax, capital gains equalization). McGrath focuses on rolling back tariffs and reversing OBBBA. Stevenson frames it through working-families advocacy." },
+        weights: { barr: 4, cameron: 3, booker: 5, mcgrath: 3, stevenson: 2, romans: 4 },
+        reason: "You picked the top issue in Kentucky (39% of voters say the economy is #1). Booker leads with most specific progressive economic plan (UBI, wealth tax, capital gains equalization). McGrath focuses on rolling back tariffs and reversing OBBBA. Romans frames it through working-people tax cuts and opposing the Big Beautiful Bill's tax cuts for the wealthy." },
       { key: "healthcare", label: "Healthcare and prescription costs", sub: "Medicaid, rural hospitals, drug prices",
-        weights: { barr: 2, cameron: 2, morris: 2, booker: 5, mcgrath: 4, stevenson: 2 },
-        reason: "You put healthcare first. Booker backs Medicare for All (Type 1 diabetic, has personally rationed insulin). McGrath would restore Medicaid and ACA subsidies and protect rural hospitals. GOP candidates focus on reducing federal health spending." },
+        weights: { barr: 2, cameron: 2, booker: 5, mcgrath: 4, stevenson: 2, romans: 3 },
+        reason: "You put healthcare first. Booker backs Medicare for All (Type 1 diabetic, has personally rationed insulin). McGrath would restore Medicaid and ACA subsidies and protect rural hospitals. Romans wants to overhaul the system but not 'yank' coverage away. GOP candidates focus on reducing federal health spending." },
       { key: "immigration_enforce", label: "Tougher immigration enforcement", sub: "Border, ICE, deportation",
-        weights: { barr: 5, cameron: 4, morris: 4, booker: 0, mcgrath: 1, stevenson: 0 },
-        reason: "You want tougher immigration enforcement. Barr platform includes deporting illegals, closing the border, and voting for ICE funding. Cameron and Morris align similarly. Democrats oppose." },
+        weights: { barr: 5, cameron: 4, booker: 0, mcgrath: 1, stevenson: 0, romans: 2 },
+        reason: "You want tougher immigration enforcement. Barr platform includes deporting illegals, closing the border, and voting for ICE funding. Cameron aligns similarly. Romans takes a partial position: supports securing borders and deporting people who commit crimes, but criticizes broad ICE raids. Other Democrats oppose tougher enforcement." },
       { key: "immigration_defend", label: "Protecting immigrants and due process", sub: "Pathway to citizenship, rein in ICE",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 2, stevenson: 3 },
-        reason: "You want immigrant protections. Booker backs abolishing ICE. Stevenson has defended immigrant rights on the KY House floor. McGrath says ICE 'needs to be reined in' — more moderate." },
+        weights: { barr: 0, cameron: 0, booker: 5, mcgrath: 2, stevenson: 3, romans: 5 },
+        reason: "You want immigrant protections. Booker backs abolishing ICE. Romans has worked alongside immigrant labor for 30+ years (horse industry), wants legal status for working immigrants, criticizes ICE raids hurting Kentucky farms. Stevenson has defended immigrant rights on the KY House floor. McGrath says ICE 'needs to be reined in' — more moderate." },
       { key: "trump_resist", label: "Resisting the Trump agenda", sub: "Tariffs, OBBBA, federal overreach",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 3, mcgrath: 5, stevenson: 4 },
-        reason: "You want resistance to the Trump agenda. McGrath leads most visibly — calls OBBBA 'the big beautiful betrayal' and uses her Marine credibility on Iran/tariffs. Stevenson opposes from the legislative-leader side. Booker opposes from the progressive side." },
+        weights: { barr: 0, cameron: 0, booker: 3, mcgrath: 5, stevenson: 4, romans: 3 },
+        reason: "You want resistance to the Trump agenda. McGrath leads most visibly — calls OBBBA 'the big beautiful betrayal' and uses her Marine credibility on Iran/tariffs. Stevenson opposes from the legislative-leader side. Booker opposes from the progressive side. Romans disagrees with several Trump policies but explicitly rejects 'resistance' framing — calls himself an 'independent Democrat'." },
       { key: "trump_support", label: "Backing the Trump agenda", sub: "Tariffs, deregulation, America First",
-        weights: { barr: 5, cameron: 5, morris: 5, booker: 0, mcgrath: 0, stevenson: 0 },
-        reason: "You want a senator who backs Trump. All three Republicans campaign as 'America First' Trump allies. No Trump endorsement yet as of late April 2026." },
+        weights: { barr: 5, cameron: 5, booker: 0, mcgrath: 0, stevenson: 0, romans: 0 },
+        reason: "You want a senator who backs Trump. Both remaining Republicans campaign as 'America First' Trump allies. Trump endorsed Barr on May 1, 2026, and asked Nate Morris to drop out (Morris withdrew and endorsed Barr)." },
       { key: "mcconnell_break", label: "Breaking with McConnell's legacy", sub: "End establishment GOP in Kentucky",
-        weights: { barr: 1, cameron: 2, morris: 5, booker: 5, mcgrath: 3, stevenson: 4 },
-        reason: "You want to end the McConnell era. Booker has run against McConnell-style politics his whole career ('Hood to the Holler'). Morris is running most explicitly against it on the GOP side (called McConnell a 'decrepit old mob boss'). Stevenson's campaign launch video: 'McConnell watched Kentucky from 30,000 feet.'" },
+        weights: { barr: 1, cameron: 2, booker: 5, mcgrath: 3, stevenson: 4, romans: 4 },
+        reason: "You want to end the McConnell era. Booker has run against McConnell-style politics his whole career ('Hood to the Holler'). Stevenson's campaign launch video: 'McConnell watched Kentucky from 30,000 feet.' Romans positions as 'independent Democrat' modeled on Manchin and Beshear, against career-politician 'partisan nonsense'. Cameron's own team called Barr 'McConnell's guy' after Trump's endorsement." },
       { key: "abortion_rights", label: "Restoring abortion rights", sub: "Roe-era protections, reproductive freedom",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 4, mcgrath: 2, stevenson: 5 },
-        reason: "You want to restore abortion rights. Stevenson's 2023 viral HB 470 speech was the most prominent KY Dem defense of reproductive rights. Booker backs repealing Hyde Amendment. McGrath supports abortion rights but hasn't made it her lead issue." },
+        weights: { barr: 0, cameron: 0, booker: 4, mcgrath: 2, stevenson: 5, romans: 4 },
+        reason: "You want to restore abortion rights. Stevenson's 2023 viral HB 470 speech was the most prominent KY Dem defense of reproductive rights. Booker backs repealing Hyde Amendment. Romans is pro-choice ('a woman has a right to her body') but doesn't lead on the issue. McGrath supports abortion rights but hasn't made it her lead issue." },
       { key: "energy_coal", label: "Kentucky coal and energy jobs", sub: "Drill baby drill, unleash coal, oppose ESG",
-        weights: { barr: 5, cameron: 4, morris: 3, booker: 0, mcgrath: 1, stevenson: 0 },
+        weights: { barr: 5, cameron: 4, booker: 0, mcgrath: 1, stevenson: 0, romans: 1 },
         reason: "You want coal and fossil fuel jobs prioritized. Barr authored H.J. Res 30 blocking Biden's ESG rule (first Biden veto). Cameron as AG subpoenaed 6 major banks over ESG. Democrats favor energy transition." },
       { key: "climate_clean", label: "Climate action and clean energy", sub: "Green New Deal, climate investment, move beyond coal",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 5, mcgrath: 2, stevenson: 1 },
-        reason: "You want climate action. Booker explicitly backs the Green New Deal and clean renewable infrastructure. McGrath supports the energy transition but doesn't lead with it. Stevenson doesn't lead on this. All three Republicans actively oppose ESG and climate regulation." },
+        weights: { barr: 0, cameron: 0, booker: 5, mcgrath: 2, stevenson: 1, romans: 2 },
+        reason: "You want climate action. Booker explicitly backs the Green New Deal and clean renewable infrastructure. McGrath supports the energy transition but doesn't lead with it. Romans accepts the transition but doesn't lead on climate. Stevenson doesn't lead on this. Both Republicans actively oppose ESG and climate regulation." },
       { key: "veterans_military", label: "Veterans and military issues", sub: "VA care, military readiness",
-        weights: { barr: 3, cameron: 2, morris: 2, booker: 1, mcgrath: 5, stevenson: 4 },
+        weights: { barr: 3, cameron: 2, booker: 1, mcgrath: 5, stevenson: 4, romans: 1 },
         reason: "You want military/veterans experience. McGrath: retired Marine Lt. Col., 89 combat missions, first woman to fly F/A-18 in combat. Stevenson: retired USAF Colonel, 27-year JAG attorney serving in 11 countries. Gallrein (KY-4) is a Navy SEAL." }
     ]
   },
@@ -1398,13 +1398,13 @@ const SENATE_QUESTIONS = [
     sub: "There's no right answer — pick what feels most like you.",
     options: [
       { key: "fighter", label: "A fighter", sub: "Combative, viral, willing to go after opponents",
-        weights: { barr: 4, cameron: 2, morris: 5, booker: 3, mcgrath: 2, stevenson: 5 } },
+        weights: { barr: 4, cameron: 2, booker: 3, mcgrath: 2, stevenson: 5, romans: 1 } },
       { key: "operator", label: "An operator", sub: "Disciplined, gets bills through, works the process",
-        weights: { barr: 3, cameron: 5, morris: 2, booker: 2, mcgrath: 5, stevenson: 3 } },
+        weights: { barr: 3, cameron: 5, booker: 2, mcgrath: 5, stevenson: 3, romans: 2 } },
       { key: "coalition", label: "A coalition-builder", sub: "Cross-party deals, bipartisan wins",
-        weights: { barr: 2, cameron: 3, morris: 1, booker: 4, mcgrath: 5, stevenson: 2 } },
+        weights: { barr: 2, cameron: 3, booker: 4, mcgrath: 5, stevenson: 2, romans: 5 } },
       { key: "outsider", label: "An outsider", sub: "Hasn't been in Washington, change agent",
-        weights: { barr: 0, cameron: 1, morris: 5, booker: 4, mcgrath: 1, stevenson: 2 } }
+        weights: { barr: 0, cameron: 1, booker: 4, mcgrath: 1, stevenson: 2, romans: 5 } }
     ]
   },
   {
@@ -1413,13 +1413,13 @@ const SENATE_QUESTIONS = [
     sub: "",
     options: [
       { key: "congress", label: "Congressional / legislative record", sub: "Has voted on real bills, knows the process",
-        weights: { barr: 5, cameron: 0, morris: 0, booker: 4, mcgrath: 0, stevenson: 3 } },
+        weights: { barr: 5, cameron: 0, booker: 4, mcgrath: 0, stevenson: 3, romans: 0 } },
       { key: "statewide_exec", label: "Statewide executive", sub: "Run a department, held a statewide office",
-        weights: { barr: 0, cameron: 5, morris: 0, booker: 0, mcgrath: 0, stevenson: 2 } },
+        weights: { barr: 0, cameron: 5, booker: 0, mcgrath: 0, stevenson: 2, romans: 0 } },
       { key: "military", label: "Military service", sub: "Combat or officer-level leadership",
-        weights: { barr: 0, cameron: 0, morris: 0, booker: 0, mcgrath: 5, stevenson: 4 } },
+        weights: { barr: 0, cameron: 0, booker: 0, mcgrath: 5, stevenson: 4, romans: 0 } },
       { key: "outsider_biz", label: "Private-sector / business leader", sub: "Built a company, not a career politician",
-        weights: { barr: 0, cameron: 1, morris: 5, booker: 1, mcgrath: 0, stevenson: 2 } }
+        weights: { barr: 0, cameron: 1, booker: 1, mcgrath: 0, stevenson: 2, romans: 5 } }
     ]
   },
   {
@@ -1428,13 +1428,13 @@ const SENATE_QUESTIONS = [
     sub: "",
     options: [
       { key: "grassroots", label: "Grassroots first", sub: "Small donors, no corporate PAC focus",
-        weights: { barr: 1, cameron: 2, morris: 0, booker: 5, mcgrath: 2, stevenson: 3 } },
+        weights: { barr: 1, cameron: 2, booker: 5, mcgrath: 2, stevenson: 3, romans: 5 } },
       { key: "big_donors_ok", label: "Big donors are fine if they help win", sub: "Super PACs, billionaires, whatever works",
-        weights: { barr: 5, cameron: 4, morris: 5, booker: 0, mcgrath: 3, stevenson: 1 } },
+        weights: { barr: 5, cameron: 4, booker: 0, mcgrath: 3, stevenson: 1, romans: 1 } },
       { key: "self_funded", label: "Self-funded is best", sub: "Can't be bought",
-        weights: { barr: 0, cameron: 0, morris: 3, booker: 0, mcgrath: 0, stevenson: 0 } },
+        weights: { barr: 0, cameron: 0, booker: 0, mcgrath: 0, stevenson: 0, romans: 2 } },
       { key: "dontcare", label: "Don't care about this", sub: "",
-        weights: { barr: 2, cameron: 2, morris: 2, booker: 2, mcgrath: 2, stevenson: 2 } }
+        weights: { barr: 2, cameron: 2, booker: 2, mcgrath: 2, stevenson: 2, romans: 2 } }
     ]
   },
   {
@@ -1446,18 +1446,18 @@ const SENATE_QUESTIONS = [
         eliminates: ["barr"] },
       { key: "beshear_loss", label: "Already lost a statewide race with Trump endorsement",
         eliminates: ["cameron"] },
-      { key: "rubicon_delisting", label: "Company (Rubicon Technologies) was delisted from NYSE in 2024",
-        eliminates: ["morris"] },
+      { key: "no_office_held", label: "Has never held elected office of any kind",
+        eliminates: ["romans"] },
       { key: "progressive_fit", label: "Progressive platform (Medicare for All, abolish ICE) in a Trump +30 state",
         eliminates: ["booker"] },
       { key: "prior_loss", label: "Lost 2020 race to McConnell by 20 points despite raising $94M",
         eliminates: ["mcgrath"] },
       { key: "name_recognition", label: "Single-digit polling and low statewide name recognition",
-        eliminates: ["stevenson"] },
+        eliminates: ["stevenson", "romans"] },
       { key: "breonna_taylor", label: "Handling of the Breonna Taylor case",
         eliminates: ["cameron"] },
-      { key: "musk_money", label: "Backed by Elon Musk's $10M super PAC money",
-        eliminates: ["morris"] },
+      { key: "trump_too_close", label: "Took Trump's direct endorsement and is running on it",
+        eliminates: ["barr"] },
       { key: "none", label: "None of these — skip",
         eliminates: [] }
     ]
@@ -1611,22 +1611,26 @@ const SENATE_STANCES = {
       statewide_exec: "Kentucky Attorney General Dec 2019–Jan 2024. First African-American AG of Kentucky."
     }
   },
-  morris: {
+  morris: {},
+  romans: {
     topIssue: {
-      trump_support: "Campaign: America First outsider. CPAC endorsed March 2026. Fight for Kentucky super PAC received $10M from Elon Musk.",
-      mcconnell_break: "Called McConnell a 'decrepit old mob boss' at Fancy Farm 2025. Pledged to 'trash Mitch McConnell's legacy.'",
-      economy: "Platform framing emphasizes restoring manufacturing and outsider business credibility."
+      immigration_defend: "30+ years working alongside immigrant labor in horse industry. Wants legal status (not citizenship) for working immigrants. Criticizes ICE raids hurting farms.",
+      immigration_enforce: "Says borders should be secured and undocumented people who commit crimes should be deported. Splits from progressive Dems on enforcement.",
+      economy: "Platform: tax cuts for working/middle class. Opposes the 'Big Beautiful Bill' tax cuts for wealthy. 'Independent Democrat' who cites Manchin and Beshear as role models.",
+      healthcare: "Wants to overhaul healthcare system but says 'you can't yank coverage away until the new system is in place.' Opposes Medicare for All as currently framed.",
+      abortion_rights: "Pro-choice. 'A woman has a right to her body. It's between her and her doctor.'",
+      mcconnell_break: "Outsider framing: 'not polished insiders or party-line politicians running the same old partisan nonsense.'"
     },
     temperament: {
-      fighter: "Most combative anti-establishment positioning of the three GOP frontrunners.",
-      outsider: "Has never held elected office. Founder/CEO Morris Industries; founded Rubicon Technologies 2008."
+      coalition: "'I won't be beholden to the national party.' Names Manchin and Beshear as role models. 'It doesn't matter if they're MAGA, but they want to come with a good idea.'",
+      outsider: "Hall of Fame thoroughbred trainer. President of KY Horsemen's Benevolent and Protective Association. Never held political office."
     },
     experience: {
-      outsider_biz: "Founded Rubicon Technologies 2008 (waste management). Took public via SPAC 2022. CEO of Morris Industries."
+      outsider_biz: "2,250+ career race wins including Preakness Stakes (Shackleford, 2011) and Travers Stakes. Built training operation at Churchill Downs. Advocated on Capitol Hill for industry issues, primarily immigration labor."
     },
     moneyModel: {
-      big_donors_ok: "Elon Musk $10M single contribution to Fight for Kentucky super PAC — largest Musk Senate donation ever. Jeff Yass $2M to anti-Barr Win it Back PAC.",
-      self_funded: "$4.4M in personal loans to campaign."
+      grassroots: "Running as 'independent Democrat' against career-politician fundraising machines. Self-styled outsider campaign.",
+      self_funded: "Some personal investment in the race, but not at billionaire scale."
     }
   },
   booker: {
@@ -1736,9 +1740,9 @@ const HOUSE_STANCES = {
 
 // Caveats — each candidate's biggest documented liability
 const SENATE_CAVEATS = {
-  barr: "Barr's February 2026 DEI ad ('It's not a sin to be White, it's not against the law to be male, it shouldn't be disqualifying to be a Christian') drew sustained criticism. Kentucky political commentator Al Cross called it 'the most overtly racist statewide campaign we can remember in Kentucky.' Morris-aligned Win it Back PAC has spent $2M attacking Barr on past comments supporting Afghan visas in 2021 and his March 2026 support for a McConnell Capitol statue.",
-  cameron: "Cameron has already lost one statewide race — the 2023 governor's race to Democrat Andy Beshear — despite a Trump endorsement in a state Trump won by 30 points. His handling of the Breonna Taylor case (concluding police use of force was 'justified' and recommending charges only against one officer for endangering Taylor's neighbors) remains contested. His $629K cash on hand (Sep 2025) is far behind Barr's $6.6M, and he has aired no TV ads.",
-  morris: "Rubicon Technologies, the company Morris founded and chaired, was delisted from the NYSE in June 2024 after its stock collapsed below listing standards — Morris stepped down as CEO in 2022 but remained chairman through the delisting. Also: married into the George H.W. Bush family (wife's father and grandfather were senior Bush officials), and donated to Nikki Haley over Trump in the 2024 primary. Despite $15M+ in outside spending, his polling has stayed flat.",
+  barr: "Barr's February 2026 DEI ad ('It's not a sin to be White, it's not against the law to be male, it shouldn't be disqualifying to be a Christian') drew sustained criticism. Kentucky political commentator Al Cross called it 'the most overtly racist statewide campaign we can remember in Kentucky.' He won Trump's endorsement on May 1, 2026. Cameron's team responded with 'Congrats to Mitch McConnell for getting his guy,' framing Barr as the establishment-backed candidate despite the Trump endorsement.",
+  cameron: "Cameron has already lost one statewide race — the 2023 governor's race to Democrat Andy Beshear — despite a Trump endorsement in a state Trump won by 30 points. His handling of the Breonna Taylor case (concluding police use of force was 'justified' and recommending charges only against one officer for endangering Taylor's neighbors) remains contested. His $629K cash on hand (Sep 2025) is far behind Barr's $6.6M, and he has aired no TV ads. After Trump endorsed Barr May 1, his path to the nomination is significantly narrower.",
+  romans: "Has never held elected office of any kind. Polling at 2% in late March, with limited statewide name recognition. His positioning as a 'centrist independent Democrat' (cites Joe Manchin and Andy Beshear as role models) may alienate the progressive base that drives Democratic primary turnout in Kentucky. Position on immigration (legal status but not citizenship) and on healthcare (overhaul but not Medicare for All) may not match progressive Democratic voter expectations.",
   booker: "Booker has lost three prior primaries or generals — 2020 Senate primary to McGrath, 2022 Senate general to Rand Paul (61.8%–38.2%), 2016 state senate primary (3rd with 20%). Kentucky has not elected a Democrat to U.S. Senate since 1992. His progressive platform (Medicare for All, UBI, abolish ICE, Green New Deal, reparations) will face general-election attack surface in a Trump +30 state.",
   mcgrath: "Lost 2020 Senate race to McConnell by 20 points despite outraising him by $32M+ — one of the most expensive Senate defeats in U.S. history. Also lost KY-6 House race to Barr in 2018 (51%–47.8%). Has now run statewide twice and lost both times. Current cycle cash on hand (~$330K) is a fraction of her 2020 operation.",
   stevenson: "Polling at just 3% four weeks out from the primary. Also lost her 2023 statewide race for KY Attorney General to Republican Russell Coleman. Low statewide name recognition despite being first Black woman to serve as KY House Minority Leader."
@@ -1819,7 +1823,7 @@ function renderIntro() {
       <h1 class="hero-title">Which Kentucky race are you deciding on?</h1>
       <p class="hero-sub">The primary is May 19, 2026. Pick what you want help with.</p>
 
-      <div class="data-banner"><strong>Data as of April 23, 2026.</strong> Polls, fundraising totals, endorsements, and ad spending all change. Anything published after this date — a new Trump endorsement, a candidate dropping out, a late poll swing — won't be reflected here. For live data, check <a href="https://www.fec.gov" target="_blank" rel="noopener" style="color:#8a2010;">FEC.gov</a>, <a href="https://ballotpedia.org" target="_blank" rel="noopener" style="color:#8a2010;">Ballotpedia</a>, or <a href="https://emersoncollegepolling.com" target="_blank" rel="noopener" style="color:#8a2010;">Emerson Polling</a>.</div>
+      <div class="data-banner"><strong>Data as of May 3, 2026.</strong> Polls, fundraising totals, endorsements, and ad spending all change. Anything published after this date won't be reflected here. For live data, check <a href="https://www.fec.gov" target="_blank" rel="noopener" style="color:#8a2010;">FEC.gov</a>, <a href="https://ballotpedia.org" target="_blank" rel="noopener" style="color:#8a2010;">Ballotpedia</a>, or <a href="https://emersoncollegepolling.com" target="_blank" rel="noopener" style="color:#8a2010;">Emerson Polling</a>.</div>
 
       <div class="stats-grid">
         <div class="stat-item"><span class="stat-value">6</span><span class="stat-label">Senate candidates</span></div>
@@ -1901,7 +1905,7 @@ function renderIntro() {
         </div>
       </div>
 
-      <p class="disclaimer">This tool doesn't tell you who to vote for. It shows which candidate best matches what you said matters. All data is a snapshot from April 23, 2026 drawn from FEC filings, Emerson polling, Ballotpedia, and each candidate's published plans. Always verify current status before voting.</p>
+      <p class="disclaimer">This tool doesn't tell you who to vote for. It shows which candidate best matches what you said matters. All data is a snapshot from May 3, 2026 drawn from FEC filings, Emerson polling, Ballotpedia, and each candidate's published plans. Always verify current status before voting.</p>
     </div>
   `;
 }
@@ -2952,7 +2956,7 @@ function buildBriefing() {
   let html = '';
 
   html += `<h1>Kentucky 2026 — Everything You Need to Decide</h1>`;
-  html += `<div class="data-banner"><strong>Data as of April 23, 2026.</strong> Polls, fundraising, endorsements, and ad spending change. For live data see FEC.gov, Ballotpedia, and Emerson Polling.</div>`;
+  html += `<div class="data-banner"><strong>Data as of May 3, 2026.</strong> Polls, fundraising, endorsements, and ad spending change. For live data see FEC.gov, Ballotpedia, and Emerson Polling.</div>`;
   html += `<p>The primary is <strong>Tuesday, May 19, 2026</strong>. Early voting runs May 14–16. Kentucky is a closed primary — you can only vote in the primary of your registered party.</p>`;
   html += `<p>This briefing covers the open U.S. Senate race (McConnell retiring), all six U.S. House districts (only two are competitive), and a 2027 Governor watchlist.</p>`;
 
@@ -2984,12 +2988,12 @@ function buildBriefing() {
       ]
     },
     {
-      key: "morris", party: "Republican", polling: "15% (April Emerson)",
+      key: "morris_withdrew", party: "Republican (WITHDREW MAY 1, 2026)", polling: "Was 15% before withdrawal",
       rows: [
-        ["Role", "Founder/CEO Morris Industries. Founder Rubicon Technologies (waste tech). Oxford Saïd MBA."],
-        ["Cash", "$1M plus $4.4M personal loans. Fight for Kentucky PAC: $10M from Elon Musk (largest Musk Senate donation ever)."],
-        ["Platform", "America First outsider. Trash McConnell legacy. Back Trump 100%. Secure border, cut taxes, end DEI."],
-        ["Liability", "Rubicon delisted from NYSE June 2024. Bush-family in-laws. Donated to Haley over Trump 2024. Flat polling despite $15M+ spending."]
+        ["Status", "Nate Morris withdrew from the race on May 1, 2026 after President Trump asked him to step aside and accept an ambassadorship. He endorsed Andy Barr. His name will still appear on the May 19 primary ballot, but he is no longer campaigning."],
+        ["Background", "Founder/CEO Morris Industries. Founder Rubicon Technologies (waste tech). Oxford Saïd MBA."],
+        ["Cash before withdrawal", "$1M plus $4.4M personal loans. Fight for Kentucky PAC: $10M from Elon Musk (largest Musk Senate donation ever)."],
+        ["Where his support went", "Endorsed Andy Barr. Vice President JD Vance, Donald Trump Jr., and Charlie Kirk's network were aligned with Morris during his campaign."]
       ]
     },
     {
@@ -3018,12 +3022,22 @@ function buildBriefing() {
         ["Platform", "Stop the recklessness in Washington. Advocate for veterans, working families, LGBTQ+ communities. Fiery House speeches on gender-affirming care and healthcare."],
         ["Liability", "3% polling four weeks from primary. Lost 2023 AG race to Russell Coleman. Low statewide name recognition."]
       ]
+    },
+    {
+      key: "romans", party: "Democrat", polling: "~2% (March 29-31 poll)",
+      rows: [
+        ["Role", "Hall of Fame thoroughbred trainer. President of Kentucky Horsemen's Benevolent and Protective Association. 2,250+ career race wins including 2011 Preakness Stakes."],
+        ["Cash", "Self-positioned as grassroots/independent. On-air with TV ads in late April while McGrath was not."],
+        ["Platform", "'Independent Democrat' (cites Manchin and Beshear as role models). Tax cuts for middle class; opposes Big Beautiful Bill cuts for wealthy. Legal status (not citizenship) for working immigrants. Healthcare overhaul but opposes Medicare for All. Pro-choice. Centrist on Trump — disagrees with several policies but rejects 'resistance' framing."],
+        ["Liability", "Has never held elected office. Polling at 2%. May not energize the progressive Democratic primary base. His 'centrist' positioning could be hard to differentiate from McGrath."]
+      ]
     }
   ];
 
   senateCards.forEach(c => {
-    const name = SENATE[c.key].name;
-    const tag = c.party === "Republican" ? "R" : "D";
+    const isWithdrawn = c.key === 'morris_withdrew';
+    const name = isWithdrawn ? 'Nate Morris (Withdrawn)' : SENATE[c.key].name;
+    const tag = isWithdrawn ? '✕' : (c.party === "Republican" ? "R" : "D");
     html += `<div class="briefing-card"><h3>${name} <span class="tag">${tag}</span></h3>`;
     html += `<div class="briefing-row"><div class="briefing-row-label">Polling</div><div class="briefing-row-val">${c.polling}</div></div>`;
     c.rows.forEach(([k, v]) => {
@@ -3082,7 +3096,7 @@ function buildBriefing() {
   html += `<p><strong>Comer quote (Fancy Farm 2025):</strong> 'Unless something happens, Jackie Coleman's the overwhelming favorite to be the Democrat nominee for governor.'</p></div>`;
 
   html += `<h2>Republican speculation</h2>`;
-  html += `<p>James Comer (KY-1, Oversight Chair) — mentioned at Fancy Farm 2025. Andy Barr, Daniel Cameron, Nate Morris — all possible pivots after the 2026 Senate primary. Thomas Massie (if re-elected). Savannah Maddox (state rep HD-61). Michael Adams (SoS, term-limited 2027, bipartisan credibility). Damon Thayer, KC Crosbie (RNC co-chair), Stan Cave. Russell Coleman (AG) says he's running for AG re-election, not Governor.</p>`;
+  html += `<p>James Comer (KY-1, Oversight Chair) — mentioned at Fancy Farm 2025. Andy Barr (with Trump endorsement May 1, 2026, his trajectory likely points to Senate, but if he loses, governor is possible). Daniel Cameron — already lost 2023 governor's race; another run uncertain. Nate Morris — withdrew from Senate race May 1 to take Trump-administration ambassadorship. Thomas Massie (if re-elected). Savannah Maddox (state rep HD-61). Michael Adams (SoS, term-limited 2027, bipartisan credibility). Damon Thayer, KC Crosbie (RNC co-chair), Stan Cave. Russell Coleman (AG) says he's running for AG re-election, not Governor.</p>`;
 
   html += `<h2>Democratic speculation</h2>`;
   html += `<p>Rocky Adkins (Beshear senior adviser; 2019 primary runner-up). Adam Edelen (former KY Auditor; 2019 candidate).</p>`;
@@ -3094,7 +3108,7 @@ function buildBriefing() {
   html += `<p><strong>Polling:</strong> Emerson College Polling/FOX56 (April 2026, Feb 2026), Quantus Insights, Public Opinion Strategies, Co/Efficient, Kentucky First Action.</p>`;
   html += `<p><strong>Campaign finance:</strong> FEC filings, AdImpact ad-tracking data, GovTrack.us voting records.</p>`;
   html += `<p><strong>News:</strong> Ballotpedia, Wikipedia, Kentucky Lantern, Louisville Public Media, CNN, NBC News, NOTUS, WDRB, Spectrum News KY, The Hill, Washington Times, The Nation, WHAS11, Courier Journal, Lexington Herald-Leader.</p>`;
-  html += `<p><strong>Candidate sources:</strong> barrforsenate.com, Daniel Cameron 2026 website, Nate Morris 2026 website, charlesbooker.org, amymcgrath.com, stevensonforsenate.com, massie.house.gov, Ed Gallrein campaign website.</p>`;
+  html += `<p><strong>Candidate sources:</strong> barrforsenate.com, Daniel Cameron 2026 website, Nate Morris 2026 website (campaign suspended May 1, 2026), charlesbooker.org, amymcgrath.com, stevensonforsenate.com, Dale Romans for Kentucky campaign materials, massie.house.gov, Ed Gallrein campaign website.</p>`;
 
   // Append economic context (AI question, glossary, sources) after the candidate briefing
   html += buildEconContext();
