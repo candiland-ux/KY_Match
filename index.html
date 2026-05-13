@@ -164,6 +164,92 @@
     padding: 0 20px;
   }
 
+  /* ==================== RESOURCES (TurboVote + AI prompt) ==================== */
+  .resources {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .resource-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: #faf7f0 !important;
+    border: 1px solid #e3ddc9;
+    border-left: 3px solid #8b2e1f;
+    border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+  }
+  .resource-link:hover, .resource-link:active {
+    background: #f3eedc !important;
+  }
+  .resource-label {
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+    font-weight: 500;
+  }
+  .resource-host {
+    color: #8b2e1f !important;
+    -webkit-text-fill-color: #8b2e1f;
+    font-size: 12px;
+    white-space: nowrap;
+    margin-left: 12px;
+  }
+  .prompt-body {
+    margin-top: -4px;
+    padding: 16px 18px;
+    background: #faf7f0 !important;
+    border: 1px solid #e3ddc9;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .prompt-intro {
+    margin: 0 0 12px;
+    color: #5a544a !important;
+    -webkit-text-fill-color: #5a544a;
+  }
+  .prompt-text {
+    background: #fff !important;
+    border: 1px solid #e3ddc9;
+    border-radius: 4px;
+    padding: 12px 14px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #2a251e !important;
+    -webkit-text-fill-color: #2a251e;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 360px;
+    overflow-y: auto;
+    margin: 0 0 12px;
+  }
+  .prompt-copy {
+    background: #8b2e1f !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .prompt-copy:hover, .prompt-copy:active {
+    background: #6e2516 !important;
+  }
+
   /* ==================== QUESTION SCREEN ==================== */
   .progress-row {
     display: flex;
@@ -1821,9 +1907,9 @@ function renderIntro() {
     <div class="fade-in">
       <div class="brand">Kentucky 2026 Primary</div>
       <h1 class="hero-title">Which Kentucky race are you deciding on?</h1>
-      <p class="hero-sub">The primary is May 19, 2026. Pick what you want help with.</p>
+      <p class="hero-sub">The primary is Tuesday, May 19, 2026 — six days away. Voting is already underway. Pick what you want help with.</p>
 
-      <div class="data-banner"><strong>Data as of May 3, 2026.</strong> Polls, fundraising totals, endorsements, and ad spending all change. Anything published after this date won't be reflected here. For live data, check <a href="https://www.fec.gov" target="_blank" rel="noopener" style="color:#8a2010;">FEC.gov</a>, <a href="https://ballotpedia.org" target="_blank" rel="noopener" style="color:#8a2010;">Ballotpedia</a>, or <a href="https://emersoncollegepolling.com" target="_blank" rel="noopener" style="color:#8a2010;">Emerson Polling</a>.</div>
+      <div class="data-banner"><strong>Data as of May 13, 2026.</strong> Polls, fundraising totals, endorsements, and ad spending all change. Anything published after this date won't be reflected here. For live data, check <a href="https://www.fec.gov" target="_blank" rel="noopener" style="color:#8a2010;">FEC.gov</a>, <a href="https://ballotpedia.org" target="_blank" rel="noopener" style="color:#8a2010;">Ballotpedia</a>, or <a href="https://emersoncollegepolling.com" target="_blank" rel="noopener" style="color:#8a2010;">Emerson Polling</a>.</div>
 
       <div class="stats-grid">
         <div class="stat-item"><span class="stat-value">6</span><span class="stat-label">Senate candidates</span></div>
@@ -1842,6 +1928,44 @@ function renderIntro() {
       <button class="primary-btn" onclick="chooseFlow('both')">Both — Senate and House</button>
 
       <button class="briefing-link-intro" onclick="openBriefing()">Or read the full candidate briefing →</button>
+
+      <div class="resources">
+        <a class="resource-link" href="https://anthropic.turbovote.org/" target="_blank" rel="noopener">
+          <span class="resource-label">Register to vote or check your registration</span>
+          <span class="resource-host">turbovote.org →</span>
+        </a>
+        <button class="resource-link" onclick="togglePrompt()">
+          <span class="resource-label">In a different state? Build your own matcher</span>
+          <span class="resource-host" id="promptToggle">show the AI prompt ↓</span>
+        </button>
+        <div class="prompt-body" id="promptBody" style="display:none;">
+          <p class="prompt-intro">Copy and paste this into Claude (or any capable AI assistant). Edit the bracketed parts before sending. The AI will research candidates, build the question set, and generate a working tool. Always verify the results before sharing.</p>
+          <pre class="prompt-text" id="promptText">I want to build a non-partisan voter matcher for the [STATE NAME] [RACE TYPE — e.g. "Senate primary", "Governor's race", "Mayor's race"] in [YEAR]. Two working examples to study: https://candiland-ux.github.io/KY_Match/ (Kentucky Senate + House) and https://candiland-ux.github.io/CaliGovInfo/ (California Governor). Use the same structural approach. Here's what I need:
+
+1. Research the candidates. For each major candidate (5%+ polling or significant media attention), pull together: background and current role, money raised (FEC filings or state campaign-finance database), top platform positions on the issues that actually matter in this race, known controversies or lawsuits, endorsements for and against, and latest polling.
+
+2. Build 6 to 8 questions that distinguish the candidates from each other on the dimensions that actually divide them. One question should be a multi-select top-issue ranker (let the voter rank 3 in order, with the first counting more than the second). The others should be single-select on things like temperament, money model, experience type, and a "red flag" deal-breaker question.
+
+3. Score every candidate 0 to 5 on every answer option, based on how closely their public record and platform align with that answer. Don't inflate. If a candidate doesn't fit, give them a 0. Every candidate should have at least one 5 somewhere so their ceiling reaches at least 80%.
+
+4. Display alignment as a percentage of the theoretical maximum (the highest score any candidate could earn if the voter answered every question to match that candidate's strongest positions). Explain in plain terms that no candidate hits 100% because no candidate is the strongest voice on every issue.
+
+5. For every candidate, write a "one thing to know before you vote" caveat that names their biggest documented liability. Neutral language, specific facts, never inflated.
+
+6. Build an Executive Summary of the race, recent developments (debates, endorsements, attacks, polling shifts), the candidates' deepest plans, and the biggest risk factors.
+
+7. Style rules: no em dashes (they read as AI-generated), plain English not jargon, past tense for any role the candidate no longer holds, be specific about what the candidate personally did versus their team. If you cannot verify a fact, leave it out.
+
+8. Output as a single HTML file that works on mobile, with a clear flow: party gate (if it's a closed primary), then questions one at a time, then a result page with the top match, runner-up, scoreboard, methodology explanation, and a "read the full briefing" button.
+
+9. Add a timestamp banner that says when the data was last updated, and link out to FEC.gov, Ballotpedia, and the major polling source for the race so voters can check fresher numbers.
+
+10. Never recommend a vote. The tool exists to show how the voter's stated priorities map onto the field. It should make that comparison legible, not pick a winner for them.
+
+If you're building this for a state with very different politics, adjust the questions accordingly. Start by asking me what races I want to cover and what's most contested in my state, before writing any code.</pre>
+          <button class="prompt-copy" onclick="copyPrompt()">Copy prompt</button>
+        </div>
+      </div>
 
       <div class="econ-callout">
         <div class="econ-callout-kicker">Voter Reference · Non-Partisan</div>
@@ -1905,7 +2029,7 @@ function renderIntro() {
         </div>
       </div>
 
-      <p class="disclaimer">This tool doesn't tell you who to vote for. It shows which candidate best matches what you said matters. All data is a snapshot from May 3, 2026 drawn from FEC filings, Emerson polling, Ballotpedia, and each candidate's published plans. Always verify current status before voting.</p>
+      <p class="disclaimer">This tool doesn't tell you who to vote for. It shows which candidate best matches what you said matters. All data is a snapshot from May 13, 2026 drawn from FEC filings, Emerson polling, Ballotpedia, and each candidate's published plans. Always verify current status before voting.</p>
     </div>
   `;
 }
@@ -2864,6 +2988,34 @@ function toggleMethod() {
   render();
 }
 
+function togglePrompt() {
+  const body = document.getElementById('promptBody');
+  const toggle = document.getElementById('promptToggle');
+  if (!body) return;
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    toggle.textContent = 'hide prompt ↑';
+  } else {
+    body.style.display = 'none';
+    toggle.textContent = 'show the AI prompt ↓';
+  }
+}
+
+function copyPrompt() {
+  const text = document.getElementById('promptText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.prompt-copy');
+    const original = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => { btn.textContent = original; }, 2000);
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNode(document.getElementById('promptText'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  });
+}
+
 // ==========================================================
 // BRIEFING OVERLAY
 // ==========================================================
@@ -2956,8 +3108,8 @@ function buildBriefing() {
   let html = '';
 
   html += `<h1>Kentucky 2026 — Everything You Need to Decide</h1>`;
-  html += `<div class="data-banner"><strong>Data as of May 3, 2026.</strong> Polls, fundraising, endorsements, and ad spending change. For live data see FEC.gov, Ballotpedia, and Emerson Polling.</div>`;
-  html += `<p>The primary is <strong>Tuesday, May 19, 2026</strong>. Early voting runs May 14–16. Kentucky is a closed primary — you can only vote in the primary of your registered party.</p>`;
+  html += `<div class="data-banner"><strong>Data as of May 13, 2026.</strong> Polls, fundraising, endorsements, and ad spending change. For live data see FEC.gov, Ballotpedia, and Emerson Polling.</div>`;
+  html += `<p>Primary day is <strong>Tuesday, May 19, 2026</strong>. Voting is already underway: first absentee/early ballots opened May 6. Polls are open for 10 days total (including six excused absentee days). The absentee request deadline was May 5. Kentucky is a closed primary — you can only vote in the primary of your registered party.</p>`;
   html += `<p>This briefing covers the open U.S. Senate race (McConnell retiring), all six U.S. House districts (only two are competitive), and a 2027 Governor watchlist.</p>`;
 
   html += `<h1>What Kentucky voters say matters</h1>`;
