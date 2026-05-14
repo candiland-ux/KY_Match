@@ -2496,7 +2496,7 @@ function buildSenateReasons(winnerKey) {
       if (weight <= 1) {
         const topScorer = Object.entries(opt.weights || {}).sort((a, b) => b[1] - a[1])[0];
         if (topScorer && topScorer[0] !== winnerKey && SENATE[topScorer[0]]) {
-          body += ` <em>Note: ${lastName(SENATE[topScorer[0]].name)} has the strongest record on this specific issue.</em>`;
+          body += ` <em>Note: ${lastName(SENATE[topScorer[0]].name)} has the strongest focus on this issue.</em>`;
         }
       }
       reasons.push({ q: rankLabels[idx], body });
